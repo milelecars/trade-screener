@@ -23,15 +23,12 @@ from collections import deque
 import logging
 import sys
 import io
+import os
+from dotenv import load_dotenv
 
-from datetime import datetime, timedelta, timezone
 
-# Use UTC so it's consistent
-current_time_utc = datetime.now(timezone.utc)
-expiry_dt_utc = datetime.now(timezone.utc) + timedelta(minutes=30)
-expiry_unix = int(expiry_dt_utc.timestamp())
+load_dotenv()
 
-expiry_utc_label = expiry_dt_utc.strftime('%H:%M:%S UTC')
 
 
 # ============================================================================
@@ -40,11 +37,11 @@ expiry_utc_label = expiry_dt_utc.strftime('%H:%M:%S UTC')
 
 class Config:
     # Telegram
-    TELEGRAM_BOT_TOKEN = "8352614023:AAEtoaKKhYpAhb7E3ncpp78aYARghlm5cMI"
-    TELEGRAM_CHAT_ID = "-1003854097829"
+    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+    TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
     
     # Gemini AI (Optional - leave empty to use default analysis)
-    GEMINI_API_KEY = "AIzaSyBvT4L2gkwKWqpOjPTOLUFf3_uz7dAkWtA"  
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
     USE_AI_ANALYSIS = True
     
     # Strategy Parameters
@@ -171,11 +168,10 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
     max_entry_price = entry_price * 1.002  # +0.2%
     min_entry_price = entry_price * 0.998  # -0.2%
     
-    # Get current timestamp in UTC
-    current_time = datetime.now(timezone.utc)
-    expiry_dt_utc = current_time + timedelta(minutes=30)
-    expiry_unix = int(expiry_dt_utc.timestamp())
-    expiry_utc_label = expiry_dt_utc.strftime('%H:%M:%S UTC')
+    # Get current timestamp 
+    current_time = datetime.now()  # Local time
+    expiry_time = current_time + timedelta(minutes=30)
+    expiry_label = expiry_time.strftime('%H:%M:%S')
     
     # Signal emoji
     emoji = '🟢' if signal == 'LONG' else '🔴'
@@ -184,10 +180,10 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
     message = f"""{emoji} <b>{signal} SIGNAL - {symbol}</b>
 
 ━━━━━━━━━━━━━━━━
-               CAUTION           
+                CAUTION           
 ━━━━━━━━━━━━━━━━
 
-⏰ Trade expires: {expiry_utc_label}
+⏰ Trade expires: {expiry_label}
 
 ❌ Do NOT enter if price is
     Less than  ${min_entry_price:.2f}
@@ -195,7 +191,7 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
 
 
 ━━━━━━━━━━━━━━━━
-                SIGNAL     
+                    SIGNAL     
 ━━━━━━━━━━━━━━━━
 
 💰 Entry:     ${data['entry']:.2f}
