@@ -165,45 +165,50 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
     
     # Calculate price deviation limits (±0.2%)
     entry_price = data['entry']
-    max_entry_price = entry_price * 1.002  # +0.2%
-    min_entry_price = entry_price * 0.998  # -0.2%
+    max_entry_price = entry_price * 1.002
+    min_entry_price = entry_price * 0.998
     
-    # Get current timestamp 
-    current_time = datetime.now()  # Local time
-    expiry_time = current_time + timedelta(minutes=30)
-    expiry_label = expiry_time.strftime('%H:%M:%S')
+    # Get UTC timestamp
+    # from datetime import timezone
+    # current_time_utc = datetime.now(timezone.utc)
+    # expiry_time_utc = current_time_utc + timedelta(minutes=30)
     
+    # # Convert to Unix timestamp for Telegram
+    # expiry_unix = int(expiry_time_utc.timestamp())
+
+
     # Signal emoji
     emoji = '🟢' if signal == 'LONG' else '🔴'
     
     # Build the message - EXACT content, NO leading spaces
     message = f"""{emoji} <b>{signal} SIGNAL - {symbol}</b>
 
-━━━━━━━━━━━━━━━━
-                CAUTION           
-━━━━━━━━━━━━━━━━
-
-⏰ Trade expires: {expiry_label}
-
-❌ Do NOT enter if price is
-    Less than  ${min_entry_price:.2f}
-    More than ${max_entry_price:.2f}
-
-
-━━━━━━━━━━━━━━━━
-                    SIGNAL     
-━━━━━━━━━━━━━━━━
-
 💰 Entry:     ${data['entry']:.2f}
-    Stop Loss: ${data['sl']:.2f} 
-    Take Prof: ${data['tp']:.2f}
+        Stop Loss: ${data['sl']:.2f} 
+        Take Prof: ${data['tp']:.2f}
 
 📈 Indicators:
-- RSI:    {data['rsi']:.2f}
-- EMA 9:  ${data['ema9']:.2f}
-- EMA 26: ${data['ema26']:.2f}
-- MA 44:  ${data['ma44']:.2f}
-- R/R:    1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
+        - RSI:    {data['rsi']:.2f}
+        - EMA 9:  ${data['ema9']:.2f}
+        - EMA 26: ${data['ema26']:.2f}
+        - MA 44:  ${data['ma44']:.2f}
+        - R/R:    1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
+
+━━━━━━━━━━━━━━━━
+                    CAUTION           
+━━━━━━━━━━━━━━━━
+
+⏰ Trade expires in 30 minutes
+
+❌ Do NOT enter if price is
+        Less than  ${min_entry_price:.2f}
+        More than ${max_entry_price:.2f}
+
+
+<pre>━━━━━━━━━━━━━━━━
+    INSIGHT
+━━━━━━━━━━━━━━━━
+{get_ai_analysis(symbol, signal, data)}</pre>
 
 <pre>━━━━━━━━━━━━━━━━
    DISCLAIMER
@@ -211,12 +216,7 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
 
 This isn't financial advice — 
 I'm documenting how I allocate my own capital
-so you can see how a serious operator approaches alternative markets.</pre>
-
-<pre>━━━━━━━━━━━━━━━━
-    INSIGHT
-━━━━━━━━━━━━━━━━
-{get_ai_analysis(symbol, signal, data)}</pre>"""
+so you can see how a serious operator approaches alternative markets.</pre>"""
     
     return message.strip()
 
