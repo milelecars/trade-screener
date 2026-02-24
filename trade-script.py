@@ -30,23 +30,23 @@ import io
 
 class Config:
     # Telegram
-    TELEGRAM_BOT_TOKEN = "8352614023:AAEtoaKKhYpAhb7E3ncpp78aYARghlm5cMI"
-    TELEGRAM_CHAT_ID = "-1003854097829"
+    TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+    TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE"
     
     # Strategy Parameters
     RSI_PERIOD = 14
     EMA_SHORT = 9
     EMA_LONG = 26
     MA_PERIOD = 44
-    RSI_LONG_MIN = 20
-    RSI_LONG_MAX = 50
-    RSI_SHORT_MIN = 50
-    RSI_SHORT_MAX = 80
+    RSI_LONG_MIN = 45.1      # LONG: RSI between 45.1-85
+    RSI_LONG_MAX = 85
+    RSI_SHORT_MIN = 10       # SHORT: RSI between 10-45
+    RSI_SHORT_MAX = 45
     SL_PERCENT = 0.5
     TP_PERCENT = 1.5
     
     # Real-time Settings
-    CANDLE_INTERVAL = '1m'
+    CANDLE_INTERVAL = '15m'  # 15-minute candles
     HISTORY_BARS = 100
     
     # Alert Settings
