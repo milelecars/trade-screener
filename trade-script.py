@@ -181,7 +181,7 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
     emoji = '🟢' if signal == 'LONG' else '🔴'
     
     # Build the message - EXACT content, NO leading spaces
-    message = f"""{emoji} <b>{signal} SIGNAL - {symbol}</b>
+    message = f"""{emoji} <b>{signal} - {symbol}</b>
 
 💰 Entry:     ${data['entry']:.2f}
         Stop Loss: ${data['sl']:.2f} 
