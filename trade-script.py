@@ -516,8 +516,7 @@ class RealtimeScanner:
         logger.info("="*80)
         
         # Send startup to Telegram
-        startup_msg = f"""
-🚀 <b>REAL-TIME Scanner Started</b>
+        startup_msg = f"""🚀 <b>REAL-TIME Scanner Started</b>
 
 ⚡ <b>INSTANT ALERTS ENABLED</b>
 
@@ -525,9 +524,8 @@ class RealtimeScanner:
 ✅ Mode: WebSocket streaming
 ✅ Speed: &lt;1 second latency
 
-⏰ Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-"""
-        send_telegram_alert(startup_msg)
+⏰ Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"""
+        # send_telegram_alert(startup_msg)
         
         # Create WebSocket
         self.ws = websocket.WebSocketApp(
@@ -566,12 +564,10 @@ def main():
         print("\nScanner stopped by user")
         scanner.stop()
         
-        shutdown_msg = f"""
-🛑 <b>Scanner Stopped</b>
+        shutdown_msg = f"""🛑 <b>Scanner Stopped</b>
 
-⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-"""
-        send_telegram_alert(shutdown_msg)
+⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"""
+        # send_telegram_alert(shutdown_msg)
 
 def send_test_signal():
     """Send a fake signal for testing message format"""
