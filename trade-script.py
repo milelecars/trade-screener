@@ -17,12 +17,22 @@ import json
 import requests
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 from collections import deque
 import logging
 import sys
 import io
+
+from datetime import datetime, timedelta, timezone
+
+# Use UTC so it's consistent
+current_time_utc = datetime.now(timezone.utc)
+expiry_dt_utc = datetime.now(timezone.utc) + timedelta(minutes=30)
+expiry_unix = int(expiry_dt_utc.timestamp())
+
+expiry_utc_label = expiry_dt_utc.strftime('%H:%M:%S UTC')
+
 
 # ============================================================================
 # CONFIGURATION
@@ -30,17 +40,21 @@ import io
 
 class Config:
     # Telegram
-    TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
-    TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE"
+    TELEGRAM_BOT_TOKEN = "8352614023:AAEtoaKKhYpAhb7E3ncpp78aYARghlm5cMI"
+    TELEGRAM_CHAT_ID = "-1003854097829"
+    
+    # Gemini AI (Optional - leave empty to use default analysis)
+    GEMINI_API_KEY = "AIzaSyBvT4L2gkwKWqpOjPTOLUFf3_uz7dAkWtA"  
+    USE_AI_ANALYSIS = True
     
     # Strategy Parameters
     RSI_PERIOD = 14
     EMA_SHORT = 9
     EMA_LONG = 26
     MA_PERIOD = 44
-    RSI_LONG_MIN = 45.1      # LONG: RSI between 45.1-85
+    RSI_LONG_MIN = 45.1      
     RSI_LONG_MAX = 85
-    RSI_SHORT_MIN = 10       # SHORT: RSI between 10-45
+    RSI_SHORT_MIN = 10       
     RSI_SHORT_MAX = 45
     SL_PERCENT = 0.5
     TP_PERCENT = 1.5
@@ -112,32 +126,104 @@ def send_telegram_alert(message: str) -> bool:
         logger.error(f"Telegram failed: {e}")
         return False
 
+def get_ai_analysis(symbol: str, signal: str, data: dict) -> str:
+    if not Config.USE_AI_ANALYSIS or not Config.GEMINI_API_KEY:
+        if signal == 'LONG':
+            return (
+                "💡 Setup Analysis:\n"
+                f"EMA crossover confirms momentum shift.\n"
+                f"RSI ({data['rsi']:.1f}) shows buying pressure without overbought.\n"
+                "MA 44 trend supports directional bias.\n"
+                "Risk-reward is favorable."
+            )
+        else:
+            return (
+                "💡 Setup Analysis:\n"
+                f"EMA crossover signals downside momentum.\n"
+                f"RSI ({data['rsi']:.1f}) shows selling pressure without extreme oversold.\n"
+                "MA 44 slope confirms trend direction.\n"
+                "Risk-reward is favorable."
+            )
+
+    # If you use Gemini, return response.text only (no <code> tags)
+    try:
+        import google.generativeai as genai
+        genai.configure(api_key=Config.GEMINI_API_KEY)
+        model = genai.GenerativeModel("models/gemini-2.5-flash")
+
+        prompt = f"""Analyze this {signal} trading signal for {symbol} in 2-3 sentences.
+
+Entry: {data['entry']:.2f}, RSI: {data['rsi']:.2f}, EMA9: {data['ema9']:.2f}, EMA26: {data['ema26']:.2f}, MA44: {data['ma44']:.2f}.
+Explain trend alignment, momentum, and risk."""
+        response = model.generate_content(prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        logger.error(f"Gemini API error: {e}")
+        return "💡 Insight unavailable (AI error)."
+
+
 def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
-    """Format signal message - emojis only in Telegram, not logs"""
+    """Format signal message with structured sections"""
+    
+    # Calculate price deviation limits (±0.2%)
+    entry_price = data['entry']
+    max_entry_price = entry_price * 1.002  # +0.2%
+    min_entry_price = entry_price * 0.998  # -0.2%
+    
+    # Get current timestamp in UTC
+    current_time = datetime.now(timezone.utc)
+    expiry_dt_utc = current_time + timedelta(minutes=30)
+    expiry_unix = int(expiry_dt_utc.timestamp())
+    expiry_utc_label = expiry_dt_utc.strftime('%H:%M:%S UTC')
+    
+    # Signal emoji
     emoji = '🟢' if signal == 'LONG' else '🔴'
     
-    return f"""
-{emoji} <b>REAL-TIME {signal}</b> {emoji}
+    # Build the message - EXACT content, NO leading spaces
+    message = f"""{emoji} <b>{signal} SIGNAL - {symbol}</b>
 
-📊 <b>{symbol}</b>
-💰 <b>Price:</b> ${data['price']:.4f}
+━━━━━━━━━━━━━━━━
+               CAUTION           
+━━━━━━━━━━━━━━━━
 
-<b>⚡ INSTANT ALERT ⚡</b>
+⏰ Trade expires: {expiry_utc_label}
 
-<b>TRADE SETUP:</b>
-🎯 Entry: ${data['entry']:.4f}
-🛑 SL: ${data['sl']:.4f} (-{Config.SL_PERCENT}%)
-✅ TP: ${data['tp']:.4f} (+{Config.TP_PERCENT}%)
+❌ Do NOT enter if price is
+    Less than  ${min_entry_price:.2f}
+    More than ${max_entry_price:.2f}
 
-<b>INDICATORS:</b>
-• RSI: {data['rsi']:.2f}
-• EMA9: ${data['ema9']:.4f}
-• EMA26: ${data['ema26']:.4f}
-• MA44: ${data['ma44']:.4f}
-• R:R: 1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
 
-⚡ <b>LIVE STREAM</b> - {datetime.now().strftime('%H:%M:%S')}
-""".strip()
+━━━━━━━━━━━━━━━━
+                SIGNAL     
+━━━━━━━━━━━━━━━━
+
+💰 Entry:     ${data['entry']:.2f}
+    Stop Loss: ${data['sl']:.2f} 
+    Take Prof: ${data['tp']:.2f}
+
+📈 Indicators:
+- RSI:    {data['rsi']:.2f}
+- EMA 9:  ${data['ema9']:.2f}
+- EMA 26: ${data['ema26']:.2f}
+- MA 44:  ${data['ma44']:.2f}
+- R/R:    1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
+
+<pre>━━━━━━━━━━━━━━━━
+   DISCLAIMER
+━━━━━━━━━━━━━━━━
+
+This isn't financial advice — 
+I'm documenting how I allocate my own capital
+so you can see how a serious operator approaches alternative markets.</pre>
+
+<pre>━━━━━━━━━━━━━━━━
+    INSIGHT
+━━━━━━━━━━━━━━━━
+{get_ai_analysis(symbol, signal, data)}</pre>"""
+    
+    return message.strip()
+
 
 # ============================================================================
 # INDICATOR CALCULATOR
@@ -490,6 +576,26 @@ def main():
 ⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
         send_telegram_alert(shutdown_msg)
+
+def send_test_signal():
+    """Send a fake signal for testing message format"""
+    test_data = {
+        'price': 65724.10,
+        'entry': 65724.10,
+        'sl': 65395.38,
+        'tp': 66709.95,
+        'rsi': 52.34,
+        'ema9': 65800.00,
+        'ema26': 65978.00,
+        'ma44': 66044.00
+    }
+    
+    message = format_signal_alert('BTCUSDT', 'LONG', test_data)
+    send_telegram_alert(message)
+    print("Test signal sent to Telegram!")
+
+# Uncomment to send test signal immediately
+send_test_signal()
 
 if __name__ == "__main__":
     main()
