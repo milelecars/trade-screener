@@ -184,34 +184,34 @@ def format_signal_alert(symbol: str, signal: str, data: dict) -> str:
     message = f"""{emoji} <b>{signal} - {symbol}</b>
 
 💰 Entry:     ${data['entry']:.2f}
-        Stop Loss: ${data['sl']:.2f} 
-        Take Prof: ${data['tp']:.2f}
+Stop Loss: ${data['sl']:.2f} 
+Take Prof: ${data['tp']:.2f}
 
 📈 Indicators:
-        - RSI:    {data['rsi']:.2f}
-        - EMA 9:  ${data['ema9']:.2f}
-        - EMA 26: ${data['ema26']:.2f}
-        - MA 44:  ${data['ma44']:.2f}
-        - R/R:    1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
+- RSI:    {data['rsi']:.2f}
+- EMA 9:  ${data['ema9']:.2f}
+- EMA 26: ${data['ema26']:.2f}
+- MA 44:  ${data['ma44']:.2f}
+- R/R:    1:{Config.TP_PERCENT/Config.SL_PERCENT:.1f}
 
 ━━━━━━━━━━━━━━━━
-                    CAUTION           
+CAUTION           
 ━━━━━━━━━━━━━━━━
 
 ⏰ Trade expires in 30 minutes
 
 ❌ Do NOT enter if price is
-        Less than  ${min_entry_price:.2f}
-        More than ${max_entry_price:.2f}
+Less than  ${min_entry_price:.2f}
+More than ${max_entry_price:.2f}
 
 
 <pre>━━━━━━━━━━━━━━━━
-    INSIGHT
+INSIGHT
 ━━━━━━━━━━━━━━━━
 {get_ai_analysis(symbol, signal, data)}</pre>
 
 <pre>━━━━━━━━━━━━━━━━
-   DISCLAIMER
+DISCLAIMER
 ━━━━━━━━━━━━━━━━
 
 This isn't financial advice — 
@@ -587,7 +587,7 @@ def send_test_signal():
     print("Test signal sent to Telegram!")
 
 # Uncomment to send test signal immediately
-send_test_signal()
+# send_test_signal()
 
 if __name__ == "__main__":
     main()
