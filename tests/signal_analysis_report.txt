@@ -1,16 +1,16 @@
 ================================================================================
 SCANNING PAST 30 DAYS - WITH WIN RATE CALCULATION
 ================================================================================
-Period: 2026-01-25 to 2026-02-24
-Report generated: 2026-02-24 22:26:34
+Period: 2026-01-26 to 2026-02-25
+Report generated: 2026-02-25 19:50:55
 ================================================================================
 
 Scanning all symbols and calculating outcomes...
 
-[1/40] Checking BTCUSDT... Found 4 signal(s)
+[1/40] Checking BTCUSDT... Found 3 signal(s)
 [2/40] Checking ETHUSDT... Found 1 signal(s)
 [3/40] Checking BNBUSDT... Found 4 signal(s)
-[4/40] Checking XRPUSDT... Found 3 signal(s)
+[4/40] Checking XRPUSDT... Found 4 signal(s)
 [5/40] Checking ADAUSDT... Found 3 signal(s)
 [6/40] Checking DOGEUSDT... Found 1 signal(s)
 [7/40] Checking SOLUSDT... Found 5 signal(s)
@@ -20,8 +20,8 @@ Scanning all symbols and calculating outcomes...
 [11/40] Checking LINKUSDT... Found 3 signal(s)
 [12/40] Checking UNIUSDT... Found 5 signal(s)
 [13/40] Checking ATOMUSDT... No signals
-[14/40] Checking LTCUSDT... Found 6 signal(s)
-[15/40] Checking XLMUSDT... Found 7 signal(s)
+[14/40] Checking LTCUSDT... Found 7 signal(s)
+[15/40] Checking XLMUSDT... Found 8 signal(s)
 [16/40] Checking ALGOUSDT... Found 4 signal(s)
 [17/40] Checking VETUSDT... Found 2 signal(s)
 [18/40] Checking FILUSDT... Found 2 signal(s)
@@ -39,7 +39,7 @@ Scanning all symbols and calculating outcomes...
 [30/40] Checking THETAUSDT... Found 3 signal(s)
 [31/40] Checking FTMUSDT... ERROR
 [32/40] Checking AXSUSDT... No signals
-[33/40] Checking HBARUSDT... Found 4 signal(s)
+[33/40] Checking HBARUSDT... Found 5 signal(s)
 [34/40] Checking EOSUSDT... ERROR
 [35/40] Checking FLOWUSDT... Found 3 signal(s)
 [36/40] Checking ICPUSDT... Found 5 signal(s)
@@ -48,71 +48,9 @@ Scanning all symbols and calculating outcomes...
 [39/40] Checking QNTUSDT... Found 3 signal(s)
 [40/40] Checking INJUSDT... Found 4 signal(s)
 
-
-
-================================================================================
-📊 30-DAY PERFORMANCE SUMMARY
-================================================================================
-✅ Symbols scanned: 37/40
-⚠️  Symbols with errors: 3
-🎯 Total signals found: 108
-
-📈 TRADE OUTCOMES:
-   ✅ Wins:    27 (25.0%)
-   ❌ Losses:  80 (74.1%)
-   ⏳ Ongoing: 1 (0.9%)
-
-================================================================================
-🏆 WIN RATE: 25.2%
-   (27 wins out of 107 closed trades)
-================================================================================
-
-💰 EXPECTED PROFIT PER TRADE: +0.00%
-   With Risk/Reward Ratio: 1:3 (Risk 0.5%, Target 1.5%)
-
-📊 STRATEGY ASSESSMENT: ❌ NEEDS IMPROVEMENT
-   Win rate below 40% - losing strategy even with 1:3 R/R
-
-📈 TOTAL 30-DAY PERFORMANCE:
-   Closed trades: 107
-   Total profit: +0.50%
-   Average per trade: +0.00%
-
-================================================================================
-💡 METHODOLOGY:
-================================================================================
-✅ WIN  = Take Profit (TP) was hit first
-❌ LOSS = Stop Loss (SL) was hit first
-⏳ ONGOING = Neither TP nor SL hit within 48-hour window
-❓ UNKNOWN = Could not determine outcome (data unavailable)
-
-Win rate calculated as: Wins / (Wins + Losses) × 100%
-Only closed trades (WIN or LOSS) are included in win rate calculation.
-
-================================================================================
-Report saved to: signal_analysis_report.txt
-================================================================================
-
-
 ================================================================================
 ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
 ================================================================================
-
-================================================================================
-📅 DATE: 2026-01-26 18:30 UTC
-📊 SYMBOL: BTCUSDT
-🎯 SIGNAL: LONG
-❌ OUTCOME: LOSS
-================================================================================
-💰 Entry:      $88144.0900
-🛑 Stop Loss:  $87703.3696 (-0.5%)
-🎯 Target:     $89466.2513 (+1.5%)
-
-📈 Indicators:
-   RSI:    55.93
-   EMA 9:  $87884.61
-   EMA 26: $87851.15
-   MA 44:  $87850.29
 
 ================================================================================
 📅 DATE: 2026-01-27 21:30 UTC
@@ -289,6 +227,22 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
    EMA 9:  $1.37
    EMA 26: $1.37
    MA 44:  $1.37
+
+================================================================================
+📅 DATE: 2026-02-25 05:00 UTC
+📊 SYMBOL: XRPUSDT
+🎯 SIGNAL: LONG
+❌ OUTCOME: LOSS
+================================================================================
+💰 Entry:      $1.3837
+🛑 Stop Loss:  $1.3768 (-0.5%)
+🎯 Target:     $1.4045 (+1.5%)
+
+📈 Indicators:
+   RSI:    73.02
+   EMA 9:  $1.36
+   EMA 26: $1.35
+   MA 44:  $1.35
 
 ================================================================================
 📅 DATE: 2026-02-03 13:00 UTC
@@ -598,7 +552,7 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
 📅 DATE: 2026-02-24 19:00 UTC
 📊 SYMBOL: UNIUSDT
 🎯 SIGNAL: LONG
-⏳ OUTCOME: ONGOING
+❌ OUTCOME: LOSS
 ================================================================================
 💰 Entry:      $3.3550
 🛑 Stop Loss:  $3.3382 (-0.5%)
@@ -705,6 +659,22 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
    EMA 9:  $55.16
    EMA 26: $55.14
    MA 44:  $55.13
+
+================================================================================
+📅 DATE: 2026-02-25 05:00 UTC
+📊 SYMBOL: LTCUSDT
+🎯 SIGNAL: LONG
+❌ OUTCOME: LOSS
+================================================================================
+💰 Entry:      $52.5000
+🛑 Stop Loss:  $52.2375 (-0.5%)
+🎯 Target:     $53.2875 (+1.5%)
+
+📈 Indicators:
+   RSI:    77.16
+   EMA 9:  $51.51
+   EMA 26: $51.39
+   MA 44:  $51.38
 
 ================================================================================
 📅 DATE: 2026-01-30 19:15 UTC
@@ -814,6 +784,22 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
 
 📈 Indicators:
    RSI:    42.72
+   EMA 9:  $0.15
+   EMA 26: $0.15
+   MA 44:  $0.15
+
+================================================================================
+📅 DATE: 2026-02-25 05:00 UTC
+📊 SYMBOL: XLMUSDT
+🎯 SIGNAL: LONG
+❌ OUTCOME: LOSS
+================================================================================
+💰 Entry:      $0.1540
+🛑 Stop Loss:  $0.1532 (-0.5%)
+🎯 Target:     $0.1563 (+1.5%)
+
+📈 Indicators:
+   RSI:    77.78
    EMA 9:  $0.15
    EMA 26: $0.15
    MA 44:  $0.15
@@ -1539,6 +1525,22 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
    MA 44:  $0.10
 
 ================================================================================
+📅 DATE: 2026-02-25 05:00 UTC
+📊 SYMBOL: HBARUSDT
+🎯 SIGNAL: LONG
+❌ OUTCOME: LOSS
+================================================================================
+💰 Entry:      $0.0975
+🛑 Stop Loss:  $0.0970 (-0.5%)
+🎯 Target:     $0.0989 (+1.5%)
+
+📈 Indicators:
+   RSI:    73.46
+   EMA 9:  $0.10
+   EMA 26: $0.10
+   MA 44:  $0.10
+
+================================================================================
 📅 DATE: 2026-01-27 18:15 UTC
 📊 SYMBOL: FLOWUSDT
 🎯 SIGNAL: SHORT
@@ -1826,3 +1828,46 @@ ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)
    EMA 26: $3.12
    MA 44:  $3.12
 
+
+================================================================================
+📊 30-DAY PERFORMANCE SUMMARY
+================================================================================
+✅ Symbols scanned: 37/40
+⚠️  Symbols with errors: 3
+🎯 Total signals found: 111
+
+📈 TRADE OUTCOMES:
+   ✅ Wins:    27 (24.3%)
+   ❌ Losses:  84 (75.7%)
+   ⏳ Ongoing: 0 (0.0%)
+
+================================================================================
+🏆 WIN RATE: 24.3%
+   (27 wins out of 111 closed trades)
+================================================================================
+
+💰 EXPECTED PROFIT PER TRADE: -0.01%
+   With Risk/Reward Ratio: 1:3 (Risk 0.5%, Target 1.5%)
+
+📊 STRATEGY ASSESSMENT: ❌ NEEDS IMPROVEMENT
+   Win rate below 40% - losing strategy even with 1:3 R/R
+
+📈 TOTAL 30-DAY PERFORMANCE:
+   Closed trades: 111
+   Total profit: -1.50%
+   Average per trade: -0.01%
+
+================================================================================
+💡 METHODOLOGY:
+================================================================================
+✅ WIN  = Take Profit (TP) was hit first
+❌ LOSS = Stop Loss (SL) was hit first
+⏳ ONGOING = Neither TP nor SL hit within 48-hour window
+❓ UNKNOWN = Could not determine outcome (data unavailable)
+
+Win rate calculated as: Wins / (Wins + Losses) × 100%
+Only closed trades (WIN or LOSS) are included in win rate calculation.
+
+================================================================================
+Report saved to: signal_analysis_report.txt
+================================================================================

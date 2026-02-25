@@ -1,253 +1,59 @@
 """
-Check for trading signals over the PAST 30 DAYS
-With AUTOMATED WIN RATE CALCULATION
-ALL OUTPUT WRITTEN TO FILE: signal_analysis_report.txt
+30-DAY BACKTEST SCANNER — Updated Signal Logic
+===============================================
+SIGNAL LOGIC (confirmed):
+
+SETUP CANDLE (candle[-2] = previous closed candle):
+  LONG:
+    1. RSI between 45.1 - 85
+    2. EMA9 > EMA26
+    3. EMA9 > MA44  AND  EMA26 > MA44
+    4. Candle is bullish (close > open)
+    5. Close > EMA9, EMA26, and MA44
+
+  SHORT:
+    1. RSI between 10 - 45
+    2. EMA9 < EMA26
+    3. EMA9 < MA44  AND  EMA26 < MA44
+    4. Candle is bearish (close < open)
+    5. Close < EMA9, EMA26, and MA44
+
+TRIGGER CANDLE (candle[-1] = current candle, fires at open):
+  LONG:
+    1. MA44(setup candle) > MA44(candle before setup)  → slope up
+    2. Open of current candle > Open of setup candle
+    Entry = Open of current candle
+
+  SHORT:
+    1. MA44(setup candle) < MA44(candle before setup)  → slope down
+    2. Open of current candle < Open of setup candle
+    Entry = Open of current candle
+
+SL/TP:
+  LONG  : SL = entry * 0.995,  TP = entry * 1.015
+  SHORT : SL = entry * 1.005,  TP = entry * 0.985
 """
+
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
 import sys
+import time
 
-# Redirect all output to file
-output_file = open('signal_analysis_report.txt', 'w', encoding='utf-8')
-sys.stdout = output_file
+# ============================================================================
+# STRATEGY PARAMETERS
+# ============================================================================
 
-# Strategy parameters (from your code)
-RSI_PERIOD = 14
-EMA_SHORT = 9
-EMA_LONG = 26
-MA_PERIOD = 44
-RSI_LONG_MIN = 45.1
-RSI_LONG_MAX = 85
+RSI_PERIOD    = 14
+EMA_SHORT     = 9
+EMA_LONG      = 26
+MA_PERIOD     = 44
+RSI_LONG_MIN  = 45.1
+RSI_LONG_MAX  = 85
 RSI_SHORT_MIN = 10
 RSI_SHORT_MAX = 45
-
-def calculate_rsi(closes, period=14):
-    if len(closes) < period + 1:
-        return 50.0
-    prices = pd.Series(closes)
-    delta = prices.diff()
-    gain = delta.where(delta > 0, 0).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-    rs = gain / loss
-    rsi = 100 - (100 / (1 + rs))
-    return float(rsi.iloc[-1])
-
-def calculate_ema(closes, period):
-    if len(closes) < period:
-        return closes[-1] if closes else 0
-    prices = pd.Series(closes)
-    ema = prices.ewm(span=period, adjust=False).mean()
-    return float(ema.iloc[-1])
-
-def calculate_sma(closes, period):
-    if len(closes) < period:
-        return closes[-1] if closes else 0
-    return sum(closes[-period:]) / period
-
-def check_trade_outcome(signal_time_ms, entry, sl, tp, signal_type, symbol):
-    """
-    Check if trade hit TP (win) or SL (loss) after signal
-    Returns: 'WIN', 'LOSS', or 'ONGOING' (if neither hit yet)
-    """
-    try:
-        # Get candles AFTER the signal for next 48 hours
-        url = "https://api.binance.com/api/v3/klines"
-        
-        start_ts = signal_time_ms + 1
-        end_ts = signal_time_ms + (48 * 60 * 60 * 1000)
-        
-        response = requests.get(
-            url,
-            params={
-                'symbol': symbol,
-                'interval': '15m',
-                'startTime': start_ts,
-                'endTime': end_ts,
-                'limit': 200
-            },
-            timeout=10
-        )
-        
-        if response.status_code != 200:
-            return 'UNKNOWN'
-        
-        candles = response.json()
-        
-        if not isinstance(candles, list) or len(candles) == 0:
-            return 'ONGOING'
-        
-        # Check each candle to see if TP or SL was hit
-        for candle in candles:
-            high = float(candle[2])
-            low = float(candle[3])
-            
-            if signal_type == 'LONG':
-                if low <= sl:
-                    return 'LOSS'
-                if high >= tp:
-                    return 'WIN'
-            else:  # SHORT
-                if high >= sl:
-                    return 'LOSS'
-                if low <= tp:
-                    return 'WIN'
-        
-        return 'ONGOING'
-        
-    except Exception as e:
-        return 'UNKNOWN'
-
-def check_symbol_past_30_days(symbol):
-    """Check if symbol had any signals in past 30 days"""
-    
-    try:
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=30)
-        
-        start_ts = int(start_date.timestamp() * 1000)
-        end_ts = int(end_date.timestamp() * 1000)
-        
-        url = "https://api.binance.com/api/v3/klines"
-        
-        all_candles = []
-        current_start = start_ts - (100 * 15 * 60 * 1000)
-        
-        while current_start < end_ts:
-            response = requests.get(
-                url,
-                params={
-                    'symbol': symbol,
-                    'interval': '15m',
-                    'startTime': current_start,
-                    'endTime': end_ts,
-                    'limit': 1000
-                },
-                timeout=10
-            )
-            
-            if response.status_code != 200:
-                return False
-            
-            candles = response.json()
-            
-            if not isinstance(candles, list) or len(candles) == 0:
-                break
-            
-            all_candles.extend(candles)
-            current_start = candles[-1][0] + 1
-            
-            if len(candles) < 1000:
-                break
-        
-        if len(all_candles) < 50:
-            return False
-        
-        signals_found = []
-        
-        for i in range(len(all_candles)):
-            candle_time = all_candles[i][0]
-            
-            if candle_time < start_ts or candle_time > end_ts:
-                continue
-            
-            closes = [float(c[4]) for c in all_candles[:i+1]]
-            opens = [float(c[1]) for c in all_candles[:i+1]]
-            
-            if len(closes) < MA_PERIOD + 10:
-                continue
-            
-            rsi = calculate_rsi(closes, RSI_PERIOD)
-            ema9 = calculate_ema(closes, EMA_SHORT)
-            ema26 = calculate_ema(closes, EMA_LONG)
-            ma44 = calculate_sma(closes, MA_PERIOD)
-            
-            ema9_prev = calculate_ema(closes[:-1], EMA_SHORT)
-            ema26_prev = calculate_ema(closes[:-1], EMA_LONG)
-            ma44_prev = calculate_sma(closes[:-1], MA_PERIOD)
-            
-            current_close = closes[-1]
-            current_open = opens[-1]
-            
-            ma_slope = ma44 - calculate_sma(closes[:-5], MA_PERIOD)
-            
-            # LONG SIGNAL
-            rsi_long_ok = RSI_LONG_MIN <= rsi <= RSI_LONG_MAX
-            ema_cross_up = (ema9_prev <= ema26_prev) and (ema9 > ema26)
-            both_above = (ema9 > ma44) and (ema26 > ma44)
-            ema9_crossed_up = (ema9_prev <= ma44_prev) and (ema9 > ma44)
-            ema26_crossed_up = (ema26_prev <= ma44_prev) and (ema26 > ma44)
-            both_crossed_up = both_above and (ema9_crossed_up or ema26_crossed_up)
-            slope_up = ma_slope > 0
-            bullish = current_close > current_open
-            above_mas = current_close > max(ema9, ema26, ma44)
-            candle_ok_long = bullish and above_mas
-            
-            long_signal = (rsi_long_ok and ema_cross_up and both_crossed_up and 
-                          slope_up and candle_ok_long)
-            
-            # SHORT SIGNAL
-            rsi_short_ok = RSI_SHORT_MIN <= rsi <= RSI_SHORT_MAX
-            ema_cross_down = (ema9_prev >= ema26_prev) and (ema9 < ema26)
-            both_below = (ema9 < ma44) and (ema26 < ma44)
-            ema9_crossed_down = (ema9_prev >= ma44_prev) and (ema9 < ma44)
-            ema26_crossed_down = (ema26_prev >= ma44_prev) and (ema26 < ma44)
-            both_crossed_down = both_below and (ema9_crossed_down or ema26_crossed_down)
-            slope_down = ma_slope < 0
-            bearish = current_close < current_open
-            below_mas = current_close < min(ema9, ema26, ma44)
-            candle_ok_short = bearish and below_mas
-            
-            short_signal = (rsi_short_ok and ema_cross_down and both_crossed_down and 
-                           slope_down and candle_ok_short)
-            
-            if long_signal or short_signal:
-                time_str = datetime.fromtimestamp(candle_time/1000).strftime('%Y-%m-%d %H:%M UTC')
-                signal_type = 'LONG' if long_signal else 'SHORT'
-                
-                entry = current_close
-                if long_signal:
-                    sl = entry * (1 - 0.5/100)
-                    tp = entry * (1 + 1.5/100)
-                else:
-                    sl = entry * (1 + 0.5/100)
-                    tp = entry * (1 - 1.5/100)
-                
-                # Check trade outcome
-                outcome = check_trade_outcome(candle_time, entry, sl, tp, signal_type, symbol)
-                
-                signals_found.append({
-                    'symbol': symbol,
-                    'time': time_str,
-                    'time_ms': candle_time,
-                    'type': signal_type,
-                    'entry': entry,
-                    'sl': sl,
-                    'tp': tp,
-                    'rsi': rsi,
-                    'ema9': ema9,
-                    'ema26': ema26,
-                    'ma44': ma44,
-                    'outcome': outcome
-                })
-        
-        return signals_found
-        
-    except Exception as e:
-        return False
-
-# Main execution
-print("="*80)
-print("SCANNING PAST 30 DAYS - WITH WIN RATE CALCULATION")
-print("="*80)
-end_date = datetime.now()
-start_date = end_date - timedelta(days=30)
-print(f"Period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
-print(f"Report generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-print("="*80)
-print()
-print("Scanning all symbols and calculating outcomes...")
-print()
+SL_PERCENT    = 0.5
+TP_PERCENT    = 1.5
 
 SYMBOLS = [
     'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT',
@@ -260,182 +66,26 @@ SYMBOLS = [
     'ICPUSDT', 'XTZUSDT', 'EGLDUSDT', 'QNTUSDT', 'INJUSDT',
 ]
 
-all_signals = []
-symbols_checked = 0
-symbols_with_errors = 0
-
-for idx, symbol in enumerate(SYMBOLS, 1):
-    print(f"[{idx}/{len(SYMBOLS)}] Checking {symbol}...", end=" ")
-    signals = check_symbol_past_30_days(symbol)
-    
-    if signals == False:
-        symbols_with_errors += 1
-        print("ERROR")
-        continue
-    
-    symbols_checked += 1
-    
-    if signals:
-        all_signals.extend(signals)
-        print(f"Found {len(signals)} signal(s)")
-    else:
-        print("No signals")
-
-# Calculate statistics
-total_signals = len(all_signals)
-wins = sum(1 for s in all_signals if s['outcome'] == 'WIN')
-losses = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
-ongoing = sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
-unknown = sum(1 for s in all_signals if s['outcome'] == 'UNKNOWN')
-
-# Print all signals with outcomes
-print()
-print("="*80)
-print("ALL SIGNALS FOUND (WITH WIN/LOSS ANALYSIS)")
-print("="*80)
-print()
-
-if total_signals == 0:
-    print("No signals found in the past 30 days.")
-    print()
-    print("This is NORMAL for your strict strategy.")
-    print("Your strategy requires ALL 5 conditions to align perfectly.")
-else:
-    for sig in all_signals:
-        outcome_emoji = {
-            'WIN': '✅',
-            'LOSS': '❌',
-            'ONGOING': '⏳',
-            'UNKNOWN': '❓'
-        }.get(sig['outcome'], '❓')
-        
-        print("="*80)
-        print(f"📅 DATE: {sig['time']}")
-        print(f"📊 SYMBOL: {sig['symbol']}")
-        print(f"🎯 SIGNAL: {sig['type']}")
-        print(f"{outcome_emoji} OUTCOME: {sig['outcome']}")
-        print("="*80)
-        print(f"💰 Entry:      ${sig['entry']:.4f}")
-        print(f"🛑 Stop Loss:  ${sig['sl']:.4f} ({'-0.5%' if sig['type']=='LONG' else '+0.5%'})")
-        print(f"🎯 Target:     ${sig['tp']:.4f} ({'+1.5%' if sig['type']=='LONG' else '-1.5%'})")
-        print()
-        print(f"📈 Indicators:")
-        print(f"   RSI:    {sig['rsi']:.2f}")
-        print(f"   EMA 9:  ${sig['ema9']:.2f}")
-        print(f"   EMA 26: ${sig['ema26']:.2f}")
-        print(f"   MA 44:  ${sig['ma44']:.2f}")
-        print()
-
-# Print summary statistics
-print()
-print("="*80)
-print("📊 30-DAY PERFORMANCE SUMMARY")
-print("="*80)
-print(f"✅ Symbols scanned: {symbols_checked}/{len(SYMBOLS)}")
-print(f"⚠️  Symbols with errors: {symbols_with_errors}")
-print(f"🎯 Total signals found: {total_signals}")
-print()
-
-if total_signals > 0:
-    print("📈 TRADE OUTCOMES:")
-    print(f"   ✅ Wins:    {wins} ({wins/total_signals*100:.1f}%)")
-    print(f"   ❌ Losses:  {losses} ({losses/total_signals*100:.1f}%)")
-    print(f"   ⏳ Ongoing: {ongoing} ({ongoing/total_signals*100:.1f}%)")
-    if unknown > 0:
-        print(f"   ❓ Unknown: {unknown} ({unknown/total_signals*100:.1f}%)")
-    print()
-    
-    if wins + losses > 0:
-        win_rate = wins / (wins + losses) * 100
-        print("="*80)
-        print(f"🏆 WIN RATE: {win_rate:.1f}%")
-        print(f"   ({wins} wins out of {wins + losses} closed trades)")
-        print("="*80)
-        print()
-        
-        # Calculate expected profit per trade
-        avg_profit_per_trade = (win_rate/100 * 1.5) - ((100-win_rate)/100 * 0.5)
-        
-        print(f"💰 EXPECTED PROFIT PER TRADE: {avg_profit_per_trade:+.2f}%")
-        print(f"   With Risk/Reward Ratio: 1:3 (Risk 0.5%, Target 1.5%)")
-        print()
-        
-        # Strategy assessment
-        if win_rate >= 60:
-            assessment = "✅ EXCELLENT STRATEGY!"
-            detail = "Win rate above 60% - highly profitable with 1:3 R/R"
-        elif win_rate >= 50:
-            assessment = "✅ GOOD STRATEGY"
-            detail = "Win rate above 50% - profitable with 1:3 R/R"
-        elif win_rate >= 40:
-            assessment = "⚠️  MARGINAL STRATEGY"
-            detail = "Win rate 40-50% - still profitable with 1:3 R/R"
-        else:
-            assessment = "❌ NEEDS IMPROVEMENT"
-            detail = "Win rate below 40% - losing strategy even with 1:3 R/R"
-        
-        print(f"📊 STRATEGY ASSESSMENT: {assessment}")
-        print(f"   {detail}")
-        print()
-        
-        # Profit calculation over 30 days
-        total_profit = (wins * 1.5) - (losses * 0.5)
-        print(f"📈 TOTAL 30-DAY PERFORMANCE:")
-        print(f"   Closed trades: {wins + losses}")
-        print(f"   Total profit: {total_profit:+.2f}%")
-        print(f"   Average per trade: {total_profit/(wins+losses):+.2f}%")
-        
-    else:
-        print("⏳ All trades still ongoing - cannot calculate win rate yet")
-        print("   Check again later when more trades have closed")
-
-print()
-print("="*80)
-print("💡 METHODOLOGY:")
-print("="*80)
-print("✅ WIN  = Take Profit (TP) was hit first")
-print("❌ LOSS = Stop Loss (SL) was hit first")
-print("⏳ ONGOING = Neither TP nor SL hit within 48-hour window")
-print("❓ UNKNOWN = Could not determine outcome (data unavailable)")
-print()
-print("Win rate calculated as: Wins / (Wins + Losses) × 100%")
-print("Only closed trades (WIN or LOSS) are included in win rate calculation.")
-print()
-print("="*80)
-print("Report saved to: signal_analysis_report.txt")
-print("="*80)
-
-# Close file and restore stdout
-output_file.close()
-sys.stdout = sys.__stdout__
-
-# Print completion message to terminal
-print("✅ Analysis complete! Report saved to: signal_analysis_report.txt")
-RSI_PERIOD = 14
-EMA_SHORT = 9
-EMA_LONG = 26
-MA_PERIOD = 44
-RSI_LONG_MIN = 45.1
-RSI_LONG_MAX = 85
-RSI_SHORT_MIN = 10
-RSI_SHORT_MAX = 45
+# ============================================================================
+# INDICATORS
+# ============================================================================
 
 def calculate_rsi(closes, period=14):
     if len(closes) < period + 1:
         return 50.0
     prices = pd.Series(closes)
-    delta = prices.diff()
-    gain = delta.where(delta > 0, 0).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-    rs = gain / loss
-    rsi = 100 - (100 / (1 + rs))
+    delta  = prices.diff()
+    gain   = delta.where(delta > 0, 0).rolling(window=period).mean()
+    loss   = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+    rs     = gain / loss
+    rsi    = 100 - (100 / (1 + rs))
     return float(rsi.iloc[-1])
 
 def calculate_ema(closes, period):
     if len(closes) < period:
         return closes[-1] if closes else 0
     prices = pd.Series(closes)
-    ema = prices.ewm(span=period, adjust=False).mean()
+    ema    = prices.ewm(span=period, adjust=False).mean()
     return float(ema.iloc[-1])
 
 def calculate_sma(closes, period):
@@ -443,343 +93,479 @@ def calculate_sma(closes, period):
         return closes[-1] if closes else 0
     return sum(closes[-period:]) / period
 
+# ============================================================================
+# SETUP CANDLE CONDITIONS
+# ============================================================================
+
+def check_setup_candle(closes, opens):
+    """
+    Evaluate all 5 setup conditions on the LAST candle in closes/opens.
+    Uses closes[-2] as the candle before setup for MA44 slope pre-calculation.
+
+    Returns:
+        'LONG'  if all 5 long conditions pass
+        'SHORT' if all 5 short conditions pass
+        None    if neither
+    """
+    if len(closes) < MA_PERIOD + 5:
+        return None
+
+    # Setup candle values
+    setup_close = closes[-1]
+    setup_open  = opens[-1]
+
+    rsi  = calculate_rsi(closes, RSI_PERIOD)
+    ema9 = calculate_ema(closes, EMA_SHORT)
+    ema26= calculate_ema(closes, EMA_LONG)
+    ma44 = calculate_sma(closes, MA_PERIOD)
+
+    # ── LONG setup conditions ─────────────────────────────────────────────────
+    long_1_rsi     = RSI_LONG_MIN <= rsi <= RSI_LONG_MAX   # RSI 45.1–85
+    long_2_ema     = ema9 > ema26                           # EMA9 above EMA26
+    long_3_mas     = (ema9 > ma44) and (ema26 > ma44)      # both above MA44
+    long_4_candle  = setup_close > setup_open               # bullish candle
+    long_5_close   = (setup_close > ema9 and               # close above all 3
+                      setup_close > ema26 and
+                      setup_close > ma44)
+
+    long_setup = long_1_rsi and long_2_ema and long_3_mas and long_4_candle and long_5_close
+
+    # ── SHORT setup conditions ────────────────────────────────────────────────
+    short_1_rsi    = RSI_SHORT_MIN <= rsi <= RSI_SHORT_MAX  # RSI 10–45
+    short_2_ema    = ema9 < ema26                           # EMA9 below EMA26
+    short_3_mas    = (ema9 < ma44) and (ema26 < ma44)      # both below MA44
+    short_4_candle = setup_close < setup_open               # bearish candle
+    short_5_close  = (setup_close < ema9 and               # close below all 3
+                      setup_close < ema26 and
+                      setup_close < ma44)
+
+    short_setup = short_1_rsi and short_2_ema and short_3_mas and short_4_candle and short_5_close
+
+    if long_setup:
+        return 'LONG'
+    if short_setup:
+        return 'SHORT'
+    return None
+
+# ============================================================================
+# TRIGGER CANDLE CONDITIONS
+# ============================================================================
+
+def check_trigger_candle(closes_up_to_trigger, opens_up_to_trigger, pending_direction):
+    """
+    Evaluate the 2 trigger conditions on the CURRENT candle.
+
+    closes_up_to_trigger : all closes including the trigger candle
+    opens_up_to_trigger  : all opens including the trigger candle
+
+    candle layout:
+        [-3] = candle before setup  (used for MA44 slope)
+        [-2] = setup candle
+        [-1] = trigger candle  (current)
+
+    Returns entry price if triggered, else None.
+    """
+    if len(closes_up_to_trigger) < MA_PERIOD + 5:
+        return None
+
+    # MA44 of setup candle vs candle before setup → slope
+    ma44_setup      = calculate_sma(closes_up_to_trigger[:-1], MA_PERIOD)   # setup = [-2]
+    ma44_before     = calculate_sma(closes_up_to_trigger[:-2], MA_PERIOD)   # before setup = [-3]
+
+    trigger_open    = opens_up_to_trigger[-1]   # current candle open = entry
+    setup_open      = opens_up_to_trigger[-2]   # setup candle open
+
+    if pending_direction == 'LONG':
+        slope_ok   = ma44_setup > ma44_before          # MA44 sloping up
+        open_ok    = trigger_open > setup_open         # current open > setup open
+        if slope_ok and open_ok:
+            return trigger_open                        # entry price
+
+    elif pending_direction == 'SHORT':
+        slope_ok   = ma44_setup < ma44_before          # MA44 sloping down
+        open_ok    = trigger_open < setup_open         # current open < setup open
+        if slope_ok and open_ok:
+            return trigger_open                        # entry price
+
+    return None
+
+# ============================================================================
+# OUTCOME CHECKER
+# ============================================================================
+
 def check_trade_outcome(signal_time_ms, entry, sl, tp, signal_type, symbol):
     """
-    Check if trade hit TP (win) or SL (loss) after signal
-    Returns: 'WIN', 'LOSS', or 'ONGOING' (if neither hit yet)
+    Check if TP or SL was hit within 48 hours after the trigger candle opens.
+    Starts checking from the trigger candle itself (entry is at its open).
     """
     try:
-        # Get candles AFTER the signal for next 48 hours (to see outcome)
-        url = "https://api.binance.com/api/v3/klines"
-        
-        # Check next 48 hours (192 fifteen-minute candles)
-        start_ts = signal_time_ms + 1  # Start from next candle
-        end_ts = signal_time_ms + (48 * 60 * 60 * 1000)  # 48 hours later
-        
+        start_ts = signal_time_ms
+        end_ts   = signal_time_ms + (48 * 60 * 60 * 1000)
+
         response = requests.get(
-            url,
+            "https://api.binance.com/api/v3/klines",
             params={
-                'symbol': symbol,
-                'interval': '15m',
+                'symbol':    symbol,
+                'interval':  '15m',
                 'startTime': start_ts,
-                'endTime': end_ts,
-                'limit': 200
+                'endTime':   end_ts,
+                'limit':     200
             },
             timeout=10
         )
-        
+
         if response.status_code != 200:
             return 'UNKNOWN'
-        
+
         candles = response.json()
-        
         if not isinstance(candles, list) or len(candles) == 0:
             return 'ONGOING'
-        
-        # Check each candle to see if TP or SL was hit
-        for candle in candles:
+
+        for idx, candle in enumerate(candles):
             high = float(candle[2])
-            low = float(candle[3])
-            
+            low  = float(candle[3])
+
+            # For the first candle (trigger candle), use close as effective low/high
+            # since entry is at open — price can only move from open onward
+            if idx == 0:
+                open_price = float(candle[1])
+                if signal_type == 'LONG':
+                    # Can only go down to close or up to high from open
+                    effective_low  = min(open_price, float(candle[4]))
+                    effective_high = high
+                    low  = effective_low
+                    high = effective_high
+                else:
+                    effective_high = max(open_price, float(candle[4]))
+                    effective_low  = low
+                    high = effective_high
+                    low  = effective_low
+
             if signal_type == 'LONG':
-                # For LONG: Check if price hit SL (below) or TP (above)
-                if low <= sl:
-                    return 'LOSS'  # SL hit first
-                if high >= tp:
-                    return 'WIN'   # TP hit first
-            else:  # SHORT
-                # For SHORT: Check if price hit SL (above) or TP (below)
-                if high >= sl:
-                    return 'LOSS'  # SL hit first
-                if low <= tp:
-                    return 'WIN'   # TP hit first
-        
-        # Neither hit within 48 hours
+                if low  <= sl: return 'LOSS'
+                if high >= tp: return 'WIN'
+            else:
+                if high >= sl: return 'LOSS'
+                if low  <= tp: return 'WIN'
+
         return 'ONGOING'
-        
-    except Exception as e:
+
+    except Exception:
         return 'UNKNOWN'
 
-def check_symbol_past_30_days(symbol):
-    """Check if symbol had any signals in past 30 days"""
-    
-    try:
-        # Calculate date range - past 30 days
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=30)
-        
-        start_ts = int(start_date.timestamp() * 1000)
-        end_ts = int(end_date.timestamp() * 1000)
-        
-        url = "https://api.binance.com/api/v3/klines"
-        
-        all_candles = []
-        current_start = start_ts - (100 * 15 * 60 * 1000)
-        
-        while current_start < end_ts:
-            response = requests.get(
-                url,
+# ============================================================================
+# SYMBOL SCANNER
+# ============================================================================
+
+def scan_symbol(symbol, start_ts, end_ts):
+    """
+    Fetch candles and scan for signals using the 2-step logic.
+    Returns list of signal dicts, or None on fetch error.
+    """
+    warmup_ms     = 110 * 15 * 60 * 1000   # 110 candles warmup for indicators
+    fetch_start   = start_ts - warmup_ms
+    all_candles   = []
+    current_start = fetch_start
+
+    while current_start < end_ts:
+        try:
+            resp = requests.get(
+                "https://api.binance.com/api/v3/klines",
                 params={
-                    'symbol': symbol,
-                    'interval': '15m',
+                    'symbol':    symbol,
+                    'interval':  '15m',
                     'startTime': current_start,
-                    'endTime': end_ts,
-                    'limit': 1000
+                    'endTime':   end_ts,
+                    'limit':     1000,
                 },
-                timeout=10
+                timeout=15
             )
-            
-            if response.status_code != 200:
-                return False
-            
-            candles = response.json()
-            
-            if not isinstance(candles, list) or len(candles) == 0:
-                break
-            
-            all_candles.extend(candles)
-            current_start = candles[-1][0] + 1
-            
-            if len(candles) < 1000:
-                break
-        
-        if len(all_candles) < 50:
-            return False
-        
-        signals_found = []
-        
-        # Check each candle in the past 30 days
-        for i in range(len(all_candles)):
-            candle_time = all_candles[i][0]
-            
-            if candle_time < start_ts or candle_time > end_ts:
-                continue
-            
-            closes = [float(c[4]) for c in all_candles[:i+1]]
-            opens = [float(c[1]) for c in all_candles[:i+1]]
-            
-            if len(closes) < MA_PERIOD + 10:
-                continue
-            
-            # Calculate indicators
-            rsi = calculate_rsi(closes, RSI_PERIOD)
-            ema9 = calculate_ema(closes, EMA_SHORT)
-            ema26 = calculate_ema(closes, EMA_LONG)
-            ma44 = calculate_sma(closes, MA_PERIOD)
-            
-            ema9_prev = calculate_ema(closes[:-1], EMA_SHORT)
-            ema26_prev = calculate_ema(closes[:-1], EMA_LONG)
-            ma44_prev = calculate_sma(closes[:-1], MA_PERIOD)
-            
-            current_close = closes[-1]
-            current_open = opens[-1]
-            
-            ma_slope = ma44 - calculate_sma(closes[:-5], MA_PERIOD)
-            
-            # LONG SIGNAL
-            rsi_long_ok = RSI_LONG_MIN <= rsi <= RSI_LONG_MAX
-            ema_cross_up = (ema9_prev <= ema26_prev) and (ema9 > ema26)
-            both_above = (ema9 > ma44) and (ema26 > ma44)
-            ema9_crossed_up = (ema9_prev <= ma44_prev) and (ema9 > ma44)
-            ema26_crossed_up = (ema26_prev <= ma44_prev) and (ema26 > ma44)
-            both_crossed_up = both_above and (ema9_crossed_up or ema26_crossed_up)
-            slope_up = ma_slope > 0
-            bullish = current_close > current_open
-            above_mas = current_close > max(ema9, ema26, ma44)
-            candle_ok_long = bullish and above_mas
-            
-            long_signal = (rsi_long_ok and ema_cross_up and both_crossed_up and 
-                          slope_up and candle_ok_long)
-            
-            # SHORT SIGNAL
-            rsi_short_ok = RSI_SHORT_MIN <= rsi <= RSI_SHORT_MAX
-            ema_cross_down = (ema9_prev >= ema26_prev) and (ema9 < ema26)
-            both_below = (ema9 < ma44) and (ema26 < ma44)
-            ema9_crossed_down = (ema9_prev >= ma44_prev) and (ema9 < ma44)
-            ema26_crossed_down = (ema26_prev >= ma44_prev) and (ema26 < ma44)
-            both_crossed_down = both_below and (ema9_crossed_down or ema26_crossed_down)
-            slope_down = ma_slope < 0
-            bearish = current_close < current_open
-            below_mas = current_close < min(ema9, ema26, ma44)
-            candle_ok_short = bearish and below_mas
-            
-            short_signal = (rsi_short_ok and ema_cross_down and both_crossed_down and 
-                           slope_down and candle_ok_short)
-            
-            if long_signal or short_signal:
-                time_str = datetime.fromtimestamp(candle_time/1000).strftime('%Y-%m-%d %H:%M UTC')
-                signal_type = 'LONG' if long_signal else 'SHORT'
-                
-                # Calculate entry, SL, and TP
-                entry = current_close
-                if long_signal:
-                    sl = entry * (1 - 0.5/100)
-                    tp = entry * (1 + 1.5/100)
-                else:
-                    sl = entry * (1 + 0.5/100)
-                    tp = entry * (1 - 1.5/100)
-                
-                # Check trade outcome
-                outcome = check_trade_outcome(candle_time, entry, sl, tp, signal_type, symbol)
-                
-                signals_found.append({
-                    'symbol': symbol,
-                    'time': time_str,
-                    'time_ms': candle_time,
-                    'type': signal_type,
-                    'entry': entry,
-                    'sl': sl,
-                    'tp': tp,
-                    'rsi': rsi,
-                    'ema9': ema9,
-                    'ema26': ema26,
-                    'ma44': ma44,
-                    'outcome': outcome
-                })
-        
-        return signals_found
-        
-    except Exception as e:
-        return False
+        except Exception:
+            return None
 
-# Main execution
-print("="*80)
-print("SCANNING PAST 30 DAYS - WITH WIN RATE CALCULATION")
-print("="*80)
-end_date = datetime.now()
-start_date = end_date - timedelta(days=30)
-print(f"Period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
-print(f"Current time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-print("="*80)
-print()
-print("Scanning symbols and calculating outcomes...")
-print("(This may take a few minutes)")
-print()
+        if resp.status_code != 200:
+            return None
 
-SYMBOLS = [
-    'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT',
-    'DOGEUSDT', 'SOLUSDT', 'DOTUSDT', 'MATICUSDT', 'AVAXUSDT',
-    'LINKUSDT', 'UNIUSDT', 'ATOMUSDT', 'LTCUSDT', 'XLMUSDT',
-    'ALGOUSDT', 'VETUSDT', 'FILUSDT', 'TRXUSDT', 'NEARUSDT',
-    'SHIBUSDT', 'APEUSDT', 'SANDUSDT', 'MANAUSDT', 'CRVUSDT',
-    'AAVEUSDT', 'GRTUSDT', 'ENJUSDT', 'CHZUSDT', 'THETAUSDT',
-    'FTMUSDT', 'AXSUSDT', 'HBARUSDT', 'EOSUSDT', 'FLOWUSDT',
-    'ICPUSDT', 'XTZUSDT', 'EGLDUSDT', 'QNTUSDT', 'INJUSDT',
-]
+        batch = resp.json()
+        if not isinstance(batch, list) or len(batch) == 0:
+            break
 
-all_signals = []
-symbols_checked = 0
-symbols_with_errors = 0
+        all_candles.extend(batch)
+        current_start = batch[-1][0] + 1
+        if len(batch) < 1000:
+            break
 
-for idx, symbol in enumerate(SYMBOLS, 1):
-    print(f"[{idx}/{len(SYMBOLS)}] Checking {symbol}...", end=" ")
-    signals = check_symbol_past_30_days(symbol)
-    
-    if signals == False:
-        symbols_with_errors += 1
-        print("ERROR")
-        continue
-    
-    symbols_checked += 1
-    
-    if signals:
-        all_signals.extend(signals)
-        print(f"Found {len(signals)} signal(s)")
-    else:
-        print("No signals")
+    if len(all_candles) < MA_PERIOD + 10:
+        return None
 
-# Calculate statistics
-total_signals = len(all_signals)
-wins = sum(1 for s in all_signals if s['outcome'] == 'WIN')
-losses = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
-ongoing = sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
-unknown = sum(1 for s in all_signals if s['outcome'] == 'UNKNOWN')
+    closes_all = [float(c[4]) for c in all_candles]
+    opens_all  = [float(c[1]) for c in all_candles]
+    times_all  = [int(c[0])   for c in all_candles]
 
-# Print all signals with outcomes
-print()
-print("="*80)
-print("SIGNALS FOUND (WITH OUTCOMES)")
-print("="*80)
-print()
+    signals          = []
+    pending_direction = None   # 'LONG' or 'SHORT' — set when setup candle passes
+    pending_setup_i   = None   # index of the setup candle
+    COOLDOWN_MS       = 5 * 60 * 1000
 
-for sig in all_signals:
-    outcome_emoji = {
-        'WIN': '✅',
-        'LOSS': '❌',
-        'ONGOING': '⏳',
-        'UNKNOWN': '❓'
-    }.get(sig['outcome'], '❓')
-    
-    print("="*80)
-    print(f"📅 DATE: {sig['time']}")
-    print(f"📊 SYMBOL: {sig['symbol']}")
-    print(f"🎯 SIGNAL: {sig['type']}")
-    print(f"{outcome_emoji} OUTCOME: {sig['outcome']}")
-    print("="*80)
-    print(f"💰 Entry:      ${sig['entry']:.4f}")
-    print(f"🛑 Stop Loss:  ${sig['sl']:.4f} ({'-0.5%' if sig['type']=='LONG' else '+0.5%'})")
-    print(f"🎯 Target:     ${sig['tp']:.4f} ({'+1.5%' if sig['type']=='LONG' else '-1.5%'})")
-    print()
-    print(f"📈 Indicators:")
-    print(f"   RSI:    {sig['rsi']:.2f}")
-    print(f"   EMA 9:  ${sig['ema9']:.2f}")
-    print(f"   EMA 26: ${sig['ema26']:.2f}")
-    print(f"   MA 44:  ${sig['ma44']:.2f}")
-    print()
+    last_signal_ts = 0
 
-# Print summary statistics
-print()
-print("="*80)
-print("📊 PERFORMANCE SUMMARY")
-print("="*80)
-print(f"✅ Symbols scanned: {symbols_checked}/{len(SYMBOLS)}")
-print(f"⚠️  Symbols with errors: {symbols_with_errors}")
-print(f"🎯 Total signals found: {total_signals}")
-print()
+    # Need at least MA_PERIOD + 5 candles before we can evaluate setup
+    # and one more for the trigger → start at MA_PERIOD + 5
+    for i in range(MA_PERIOD + 5, len(all_candles)):
+        candle_ts = times_all[i]
+        in_window = (start_ts <= candle_ts <= end_ts)
 
-if total_signals > 0:
-    print("📈 TRADE OUTCOMES:")
-    print(f"   ✅ Wins:    {wins} ({wins/total_signals*100:.1f}%)")
-    print(f"   ❌ Losses:  {losses} ({losses/total_signals*100:.1f}%)")
-    print(f"   ⏳ Ongoing: {ongoing} ({ongoing/total_signals*100:.1f}%)")
-    if unknown > 0:
-        print(f"   ❓ Unknown: {unknown} ({unknown/total_signals*100:.1f}%)")
-    print()
-    
-    if wins + losses > 0:
-        win_rate = wins / (wins + losses) * 100
-        print("="*80)
-        print(f"🏆 WIN RATE: {win_rate:.1f}% ({wins} wins / {wins + losses} closed trades)")
-        print("="*80)
-        print()
-        
-        # Calculate expected profit per trade (with 1:3 R:R)
-        avg_profit_per_trade = (win_rate/100 * 1.5) - ((100-win_rate)/100 * 0.5)
-        
-        print(f"💰 EXPECTED PROFIT PER TRADE: {avg_profit_per_trade:.2f}%")
-        print(f"   (With Risk/Reward = 1:3)")
-        print()
-        
-        if win_rate >= 60:
-            print("✅ EXCELLENT strategy! Win rate above 60%")
-        elif win_rate >= 50:
-            print("✅ GOOD strategy! Win rate above 50%")
-        elif win_rate >= 40:
-            print("⚠️  MARGINAL strategy. With 1:3 R/R, still profitable.")
+        # ── CHECK A: Trigger candle ───────────────────────────────────────────
+        # If a setup is pending, check whether THIS candle triggers the signal
+        if pending_direction is not None:
+            entry = check_trigger_candle(
+                closes_all[:i + 1],
+                opens_all[:i + 1],
+                pending_direction
+            )
+
+            if entry is not None and in_window:
+                if candle_ts - last_signal_ts >= COOLDOWN_MS:
+                    if pending_direction == 'LONG':
+                        sl = entry * (1 - SL_PERCENT / 100)
+                        tp = entry * (1 + TP_PERCENT / 100)
+                    else:
+                        sl = entry * (1 + SL_PERCENT / 100)
+                        tp = entry * (1 - TP_PERCENT / 100)
+
+                    outcome = check_trade_outcome(
+                        candle_ts, entry, sl, tp, pending_direction, symbol
+                    )
+
+                    signals.append({
+                        'symbol':     symbol,
+                        'type':       pending_direction,
+                        'setup_ts':   times_all[pending_setup_i],
+                        'trigger_ts': candle_ts,
+                        'time_str':   datetime.utcfromtimestamp(candle_ts / 1000)
+                                          .strftime('%Y-%m-%d %H:%M UTC'),
+                        'entry':      entry,
+                        'sl':         sl,
+                        'tp':         tp,
+                        'rsi':        calculate_rsi(closes_all[:pending_setup_i + 1], RSI_PERIOD),
+                        'ema9':       calculate_ema(closes_all[:pending_setup_i + 1], EMA_SHORT),
+                        'ema26':      calculate_ema(closes_all[:pending_setup_i + 1], EMA_LONG),
+                        'ma44':       calculate_sma(closes_all[:pending_setup_i + 1], MA_PERIOD),
+                        'outcome':    outcome,
+                    })
+                    last_signal_ts = candle_ts
+
+            # Either triggered or not — setup is consumed (option A: discard if not triggered)
+            pending_direction = None
+            pending_setup_i   = None
+
+        # ── CHECK B: Setup candle ─────────────────────────────────────────────
+        # Check if THIS candle qualifies as a setup candle
+        direction = check_setup_candle(
+            closes_all[:i + 1],
+            opens_all[:i + 1]
+        )
+
+        if direction is not None:
+            pending_direction = direction
+            pending_setup_i   = i
+
+    return signals
+
+# ============================================================================
+# MAIN
+# ============================================================================
+
+def main():
+    terminal = sys.__stdout__
+
+    end_dt   = datetime.utcnow()
+    start_dt = end_dt - timedelta(days=30)
+    end_ts   = int(end_dt.timestamp()   * 1000)
+    start_ts = int(start_dt.timestamp() * 1000)
+
+    terminal.write("\n" + "=" * 70 + "\n")
+    terminal.write("30-DAY BACKTEST — Updated Signal Logic\n")
+    terminal.write("=" * 70 + "\n")
+    terminal.write(f"Period  : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC\n")
+    terminal.write(f"Symbols : {len(SYMBOLS)}\n")
+    terminal.write("=" * 70 + "\n\n")
+    terminal.write("SETUP CANDLE  : RSI range + EMA9 vs EMA26 position + both EMAs vs MA44\n")
+    terminal.write("              + bullish/bearish candle + close above/below all 3 MAs\n")
+    terminal.write("TRIGGER CANDLE: MA44 slope confirmed + current open > setup open (LONG)\n")
+    terminal.write("              :                      + current open < setup open (SHORT)\n")
+    terminal.write("ENTRY         : Open of trigger candle\n")
+    terminal.write("=" * 70 + "\n\n")
+
+    all_signals   = []
+    symbols_ok    = 0
+    symbols_err   = 0
+
+    for idx, symbol in enumerate(SYMBOLS, 1):
+        terminal.write(f"[{idx:>2}/{len(SYMBOLS)}] {symbol:<14} scanning... ")
+        terminal.flush()
+
+        result = scan_symbol(symbol, start_ts, end_ts)
+
+        if result is None:
+            symbols_err += 1
+            terminal.write("ERROR\n")
+            continue
+
+        symbols_ok += 1
+
+        if result:
+            wins   = sum(1 for s in result if s['outcome'] == 'WIN')
+            losses = sum(1 for s in result if s['outcome'] == 'LOSS')
+            terminal.write(f"{len(result)} signal(s)  [W:{wins} L:{losses}]\n")
+            all_signals.extend(result)
         else:
-            print("❌ NEEDS IMPROVEMENT. Win rate below 40%")
-    else:
-        print("⏳ All trades still ongoing - cannot calculate win rate yet")
-else:
-    print("📊 RESULT: No signals found in past 30 days")
-    print()
-    print("This is NORMAL for your strict strategy.")
+            terminal.write("no signals\n")
 
-print()
-print("="*80)
-print("💡 INTERPRETATION:")
-print("="*80)
-print("✅ WIN  = Target Price (TP) was hit first")
-print("❌ LOSS = Stop Loss (SL) was hit first")
-print("⏳ ONGOING = Neither TP nor SL hit yet (within 48hr window)")
-print("❓ UNKNOWN = Could not determine (data unavailable)")
+        time.sleep(0.1)
+
+    # ── Write report ──────────────────────────────────────────────────────────
+    terminal.write("\nWriting report...\n")
+
+    with open('signal_analysis_report_new.txt', 'w', encoding='utf-8') as f:
+
+        def p(*args, **kwargs):
+            print(*args, **kwargs, file=f)
+
+        p("=" * 80)
+        p("30-DAY BACKTEST REPORT — Updated Signal Logic")
+        p("=" * 80)
+        p(f"Period    : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC")
+        p(f"Generated : {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
+        p(f"Symbols   : {symbols_ok} scanned  |  {symbols_err} errors")
+        p()
+        p("LOGIC SUMMARY:")
+        p("  SETUP candle (previous closed candle):")
+        p("    LONG : RSI 45.1-85 | EMA9>EMA26 | both EMAs>MA44 | bullish | close>all 3 MAs")
+        p("    SHORT: RSI 10-45   | EMA9<EMA26 | both EMAs<MA44 | bearish | close<all 3 MAs")
+        p("  TRIGGER candle (current candle, fires at open):")
+        p("    LONG : MA44(setup) > MA44(before setup)  AND  open > setup candle open")
+        p("    SHORT: MA44(setup) < MA44(before setup)  AND  open < setup candle open")
+        p("  Entry = open of trigger candle")
+        p("  SL/TP from entry: LONG SL=-0.5% TP=+1.5% | SHORT SL=+0.5% TP=-1.5%")
+        p("=" * 80)
+        p()
+
+        total  = len(all_signals)
+        wins   = sum(1 for s in all_signals if s['outcome'] == 'WIN')
+        losses = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
+        longs  = sum(1 for s in all_signals if s['type'] == 'LONG')
+        shorts = sum(1 for s in all_signals if s['type'] == 'SHORT')
+        ongoing= sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
+        unknown= sum(1 for s in all_signals if s['outcome'] == 'UNKNOWN')
+
+        if total == 0:
+            p("NO SIGNALS found in the past 30 days.")
+            p()
+            p("Possible reasons:")
+            p("  - Condition 5 (close above/below ALL 3 MAs) is quite strict")
+            p("  - MA44 slope requires confirmed directional move")
+            p("  - Open price gap condition filters out flat opens")
+        else:
+            p(f"TOTAL SIGNALS : {total}  (LONG: {longs}  SHORT: {shorts})")
+            p()
+
+            for sig in sorted(all_signals, key=lambda x: x['trigger_ts']):
+                status = {'WIN': 'WIN ', 'LOSS': 'LOSS',
+                          'ONGOING': 'OPEN', 'UNKNOWN': '????'}.get(sig['outcome'], '????')
+                setup_time = datetime.utcfromtimestamp(sig['setup_ts'] / 1000)\
+                                 .strftime('%Y-%m-%d %H:%M UTC')
+
+                p("-" * 80)
+                p(f"  [{status}]  {sig['type']:<6}  {sig['symbol']:<14}  {sig['time_str']}")
+                p(f"  Setup  : {setup_time}")
+                p(f"  Entry  : ${sig['entry']:.4f}  "
+                  f"SL: ${sig['sl']:.4f}  TP: ${sig['tp']:.4f}")
+                p(f"  RSI={sig['rsi']:.1f}  EMA9={sig['ema9']:.4f}  "
+                  f"EMA26={sig['ema26']:.4f}  MA44={sig['ma44']:.4f}")
+            p()
+
+            # ── Summary ───────────────────────────────────────────────────────
+            p("=" * 80)
+            p("PERFORMANCE SUMMARY")
+            p("=" * 80)
+            p(f"  Total signals : {total}  (Long: {longs}  Short: {shorts})")
+            p(f"  Wins          : {wins}")
+            p(f"  Losses        : {losses}")
+            p(f"  Ongoing       : {ongoing}")
+            p(f"  Unknown       : {unknown}")
+            p()
+
+            closed = wins + losses
+            if closed > 0:
+                win_rate   = wins / closed * 100
+                expectancy = (win_rate/100 * TP_PERCENT) - ((100 - win_rate)/100 * SL_PERCENT)
+                total_pnl  = (wins * TP_PERCENT) - (losses * SL_PERCENT)
+
+                p(f"  Win rate      : {win_rate:.1f}%  ({wins}/{closed} closed trades)")
+                p(f"  Expectancy    : {expectancy:+.3f}% per trade")
+                p(f"  Total PnL     : {total_pnl:+.2f}%  (equal-size positions)")
+                p(f"  R/R ratio     : 1:{TP_PERCENT/SL_PERCENT:.0f}  "
+                  f"(SL {SL_PERCENT}%  /  TP {TP_PERCENT}%)")
+                p()
+
+                if win_rate >= 60:
+                    verdict = "EXCELLENT  — highly profitable with 1:3 R/R"
+                elif win_rate >= 50:
+                    verdict = "GOOD       — profitable with 1:3 R/R"
+                elif win_rate >= 40:
+                    verdict = "MARGINAL   — still profitable with 1:3 R/R"
+                elif win_rate >= 25:
+                    verdict = "WEAK       — losing with 1:3 R/R"
+                else:
+                    verdict = "POOR       — significantly losing"
+
+                p(f"  Verdict       : {verdict}")
+                p()
+
+                # Per-symbol breakdown
+                p("=" * 80)
+                p("PER-SYMBOL BREAKDOWN")
+                p("=" * 80)
+                p(f"  {'Symbol':<14} {'Sigs':>5} {'Long':>5} {'Short':>6} "
+                  f"{'Win':>5} {'Loss':>5} {'Open':>5} {'WinRate':>8}")
+                p("  " + "-" * 60)
+                for sym in sorted(set(s['symbol'] for s in all_signals)):
+                    ss   = [s for s in all_signals if s['symbol'] == sym]
+                    sw   = sum(1 for s in ss if s['outcome'] == 'WIN')
+                    sl_  = sum(1 for s in ss if s['outcome'] == 'LOSS')
+                    so   = sum(1 for s in ss if s['outcome'] == 'ONGOING')
+                    lo   = sum(1 for s in ss if s['type'] == 'LONG')
+                    sh   = sum(1 for s in ss if s['type'] == 'SHORT')
+                    wr   = f"{sw/(sw+sl_)*100:.0f}%" if sw + sl_ > 0 else "n/a"
+                    p(f"  {sym:<14} {len(ss):>5} {lo:>5} {sh:>6} "
+                      f"{sw:>5} {sl_:>5} {so:>5} {wr:>8}")
+            else:
+                p("  No closed trades yet — win rate not calculable.")
+
+        p()
+        p("=" * 80)
+        p("METHODOLOGY")
+        p("=" * 80)
+        p("  WIN     : TP hit before SL within 48-hour window")
+        p("  LOSS    : SL hit before TP within 48-hour window")
+        p("  ONGOING : Neither hit within 48 hours")
+        p("  UNKNOWN : Data unavailable")
+        p()
+        p("  Entry = open of trigger candle.")
+        p("  Outcome checked from trigger candle open onward.")
+        p("=" * 80)
+
+    wins_final   = sum(1 for s in all_signals if s['outcome'] == 'WIN')
+    losses_final = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
+    closed_final = wins_final + losses_final
+
+    terminal.write(f"\nDone. Report → signal_analysis_report_new.txt\n")
+    terminal.write(f"Signals: {len(all_signals)}  |  "
+                   f"Wins: {wins_final}  Losses: {losses_final}  "
+                   + (f"Win rate: {wins_final/closed_final*100:.1f}%"
+                      if closed_final > 0 else "No closed trades") + "\n")
+
+
+if __name__ == "__main__":
+    main()
