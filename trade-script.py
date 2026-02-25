@@ -344,16 +344,16 @@ class CandleManager:
             
             # Parse candles with validation
             for candle in candles:
-            try:
-                self.timestamps.append(int(candle[0]))
-                self.opens.append(float(candle[1]))
-                self.highs.append(float(candle[2]))
-                self.lows.append(float(candle[3]))
-                self.closes.append(float(candle[4]))
-                self.volumes.append(float(candle[5]))
-            except (ValueError, IndexError, TypeError) as e:
-                logger.error(f"{self.symbol}: Parse error - {e}")
-                return False
+                try:
+                    self.timestamps.append(int(candle[0]))
+                    self.opens.append(float(candle[1]))
+                    self.highs.append(float(candle[2]))
+                    self.lows.append(float(candle[3]))
+                    self.closes.append(float(candle[4]))
+                    self.volumes.append(float(candle[5]))
+                except (ValueError, IndexError, TypeError) as e:
+                    logger.error(f"{self.symbol}: Parse error - {e}")
+                    return False
         
             logger.info(f"{self.symbol}: Loaded {len(self.closes)} bars")
             return True
