@@ -76,38 +76,36 @@ SYMBOLS = [
     'MATICUSDT', 'ICPUSDT', 'FILUSDT', 'ARBUSDT', 'RUNEUSDT',
     'INJUSDT', 'ATOMUSDT', 'CHZUSDT', 'CRVUSDT', 'COMPUSDT',
     'BONKUSDT', 'SNXUSDT', 'PENDLEUSDT', 'YFIUSDT', 'LDOUSDT',
-    'MNTUSDT', 'AXSUSDT', 'SANDUSDT', 'ALGOUSDT', 'ACHUSDT',
-    'ENSUSDT', 'TIAUSDT', 'VETUSDT', 'MANAUSDT', 'ZRXUSDT',
-    'JUPUSDT', 'ARKMUSDT', 'ARUSDT', 'GRTUSDT', 'APEUSDT',
-    'JTOUSDT', 'WUSDT', 'KASUSDT', 'IMXUSDT', 'PYTHUSDT',
-    'SUSDT', 'SUSHIPUSDT', 'HOTUSDT', 'GRASSUSDT', 'QTUMUSDT',
-    'NEOUSDT', '1INCHUSDT', 'CVXUSDT', 'ZILUSDT', 'BATUSDT',
-    'QNTUSDT', 'ONTUSDT', 'CROUSDT', 'FLOWUSDT', 'STXUSDT',
-    'ROSEUSDT', 'IOTAUSDT', 'CFXUSDT', 'KSMUSDT', 'XTUSDT',
-    'ACTUSDT', 'LUNCUSDT', 'TWTUSDT', 'NEXOUSDT', 'ATHUSDT',
-    'IOTXUSDT', 'ENJUSDT', 'DYDXUSDT', 'REZUSDT', 'RSRUSDT',
-    'AXLUSDT', 'PEOPLEUSDT', 'INITUSDT', 'MEWUSDT', 'THETAUSDT',
-    'API3USDT', 'BIGTIMEUSDT', 'TRACUSDT', 'NOTUSDT', 'EGLDUSDT',
-    'IOSTUSDT', 'C98USDT', 'IOUSDT', 'XVSUSDT', 'SUPERUSDT',
-    'NMRUSDT', 'ILVUSDT', 'DCRUSDT', 'COWUSDT', 'MAGICUSDT',
-    'XYOUSDT', 'XLMUSDT', 'XTZUSDT', 'GLMUSDT', 'SKLUSDT',
-    'GMUSDT', 'HNTUSDT', 'GMXUSDT', 'CTSIUSDT', 'WOOUSDT',
-    'JASMYUSDT', 'MKRUSDT', 'AAVEUSDT', 'AGIXUSDT', 'FETUSDT',
-    'OCEUSDT', 'CKBUSDT', 'BANDUSDT', 'DUSKUSDT', 'SFPUSDT',
-    'RLCUSDT', 'OMGUSDT', 'BLZUSDT', 'ZENUSDT', 'OGNUSDT',
-    'RENUSDT', 'PONDUSDT', 'RVNUSDT', 'AUCTIONUSDT', 'CTKUSDT',
-    'CELRUSDT', 'BELUSDT', 'RIFUSDT', 'OXTUSDT', 'BAKEUSDT',
-    'AUDIOUSDT', 'UNFIUSDT', 'CELOUSDT', 'ICXUSDT', 'TRBUSDT',
-    'STMXUSDT', 'HIVEUSDT', 'MDTUSDT', 'SCUSDT', 'POLYUSDT',
-    'REEFUSDT', 'LRCUSDT', 'ONEUSDT', 'DENTUSDT', 'FLUXUSDT',
-    'RAYUSDT', 'AEUSDT', 'BALUSDT', 'SXPUSDT', 'TKOUSDT',
-    'NUUSDT', 'RAREUSDT', 'COMBOUSDT', 'MCUSDT', 'PAXGUSDT',
-    'TUSDT', 'LTOUSDT', 'BLURUSDT', 'SANTOSUSDT', 'PORTOUSDT',
-    'PERPUSDT', 'IDUSDT', 'SLPUSDT', 'STPTUSDT', 'DARUSDT',
-    'GALAUSDT', 'JOEUSDT', 'MOVRUSDT', 'OOKIUSDT', 'FARMUSDT',
-    'VOXELUSDT', 'HIGHUSDT', 'BETAUSDT', 'RADUSDT', 'CVPUSDT',
-    'CLVUSDT', 'EPXUSDT', 'PROSUSDT', 'FXSUSDT', 'FISUSDT',
-    'VICUSDT', 'POWRUSDT', 'VITEUSDT', 'QUICKUSDT', 'PHAUSDT'
+    'AXSUSDT', 'SANDUSDT', 'ALGOUSDT', 'ACHUSDT', 'ENSUSDT',
+    'TIAUSDT', 'VETUSDT', 'MANAUSDT', 'ZRXUSDT', 'JUPUSDT',
+    'ARKMUSDT', 'ARUSDT', 'GRTUSDT', 'APEUSDT', 'JTOUSDT',
+    'WUSDT', 'IMXUSDT', 'PYTHUSDT', 'SUSDT', 'HOTUSDT',
+    'QTUMUSDT', 'NEOUSDT', '1INCHUSDT', 'CVXUSDT', 'ZILUSDT',
+    'BATUSDT', 'QNTUSDT', 'ONTUSDT', 'FLOWUSDT', 'STXUSDT',
+    'ROSEUSDT', 'IOTAUSDT', 'CFXUSDT', 'KSMUSDT', 'ACTUSDT',
+    'LUNCUSDT', 'TWTUSDT', 'NEXOUSDT', 'IOTXUSDT', 'ENJUSDT',
+    'DYDXUSDT', 'REZUSDT', 'RSRUSDT', 'AXLUSDT', 'PEOPLEUSDT',
+    'INITUSDT', 'THETAUSDT', 'API3USDT', 'BIGTIMEUSDT', 'NOTUSDT',
+    'EGLDUSDT', 'IOSTUSDT', 'C98USDT', 'IOUSDT', 'XVSUSDT',
+    'SUPERUSDT', 'NMRUSDT', 'ILVUSDT', 'DCRUSDT', 'COWUSDT',
+    'MAGICUSDT', 'XLMUSDT', 'XTZUSDT', 'GLMUSDT', 'SKLUSDT',
+    'HNTUSDT', 'GMXUSDT', 'CTSIUSDT', 'WOOUSDT', 'JASMYUSDT',
+    'MKRUSDT', 'AAVEUSDT', 'AGIXUSDT', 'FETUSDT', 'CKBUSDT',
+    'BANDUSDT', 'DUSKUSDT', 'SFPUSDT', 'RLCUSDT', 'OMGUSDT',
+    'BLZUSDT', 'ZENUSDT', 'OGNUSDT', 'RENUSDT', 'PONDUSDT',
+    'RVNUSDT', 'AUCTIONUSDT', 'CTKUSDT', 'CELRUSDT', 'BELUSDT',
+    'RIFUSDT', 'OXTUSDT', 'BAKEUSDT', 'AUDIOUSDT', 'UNFIUSDT',
+    'CELOUSDT', 'ICXUSDT', 'TRBUSDT', 'STMXUSDT', 'HIVEUSDT',
+    'MDTUSDT', 'SCUSDT', 'POLYUSDT', 'REEFUSDT', 'LRCUSDT',
+    'ONEUSDT', 'DENTUSDT', 'FLUXUSDT', 'RAYUSDT', 'AEUSDT',
+    'BALUSDT', 'SXPUSDT', 'TKOUSDT', 'NUUSDT', 'RAREUSDT',
+    'COMBOUSDT', 'MCUSDT', 'PAXGUSDT', 'TUSDT', 'LTOUSDT',
+    'BLURUSDT', 'SANTOSUSDT', 'PORTOUSDT', 'PERPUSDT', 'IDUSDT',
+    'SLPUSDT', 'STPTUSDT', 'DARUSDT', 'GALAUSDT', 'JOEUSDT',
+    'MOVRUSDT', 'OOKIUSDT', 'FARMUSDT', 'VOXELUSDT', 'HIGHUSDT',
+    'BETAUSDT', 'RADUSDT', 'CVPUSDT', 'CLVUSDT', 'EPXUSDT',
+    'PROSUSDT', 'FXSUSDT', 'FISUSDT', 'VICUSDT', 'POWRUSDT',
+    'VITEUSDT', 'QUICKUSDT', 'PHAUSDT'
 ]
 
 # ============================================================================
@@ -316,7 +314,7 @@ class CandleManager:
         self.load_history()
     
     def load_history(self):
-        """Load historical candles"""
+        """Load historical candles with better error handling"""
         try:
             url = "https://api.binance.com/api/v3/klines"
             params = {
@@ -326,23 +324,47 @@ class CandleManager:
             }
             
             response = requests.get(url, params=params, timeout=10)
+            
+            # Check if request was successful
+            if response.status_code != 200:
+                logger.error(f"{self.symbol}: HTTP {response.status_code}")
+                return False
+            
             candles = response.json()
             
+            # Check if response is valid list
+            if not isinstance(candles, list):
+                logger.error(f"{self.symbol}: Invalid response format")
+                return False
+            
+            # Check if we got enough data
+            if len(candles) < 50:
+                logger.error(f"{self.symbol}: Insufficient data ({len(candles)} bars)")
+                return False
+            
+            # Parse candles with validation
             for candle in candles:
+            try:
                 self.timestamps.append(int(candle[0]))
                 self.opens.append(float(candle[1]))
                 self.highs.append(float(candle[2]))
                 self.lows.append(float(candle[3]))
                 self.closes.append(float(candle[4]))
                 self.volumes.append(float(candle[5]))
-            
+            except (ValueError, IndexError, TypeError) as e:
+                logger.error(f"{self.symbol}: Parse error - {e}")
+                return False
+        
             logger.info(f"{self.symbol}: Loaded {len(self.closes)} bars")
             return True
             
-        except Exception as e:
-            logger.error(f"{self.symbol}: Load failed - {e}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"{self.symbol}: Network error - {e}")
             return False
-    
+        except Exception as e:
+            logger.error(f"{self.symbol}: Unexpected error - {e}")
+            return False
+
     def update_tick(self, price: float, timestamp: int = None):
         """Update with new price"""
         if timestamp is None:
