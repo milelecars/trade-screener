@@ -45,7 +45,6 @@ from datetime import datetime, timedelta, timezone
 import sys
 import time
 
-
 # ============================================================================
 # STRATEGY PARAMETERS
 # ============================================================================
@@ -66,14 +65,8 @@ SIDEWAYS_THRESHOLD = 0.002  # 0.2% of price — MA44 must move more than this
 CROSS_LOOKBACK     = 4      # candles to look back for EMA/MA44 cross
 
 SYMBOLS = [
-    'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT',
-    'DOGEUSDT', 'SOLUSDT', 'DOTUSDT', 'MATICUSDT', 'AVAXUSDT',
-    'LINKUSDT', 'UNIUSDT', 'ATOMUSDT', 'LTCUSDT', 'XLMUSDT',
-    'ALGOUSDT', 'VETUSDT', 'FILUSDT', 'TRXUSDT', 'NEARUSDT',
-    'SHIBUSDT', 'APEUSDT', 'SANDUSDT', 'MANAUSDT', 'CRVUSDT',
-    'AAVEUSDT', 'GRTUSDT', 'ENJUSDT', 'CHZUSDT', 'THETAUSDT',
-    'FTMUSDT', 'AXSUSDT', 'HBARUSDT', 'EOSUSDT', 'FLOWUSDT',
-    'ICPUSDT', 'XTZUSDT', 'EGLDUSDT', 'QNTUSDT', 'INJUSDT',
+    'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT',
+    'DOGEUSDT', 'ADAUSDT', 'AVAXUSDT', 'LINKUSDT', 'DOTUSDT',
 ]
 
 # ============================================================================
@@ -296,27 +289,30 @@ def check_trigger_candle(closes, opens, pending_direction):
     Evaluate 2 trigger conditions on the current (last) candle.
 
     Layout:
-      closes[-3] = candle before setup  (MA44 slope reference)
+      closes[-1] = trigger candle  (current)
       closes[-2] = setup candle
-      closes[-1] = trigger candle
+      closes[-6] = 4 candles before setup  (MA44 slope reference)
+
+    MA44 slope: compare MA44(setup candle) vs MA44(4 candles before setup).
+    4 candles = 1 hour on 15-min chart — gives a visible slope confirmation.
 
     Returns entry price if triggered, else None.
     """
-    if len(closes) < MA_PERIOD + 5:
+    if len(closes) < MA_PERIOD + 7:
         return None
 
-    ma44_setup  = calculate_sma(closes[:-1], MA_PERIOD)   # setup candle
-    ma44_before = calculate_sma(closes[:-2], MA_PERIOD)   # candle before setup
+    ma44_setup = calculate_sma(closes[:-1], MA_PERIOD)   # setup candle  [-2]
+    ma44_4ago  = calculate_sma(closes[:-5], MA_PERIOD)   # 4 candles before setup [-6]
 
     trigger_open = opens[-1]
     setup_open   = opens[-2]
 
     if pending_direction == 'LONG':
-        if (ma44_setup > ma44_before) and (trigger_open > setup_open):
+        if (ma44_setup > ma44_4ago) and (trigger_open > setup_open):
             return trigger_open
 
     elif pending_direction == 'SHORT':
-        if (ma44_setup < ma44_before) and (trigger_open < setup_open):
+        if (ma44_setup < ma44_4ago) and (trigger_open < setup_open):
             return trigger_open
 
     return None
@@ -436,7 +432,7 @@ def scan_symbol(symbol, start_ts, end_ts):
     pending_direction = None
     pending_setup_i   = None
     last_signal_ts    = 0
-    COOLDOWN_MS       = 5 * 60 * 1000
+    COOLDOWN_MS       = 60 * 60 * 1000     # 1 hour between signals per symbol
 
     start_i = MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + 5
 
@@ -471,7 +467,8 @@ def scan_symbol(symbol, start_ts, end_ts):
                         'type':       pending_direction,
                         'setup_ts':   times_all[si],
                         'trigger_ts': candle_ts,
-                        'time_str': datetime.fromtimestamp(candle_ts / 1000, tz=timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
+                        'time_str':   datetime.fromtimestamp(candle_ts / 1000, tz=timezone.utc)
+                                          .strftime('%Y-%m-%d %H:%M UTC'),
                         'entry':      entry,
                         'sl':         sl,
                         'tp':         tp,
@@ -507,7 +504,7 @@ def scan_symbol(symbol, start_ts, end_ts):
 def main():
     terminal = sys.__stdout__
 
-    end_dt   = datetime.utcnow()
+    end_dt   = datetime.now(tz=timezone.utc)
     start_dt = end_dt - timedelta(days=30)
     end_ts   = int(end_dt.timestamp()   * 1000)
     start_ts = int(start_dt.timestamp() * 1000)
@@ -560,7 +557,7 @@ def main():
         p("30-DAY BACKTEST REPORT — Final Signal Logic")
         p("=" * 80)
         p(f"Period    : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC")
-        p(f"Generated : {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
+        p(f"Generated : {datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')} UTC")
         p(f"Symbols   : {symbols_ok} scanned  |  {symbols_err} errors")
         p()
         p("SIGNAL LOGIC (4 LAYERS):")
@@ -596,7 +593,7 @@ def main():
             for sig in sorted(all_signals, key=lambda x: x['trigger_ts']):
                 status = {'WIN': 'WIN ', 'LOSS': 'LOSS',
                           'ONGOING': 'OPEN', 'UNKNOWN': '????'}.get(sig['outcome'], '????')
-                setup_time = datetime.utcfromtimestamp(sig['setup_ts'] / 1000)\
+                setup_time = datetime.fromtimestamp(sig['setup_ts'] / 1000, tz=timezone.utc)\
                                  .strftime('%Y-%m-%d %H:%M UTC')
                 p("-" * 80)
                 p(f"  [{status}]  {sig['type']:<6}  {sig['symbol']:<14}  {sig['time_str']}")
@@ -684,6 +681,201 @@ def main():
         (f"Win rate: {wins_f/closed_f*100:.1f}%" if closed_f > 0 else "No closed trades") + "\n"
     )
 
+    # HTML visual report
+    generate_html_report(all_signals, start_dt, end_dt, 'signal_report.html')
+    terminal.write("Open signal_report.html in your browser to explore signals visually.\n")
+
+
+# ============================================================================
+# HTML REPORT GENERATOR
+# ============================================================================
+
+def generate_html_report(all_signals, start_dt, end_dt, filename='signal_report.html'):
+    wins     = sum(1 for s in all_signals if s['outcome'] == 'WIN')
+    losses   = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
+    ongoing  = sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
+    longs    = sum(1 for s in all_signals if s['type'] == 'LONG')
+    shorts   = sum(1 for s in all_signals if s['type'] == 'SHORT')
+    total    = len(all_signals)
+    closed   = wins + losses
+    win_rate   = wins / closed * 100 if closed > 0 else 0
+    expectancy = (win_rate/100 * 1.5) - ((100 - win_rate)/100 * 0.5) if closed > 0 else 0
+    total_pnl  = (wins * 1.5) - (losses * 0.5)
+
+    symbols_seen = sorted(set(s['symbol'] for s in all_signals))
+    sym_rows = []
+    for sym in symbols_seen:
+        ss  = [s for s in all_signals if s['symbol'] == sym]
+        sw  = sum(1 for s in ss if s['outcome'] == 'WIN')
+        sl_ = sum(1 for s in ss if s['outcome'] == 'LOSS')
+        so  = sum(1 for s in ss if s['outcome'] == 'ONGOING')
+        lo  = sum(1 for s in ss if s['type'] == 'LONG')
+        sh  = sum(1 for s in ss if s['type'] == 'SHORT')
+        wr  = f"{sw/(sw+sl_)*100:.0f}%" if sw + sl_ > 0 else "—"
+        pnl = (sw * 1.5) - (sl_ * 0.5)
+        sym_rows.append((sym, len(ss), lo, sh, sw, sl_, so, wr, pnl))
+
+    def signal_row(sig):
+        outcome   = sig['outcome']
+        stype     = sig['type']
+        ts_setup  = datetime.fromtimestamp(sig['setup_ts']/1000, tz=timezone.utc).strftime('%m/%d %H:%M')
+        ts_trig   = datetime.fromtimestamp(sig['trigger_ts']/1000, tz=timezone.utc).strftime('%m/%d %H:%M')
+        oc        = {'WIN':'win','LOSS':'loss','ONGOING':'ongoing','UNKNOWN':'unknown'}.get(outcome,'unknown')
+        ol        = {'WIN':'✓ WIN','LOSS':'✗ LOSS','ONGOING':'● OPEN','UNKNOWN':'? N/A'}.get(outcome,'?')
+        tc        = 'long' if stype == 'LONG' else 'short'
+        return f"""<tr class="sig-row" data-outcome="{outcome}" data-type="{stype}" data-symbol="{sig['symbol']}">
+            <td><span class="badge {oc}">{ol}</span></td>
+            <td><span class="badge {tc}">{stype}</span></td>
+            <td class="symbol">{sig['symbol']}</td>
+            <td class="mono">{ts_setup}</td><td class="mono">{ts_trig}</td>
+            <td class="mono">${sig['entry']:.4f}</td>
+            <td class="mono loss-color">${sig['sl']:.4f}</td>
+            <td class="mono win-color">${sig['tp']:.4f}</td>
+            <td class="mono">{sig['rsi']:.1f}</td>
+            <td class="mono">{sig['ema9']:.2f}</td>
+            <td class="mono">{sig['ema26']:.2f}</td>
+            <td class="mono">{sig['ma44']:.2f}</td></tr>"""
+
+    def sym_row(row):
+        sym, total_s, lo, sh, sw, sl_, so, wr, pnl = row
+        pc = 'win-color' if pnl > 0 else 'loss-color' if pnl < 0 else ''
+        return f"""<tr><td class="symbol">{sym}</td><td>{total_s}</td>
+            <td><span class="badge long">{lo}L</span> <span class="badge short">{sh}S</span></td>
+            <td class="win-color">{sw}</td><td class="loss-color">{sl_}</td><td>{so}</td>
+            <td><strong>{wr}</strong></td><td class="mono {pc}">{pnl:+.1f}%</td></tr>"""
+
+    sig_html = '\n'.join(signal_row(s) for s in sorted(all_signals, key=lambda x: x['trigger_ts']))
+    sym_html = '\n'.join(sym_row(r) for r in sorted(sym_rows, key=lambda x: -x[1]))
+    vc = 'win-color' if win_rate >= 50 else 'loss-color'
+    vt = ('EXCELLENT' if win_rate>=60 else 'GOOD' if win_rate>=50 else
+          'MARGINAL'  if win_rate>=40 else 'WEAK' if win_rate>=25 else 'POOR') if closed>0 else 'NO DATA'
+    gen = datetime.now(tz=timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+
+    html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Signal Report</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+:root{{--bg:#0d0f14;--surface:#141720;--border:#1e2330;--text:#c8cdd8;--muted:#555f72;
+--win:#00c896;--loss:#ff4d6a;--long:#3b9eff;--short:#ff9d3b;--ongoing:#8b7cf8;--accent:#f0f2f5;}}
+*{{box-sizing:border-box;margin:0;padding:0;}}
+body{{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.6;}}
+.mono{{font-family:'IBM Plex Mono',monospace;}}
+header{{padding:48px 48px 32px;border-bottom:1px solid var(--border);}}
+header h1{{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}}
+header h2{{font-size:28px;font-weight:700;color:var(--accent);margin-bottom:4px;}}
+header .meta{{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;}}
+.stats{{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}}
+.stat{{background:var(--surface);padding:24px 28px;}}
+.stat .label{{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}}
+.stat .value{{font-size:26px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--accent);}}
+.stat .value.win-color{{color:var(--win);}} .stat .value.loss-color{{color:var(--loss);}} .stat .value.long-color{{color:var(--long);}}
+.filters{{padding:20px 48px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface);}}
+.filter-btn{{padding:6px 16px;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;cursor:pointer;transition:all .15s;text-transform:uppercase;}}
+.filter-btn:hover,.filter-btn.active{{background:var(--accent);color:var(--bg);border-color:var(--accent);}}
+.filter-btn.win-btn.active{{background:var(--win);border-color:var(--win);color:#000;}}
+.filter-btn.loss-btn.active{{background:var(--loss);border-color:var(--loss);color:#fff;}}
+.filter-btn.long-btn.active{{background:var(--long);border-color:var(--long);color:#fff;}}
+.filter-btn.short-btn.active{{background:var(--short);border-color:var(--short);color:#000;}}
+.filter-search{{margin-left:auto;padding:6px 14px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;outline:none;width:180px;}}
+.filter-search:focus{{border-color:var(--muted);}}
+.section{{padding:32px 48px;}}
+.section-title{{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}}
+table{{width:100%;border-collapse:collapse;font-size:13px;}}
+th{{text-align:left;padding:10px 12px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap;}}
+td{{padding:11px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}}
+tr:hover td{{background:rgba(255,255,255,.02);}}
+tr.hidden{{display:none;}}
+.badge{{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;}}
+.badge.win{{background:rgba(0,200,150,.15);color:var(--win);}} .badge.loss{{background:rgba(255,77,106,.15);color:var(--loss);}}
+.badge.ongoing{{background:rgba(139,124,248,.15);color:var(--ongoing);}} .badge.unknown{{background:rgba(100,100,100,.15);color:var(--muted);}}
+.badge.long{{background:rgba(59,158,255,.15);color:var(--long);}} .badge.short{{background:rgba(255,157,59,.15);color:var(--short);}}
+.win-color{{color:var(--win)!important;}} .loss-color{{color:var(--loss)!important;}}
+.symbol{{font-weight:600;color:var(--accent);}}
+.wr-bar-wrap{{display:flex;align-items:center;gap:16px;margin:24px 0;}}
+.wr-bar{{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}}
+.wr-fill{{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--win),#00e5b0);transition:width 1s cubic-bezier(.4,0,.2,1);}}
+.wr-label{{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;min-width:80px;}}
+.verdict{{display:inline-block;padding:4px 14px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}}
+.verdict.win-color{{background:rgba(0,200,150,.1);color:var(--win);}} .verdict.loss-color{{background:rgba(255,77,106,.1);color:var(--loss);}}
+.no-results{{text-align:center;padding:40px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:12px;display:none;}}
+.divider{{height:1px;background:var(--border);margin:0 48px;}}
+</style></head><body>
+<header>
+  <h1>Backtest Report</h1>
+  <h2>Signal Analysis — Past 30 Days</h2>
+  <div class="meta">{start_dt.strftime('%Y-%m-%d')} → {end_dt.strftime('%Y-%m-%d')} UTC &nbsp;·&nbsp; Generated {gen} &nbsp;·&nbsp; 15m candles · Binance</div>
+</header>
+<div class="stats">
+  <div class="stat"><div class="label">Total Signals</div><div class="value">{total}</div></div>
+  <div class="stat"><div class="label">Wins</div><div class="value win-color">{wins}</div></div>
+  <div class="stat"><div class="label">Losses</div><div class="value loss-color">{losses}</div></div>
+  <div class="stat"><div class="label">Open</div><div class="value">{ongoing}</div></div>
+  <div class="stat"><div class="label">Long / Short</div><div class="value long-color">{longs}<span style="color:var(--muted);font-size:16px"> / </span>{shorts}</div></div>
+  <div class="stat"><div class="label">Win Rate</div><div class="value {vc}">{win_rate:.1f}%</div></div>
+  <div class="stat"><div class="label">Expectancy</div><div class="value {'win-color' if expectancy>=0 else 'loss-color'}">{expectancy:+.2f}%</div></div>
+  <div class="stat"><div class="label">Total PnL</div><div class="value {'win-color' if total_pnl>=0 else 'loss-color'}">{total_pnl:+.1f}%</div></div>
+</div>
+<div class="filters">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All ({total})</button>
+  <button class="filter-btn win-btn" onclick="setFilter('WIN',this)">Wins ({wins})</button>
+  <button class="filter-btn loss-btn" onclick="setFilter('LOSS',this)">Losses ({losses})</button>
+  <button class="filter-btn" onclick="setFilter('ONGOING',this)">Open ({ongoing})</button>
+  <button class="filter-btn long-btn" onclick="setFilter('LONG',this)">Long ({longs})</button>
+  <button class="filter-btn short-btn" onclick="setFilter('SHORT',this)">Short ({shorts})</button>
+  <input class="filter-search" type="text" placeholder="Search symbol..." oninput="filterSymbol(this.value)">
+</div>
+<div class="section">
+  <div class="section-title">All Signals</div>
+  <table id="sig-table"><thead><tr>
+    <th>Outcome</th><th>Type</th><th>Symbol</th><th>Setup (UTC)</th><th>Trigger (UTC)</th>
+    <th>Entry</th><th>Stop Loss</th><th>Take Profit</th><th>RSI</th><th>EMA9</th><th>EMA26</th><th>MA44</th>
+  </tr></thead><tbody>{sig_html}</tbody></table>
+  <div class="no-results" id="no-results">No signals match the current filter.</div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="section-title">Win Rate</div>
+  <div class="wr-bar-wrap">
+    <div class="wr-label {vc}">{win_rate:.1f}%</div>
+    <div class="wr-bar"><div class="wr-fill" id="wr-fill" style="width:0%"></div></div>
+    <div style="font-size:12px;color:var(--muted);min-width:160px;">
+      {wins}W / {losses}L of {closed} closed<br><span class="verdict {vc}">{vt}</span>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="section-title">Per-Symbol Breakdown</div>
+  <table><thead><tr>
+    <th>Symbol</th><th>Signals</th><th>Direction</th><th>Wins</th><th>Losses</th><th>Open</th><th>Win Rate</th><th>PnL</th>
+  </tr></thead><tbody>{sym_html}</tbody></table>
+</div>
+<script>
+window.addEventListener('load',()=>{{setTimeout(()=>{{document.getElementById('wr-fill').style.width='{win_rate:.1f}%';}},300);}});
+let activeOutcome='all',activeSymbol='';
+function applyFilters(){{
+  const rows=document.querySelectorAll('.sig-row');let visible=0;
+  rows.forEach(row=>{{
+    const om=(activeOutcome==='all'||row.dataset.outcome===activeOutcome||row.dataset.type===activeOutcome);
+    const sm=row.dataset.symbol.toLowerCase().includes(activeSymbol.toLowerCase());
+    if(om&&sm){{row.classList.remove('hidden');visible++;}}else{{row.classList.add('hidden');}}
+  }});
+  document.getElementById('no-results').style.display=visible===0?'block':'none';
+}}
+function setFilter(val,btn){{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeOutcome=val;applyFilters();}}
+function filterSymbol(val){{activeSymbol=val;applyFilters();}}
+</script>
+</body></html>"""
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"HTML report → {filename}")
+
+
+# ============================================================================
+# ENTRY POINT
+# ============================================================================
 
 if __name__ == "__main__":
     main()
