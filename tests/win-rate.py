@@ -1,33 +1,38 @@
 """
-30-DAY BACKTEST SCANNER — Updated Signal Logic
-===============================================
-SIGNAL LOGIC (confirmed):
+30-DAY BACKTEST SCANNER — Final Signal Logic
+=============================================
+4-LAYER SIGNAL DETECTION:
 
-SETUP CANDLE (candle[-2] = previous closed candle):
+LAYER 1 — Sideways filter (last 20 candles):
+  max(MA44) - min(MA44) > 0.2% of current price
+  Rejects signals when market is consolidating/flat
+
+LAYER 2 — Cross confirmation (last 4 candles):
+  LONG : EMA9 crossed above MA44 within last 4 candles
+         AND EMA26 crossed above MA44 within last 4 candles
+  SHORT: EMA9 crossed below MA44 within last 4 candles
+         AND EMA26 crossed below MA44 within last 4 candles
+  (each cross checked independently, looser interpretation)
+
+LAYER 3 — Setup candle (candle[-2], previous closed candle):
   LONG:
-    1. RSI between 45.1 - 85
+    1. RSI 45.1–85
     2. EMA9 > EMA26
     3. EMA9 > MA44  AND  EMA26 > MA44
-    4. Candle is bullish (close > open)
-    5. Close > EMA9, EMA26, and MA44
+    4. Bullish candle (close > open)
+    5. Close > EMA9, EMA26, MA44
 
   SHORT:
-    1. RSI between 10 - 45
+    1. RSI 10–45
     2. EMA9 < EMA26
     3. EMA9 < MA44  AND  EMA26 < MA44
-    4. Candle is bearish (close < open)
-    5. Close < EMA9, EMA26, and MA44
+    4. Bearish candle (close < open)
+    5. Close < EMA9, EMA26, MA44
 
-TRIGGER CANDLE (candle[-1] = current candle, fires at open):
-  LONG:
-    1. MA44(setup candle) > MA44(candle before setup)  → slope up
-    2. Open of current candle > Open of setup candle
-    Entry = Open of current candle
-
-  SHORT:
-    1. MA44(setup candle) < MA44(candle before setup)  → slope down
-    2. Open of current candle < Open of setup candle
-    Entry = Open of current candle
+LAYER 4 — Trigger candle (candle[-1], fires at open):
+  LONG : MA44(setup) > MA44(candle before setup)  AND  open > setup open
+  SHORT: MA44(setup) < MA44(candle before setup)  AND  open < setup open
+  Entry = open of trigger candle
 
 SL/TP:
   LONG  : SL = entry * 0.995,  TP = entry * 1.015
@@ -36,9 +41,10 @@ SL/TP:
 
 import requests
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import sys
 import time
+
 
 # ============================================================================
 # STRATEGY PARAMETERS
@@ -54,6 +60,10 @@ RSI_SHORT_MIN = 10
 RSI_SHORT_MAX = 45
 SL_PERCENT    = 0.5
 TP_PERCENT    = 1.5
+
+SIDEWAYS_LOOKBACK  = 20     # candles to check for flat MA44
+SIDEWAYS_THRESHOLD = 0.002  # 0.2% of price — MA44 must move more than this
+CROSS_LOOKBACK     = 4      # candles to look back for EMA/MA44 cross
 
 SYMBOLS = [
     'BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT',
@@ -94,52 +104,181 @@ def calculate_sma(closes, period):
     return sum(closes[-period:]) / period
 
 # ============================================================================
-# SETUP CANDLE CONDITIONS
+# LAYER 1 — SIDEWAYS FILTER
+# ============================================================================
+
+def is_trending(closes):
+    """
+    Returns True if MA44 has moved more than 0.2% of current price
+    over the last SIDEWAYS_LOOKBACK candles.
+    Rejects sideways/flat markets.
+    """
+    if len(closes) < MA_PERIOD + SIDEWAYS_LOOKBACK:
+        return False
+
+    # Compute MA44 at each of the last SIDEWAYS_LOOKBACK candle positions
+    ma44_values = []
+    for k in range(SIDEWAYS_LOOKBACK, 0, -1):
+        # closes[:-k] gives closes up to SIDEWAYS_LOOKBACK candles ago
+        ma44_values.append(calculate_sma(closes[:-k], MA_PERIOD))
+
+    # Also include current MA44
+    ma44_values.append(calculate_sma(closes, MA_PERIOD))
+
+    ma44_max   = max(ma44_values)
+    ma44_min   = min(ma44_values)
+    ma44_range = ma44_max - ma44_min
+
+    current_price = closes[-1]
+    threshold     = current_price * SIDEWAYS_THRESHOLD
+
+    return ma44_range > threshold
+
+
+# ============================================================================
+# LAYER 2 — CROSS CONFIRMATION (last 4 candles)
+# ============================================================================
+
+def had_cross_above_ma44(closes):
+    """
+    Returns True if BOTH EMA9 AND EMA26 each individually crossed
+    above MA44 within the last CROSS_LOOKBACK candles.
+
+    For each EMA independently:
+      Find any candle k in last 4 where EMA(k-1) <= MA44(k-1)
+      and EMA(k) > MA44(k)  → that's a cross above.
+    """
+    if len(closes) < MA_PERIOD + CROSS_LOOKBACK + 2:
+        return False
+
+    ema9_crossed  = False
+    ema26_crossed = False
+
+    for k in range(1, CROSS_LOOKBACK + 1):
+        # k=1 → most recent candle, k=4 → 4 candles ago
+        closes_now  = closes[:-k + 1] if k > 1 else closes
+        closes_prev = closes[:-k]
+
+        if len(closes_now) < MA_PERIOD or len(closes_prev) < MA_PERIOD:
+            continue
+
+        ema9_now   = calculate_ema(closes_now,  EMA_SHORT)
+        ema9_prev  = calculate_ema(closes_prev, EMA_SHORT)
+        ema26_now  = calculate_ema(closes_now,  EMA_LONG)
+        ema26_prev = calculate_ema(closes_prev, EMA_LONG)
+        ma44_now   = calculate_sma(closes_now,  MA_PERIOD)
+        ma44_prev  = calculate_sma(closes_prev, MA_PERIOD)
+
+        if not ema9_crossed and (ema9_prev <= ma44_prev) and (ema9_now > ma44_now):
+            ema9_crossed = True
+
+        if not ema26_crossed and (ema26_prev <= ma44_prev) and (ema26_now > ma44_now):
+            ema26_crossed = True
+
+        if ema9_crossed and ema26_crossed:
+            return True
+
+    return ema9_crossed and ema26_crossed
+
+
+def had_cross_below_ma44(closes):
+    """
+    Returns True if BOTH EMA9 AND EMA26 each individually crossed
+    below MA44 within the last CROSS_LOOKBACK candles.
+    """
+    if len(closes) < MA_PERIOD + CROSS_LOOKBACK + 2:
+        return False
+
+    ema9_crossed  = False
+    ema26_crossed = False
+
+    for k in range(1, CROSS_LOOKBACK + 1):
+        closes_now  = closes[:-k + 1] if k > 1 else closes
+        closes_prev = closes[:-k]
+
+        if len(closes_now) < MA_PERIOD or len(closes_prev) < MA_PERIOD:
+            continue
+
+        ema9_now   = calculate_ema(closes_now,  EMA_SHORT)
+        ema9_prev  = calculate_ema(closes_prev, EMA_SHORT)
+        ema26_now  = calculate_ema(closes_now,  EMA_LONG)
+        ema26_prev = calculate_ema(closes_prev, EMA_LONG)
+        ma44_now   = calculate_sma(closes_now,  MA_PERIOD)
+        ma44_prev  = calculate_sma(closes_prev, MA_PERIOD)
+
+        if not ema9_crossed and (ema9_prev >= ma44_prev) and (ema9_now < ma44_now):
+            ema9_crossed = True
+
+        if not ema26_crossed and (ema26_prev >= ma44_prev) and (ema26_now < ma44_now):
+            ema26_crossed = True
+
+        if ema9_crossed and ema26_crossed:
+            return True
+
+    return ema9_crossed and ema26_crossed
+
+
+# ============================================================================
+# LAYER 3 — SETUP CANDLE
 # ============================================================================
 
 def check_setup_candle(closes, opens):
     """
     Evaluate all 5 setup conditions on the LAST candle in closes/opens.
-    Uses closes[-2] as the candle before setup for MA44 slope pre-calculation.
+    Also runs Layer 1 (sideways filter) and Layer 2 (cross confirmation).
 
-    Returns:
-        'LONG'  if all 5 long conditions pass
-        'SHORT' if all 5 short conditions pass
-        None    if neither
+    Returns 'LONG', 'SHORT', or None.
     """
-    if len(closes) < MA_PERIOD + 5:
+    if len(closes) < MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + 5:
         return None
 
-    # Setup candle values
+    # ── Layer 1: Sideways filter ──────────────────────────────────────────────
+    if not is_trending(closes):
+        return None
+
     setup_close = closes[-1]
     setup_open  = opens[-1]
 
-    rsi  = calculate_rsi(closes, RSI_PERIOD)
-    ema9 = calculate_ema(closes, EMA_SHORT)
-    ema26= calculate_ema(closes, EMA_LONG)
-    ma44 = calculate_sma(closes, MA_PERIOD)
+    rsi   = calculate_rsi(closes, RSI_PERIOD)
+    ema9  = calculate_ema(closes, EMA_SHORT)
+    ema26 = calculate_ema(closes, EMA_LONG)
+    ma44  = calculate_sma(closes, MA_PERIOD)
 
-    # ── LONG setup conditions ─────────────────────────────────────────────────
-    long_1_rsi     = RSI_LONG_MIN <= rsi <= RSI_LONG_MAX   # RSI 45.1–85
-    long_2_ema     = ema9 > ema26                           # EMA9 above EMA26
-    long_3_mas     = (ema9 > ma44) and (ema26 > ma44)      # both above MA44
-    long_4_candle  = setup_close > setup_open               # bullish candle
-    long_5_close   = (setup_close > ema9 and               # close above all 3
-                      setup_close > ema26 and
-                      setup_close > ma44)
+    # ── LONG setup ────────────────────────────────────────────────────────────
 
-    long_setup = long_1_rsi and long_2_ema and long_3_mas and long_4_candle and long_5_close
+    # Layer 2: cross confirmation
+    long_cross = had_cross_above_ma44(closes)
 
-    # ── SHORT setup conditions ────────────────────────────────────────────────
-    short_1_rsi    = RSI_SHORT_MIN <= rsi <= RSI_SHORT_MAX  # RSI 10–45
-    short_2_ema    = ema9 < ema26                           # EMA9 below EMA26
-    short_3_mas    = (ema9 < ma44) and (ema26 < ma44)      # both below MA44
-    short_4_candle = setup_close < setup_open               # bearish candle
-    short_5_close  = (setup_close < ema9 and               # close below all 3
+    # Layer 3: setup candle conditions
+    long_1_rsi    = RSI_LONG_MIN <= rsi <= RSI_LONG_MAX
+    long_2_ema    = ema9 > ema26
+    long_3_mas    = (ema9 > ma44) and (ema26 > ma44)
+    long_4_candle = setup_close > setup_open
+    long_5_close  = (setup_close > ema9 and
+                     setup_close > ema26 and
+                     setup_close > ma44)
+
+    long_setup = (long_cross and
+                  long_1_rsi and long_2_ema and long_3_mas and
+                  long_4_candle and long_5_close)
+
+    # ── SHORT setup ───────────────────────────────────────────────────────────
+
+    # Layer 2: cross confirmation
+    short_cross = had_cross_below_ma44(closes)
+
+    # Layer 3: setup candle conditions
+    short_1_rsi    = RSI_SHORT_MIN <= rsi <= RSI_SHORT_MAX
+    short_2_ema    = ema9 < ema26
+    short_3_mas    = (ema9 < ma44) and (ema26 < ma44)
+    short_4_candle = setup_close < setup_open
+    short_5_close  = (setup_close < ema9 and
                       setup_close < ema26 and
                       setup_close < ma44)
 
-    short_setup = short_1_rsi and short_2_ema and short_3_mas and short_4_candle and short_5_close
+    short_setup = (short_cross and
+                   short_1_rsi and short_2_ema and short_3_mas and
+                   short_4_candle and short_5_close)
 
     if long_setup:
         return 'LONG'
@@ -147,47 +286,41 @@ def check_setup_candle(closes, opens):
         return 'SHORT'
     return None
 
+
 # ============================================================================
-# TRIGGER CANDLE CONDITIONS
+# LAYER 4 — TRIGGER CANDLE
 # ============================================================================
 
-def check_trigger_candle(closes_up_to_trigger, opens_up_to_trigger, pending_direction):
+def check_trigger_candle(closes, opens, pending_direction):
     """
-    Evaluate the 2 trigger conditions on the CURRENT candle.
+    Evaluate 2 trigger conditions on the current (last) candle.
 
-    closes_up_to_trigger : all closes including the trigger candle
-    opens_up_to_trigger  : all opens including the trigger candle
-
-    candle layout:
-        [-3] = candle before setup  (used for MA44 slope)
-        [-2] = setup candle
-        [-1] = trigger candle  (current)
+    Layout:
+      closes[-3] = candle before setup  (MA44 slope reference)
+      closes[-2] = setup candle
+      closes[-1] = trigger candle
 
     Returns entry price if triggered, else None.
     """
-    if len(closes_up_to_trigger) < MA_PERIOD + 5:
+    if len(closes) < MA_PERIOD + 5:
         return None
 
-    # MA44 of setup candle vs candle before setup → slope
-    ma44_setup      = calculate_sma(closes_up_to_trigger[:-1], MA_PERIOD)   # setup = [-2]
-    ma44_before     = calculate_sma(closes_up_to_trigger[:-2], MA_PERIOD)   # before setup = [-3]
+    ma44_setup  = calculate_sma(closes[:-1], MA_PERIOD)   # setup candle
+    ma44_before = calculate_sma(closes[:-2], MA_PERIOD)   # candle before setup
 
-    trigger_open    = opens_up_to_trigger[-1]   # current candle open = entry
-    setup_open      = opens_up_to_trigger[-2]   # setup candle open
+    trigger_open = opens[-1]
+    setup_open   = opens[-2]
 
     if pending_direction == 'LONG':
-        slope_ok   = ma44_setup > ma44_before          # MA44 sloping up
-        open_ok    = trigger_open > setup_open         # current open > setup open
-        if slope_ok and open_ok:
-            return trigger_open                        # entry price
+        if (ma44_setup > ma44_before) and (trigger_open > setup_open):
+            return trigger_open
 
     elif pending_direction == 'SHORT':
-        slope_ok   = ma44_setup < ma44_before          # MA44 sloping down
-        open_ok    = trigger_open < setup_open         # current open < setup open
-        if slope_ok and open_ok:
-            return trigger_open                        # entry price
+        if (ma44_setup < ma44_before) and (trigger_open < setup_open):
+            return trigger_open
 
     return None
+
 
 # ============================================================================
 # OUTCOME CHECKER
@@ -195,8 +328,8 @@ def check_trigger_candle(closes_up_to_trigger, opens_up_to_trigger, pending_dire
 
 def check_trade_outcome(signal_time_ms, entry, sl, tp, signal_type, symbol):
     """
-    Check if TP or SL was hit within 48 hours after the trigger candle opens.
-    Starts checking from the trigger candle itself (entry is at its open).
+    Check if TP or SL was hit within 48 hours after entry.
+    Entry is at the open of the trigger candle.
     """
     try:
         start_ts = signal_time_ms
@@ -225,21 +358,14 @@ def check_trade_outcome(signal_time_ms, entry, sl, tp, signal_type, symbol):
             high = float(candle[2])
             low  = float(candle[3])
 
-            # For the first candle (trigger candle), use close as effective low/high
-            # since entry is at open — price can only move from open onward
+            # First candle: entry is at open, so only count movement from open onward
             if idx == 0:
-                open_price = float(candle[1])
                 if signal_type == 'LONG':
-                    # Can only go down to close or up to high from open
-                    effective_low  = min(open_price, float(candle[4]))
-                    effective_high = high
-                    low  = effective_low
-                    high = effective_high
+                    low  = min(float(candle[1]), float(candle[4]))
+                    high = float(candle[2])
                 else:
-                    effective_high = max(open_price, float(candle[4]))
-                    effective_low  = low
-                    high = effective_high
-                    low  = effective_low
+                    high = max(float(candle[1]), float(candle[4]))
+                    low  = float(candle[3])
 
             if signal_type == 'LONG':
                 if low  <= sl: return 'LOSS'
@@ -253,19 +379,22 @@ def check_trade_outcome(signal_time_ms, entry, sl, tp, signal_type, symbol):
     except Exception:
         return 'UNKNOWN'
 
+
 # ============================================================================
 # SYMBOL SCANNER
 # ============================================================================
 
 def scan_symbol(symbol, start_ts, end_ts):
     """
-    Fetch candles and scan for signals using the 2-step logic.
-    Returns list of signal dicts, or None on fetch error.
+    Fetch candles and run 4-layer signal detection.
+    Returns list of signal dicts, or None on error.
     """
-    warmup_ms     = 110 * 15 * 60 * 1000   # 110 candles warmup for indicators
-    fetch_start   = start_ts - warmup_ms
-    all_candles   = []
-    current_start = fetch_start
+    # Extra warmup: MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + buffer
+    warmup_candles = MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + 20
+    warmup_ms      = warmup_candles * 15 * 60 * 1000
+    fetch_start    = start_ts - warmup_ms
+    all_candles    = []
+    current_start  = fetch_start
 
     while current_start < end_ts:
         try:
@@ -295,28 +424,27 @@ def scan_symbol(symbol, start_ts, end_ts):
         if len(batch) < 1000:
             break
 
-    if len(all_candles) < MA_PERIOD + 10:
+    min_candles = MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + 10
+    if len(all_candles) < min_candles:
         return None
 
     closes_all = [float(c[4]) for c in all_candles]
     opens_all  = [float(c[1]) for c in all_candles]
     times_all  = [int(c[0])   for c in all_candles]
 
-    signals          = []
-    pending_direction = None   # 'LONG' or 'SHORT' — set when setup candle passes
-    pending_setup_i   = None   # index of the setup candle
+    signals           = []
+    pending_direction = None
+    pending_setup_i   = None
+    last_signal_ts    = 0
     COOLDOWN_MS       = 5 * 60 * 1000
 
-    last_signal_ts = 0
+    start_i = MA_PERIOD + SIDEWAYS_LOOKBACK + CROSS_LOOKBACK + 5
 
-    # Need at least MA_PERIOD + 5 candles before we can evaluate setup
-    # and one more for the trigger → start at MA_PERIOD + 5
-    for i in range(MA_PERIOD + 5, len(all_candles)):
+    for i in range(start_i, len(all_candles)):
         candle_ts = times_all[i]
         in_window = (start_ts <= candle_ts <= end_ts)
 
         # ── CHECK A: Trigger candle ───────────────────────────────────────────
-        # If a setup is pending, check whether THIS candle triggers the signal
         if pending_direction is not None:
             entry = check_trigger_candle(
                 closes_all[:i + 1],
@@ -337,30 +465,29 @@ def scan_symbol(symbol, start_ts, end_ts):
                         candle_ts, entry, sl, tp, pending_direction, symbol
                     )
 
+                    si = pending_setup_i
                     signals.append({
                         'symbol':     symbol,
                         'type':       pending_direction,
-                        'setup_ts':   times_all[pending_setup_i],
+                        'setup_ts':   times_all[si],
                         'trigger_ts': candle_ts,
-                        'time_str':   datetime.utcfromtimestamp(candle_ts / 1000)
-                                          .strftime('%Y-%m-%d %H:%M UTC'),
+                        'time_str': datetime.fromtimestamp(candle_ts / 1000, tz=timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
                         'entry':      entry,
                         'sl':         sl,
                         'tp':         tp,
-                        'rsi':        calculate_rsi(closes_all[:pending_setup_i + 1], RSI_PERIOD),
-                        'ema9':       calculate_ema(closes_all[:pending_setup_i + 1], EMA_SHORT),
-                        'ema26':      calculate_ema(closes_all[:pending_setup_i + 1], EMA_LONG),
-                        'ma44':       calculate_sma(closes_all[:pending_setup_i + 1], MA_PERIOD),
+                        'rsi':        calculate_rsi(closes_all[:si + 1], RSI_PERIOD),
+                        'ema9':       calculate_ema(closes_all[:si + 1], EMA_SHORT),
+                        'ema26':      calculate_ema(closes_all[:si + 1], EMA_LONG),
+                        'ma44':       calculate_sma(closes_all[:si + 1], MA_PERIOD),
                         'outcome':    outcome,
                     })
                     last_signal_ts = candle_ts
 
-            # Either triggered or not — setup is consumed (option A: discard if not triggered)
+            # Option A: always discard setup after one trigger attempt
             pending_direction = None
             pending_setup_i   = None
 
         # ── CHECK B: Setup candle ─────────────────────────────────────────────
-        # Check if THIS candle qualifies as a setup candle
         direction = check_setup_candle(
             closes_all[:i + 1],
             opens_all[:i + 1]
@@ -371,6 +498,7 @@ def scan_symbol(symbol, start_ts, end_ts):
             pending_setup_i   = i
 
     return signals
+
 
 # ============================================================================
 # MAIN
@@ -385,21 +513,17 @@ def main():
     start_ts = int(start_dt.timestamp() * 1000)
 
     terminal.write("\n" + "=" * 70 + "\n")
-    terminal.write("30-DAY BACKTEST — Updated Signal Logic\n")
+    terminal.write("30-DAY BACKTEST — Final Signal Logic (4 Layers)\n")
     terminal.write("=" * 70 + "\n")
-    terminal.write(f"Period  : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC\n")
-    terminal.write(f"Symbols : {len(SYMBOLS)}\n")
-    terminal.write("=" * 70 + "\n\n")
-    terminal.write("SETUP CANDLE  : RSI range + EMA9 vs EMA26 position + both EMAs vs MA44\n")
-    terminal.write("              + bullish/bearish candle + close above/below all 3 MAs\n")
-    terminal.write("TRIGGER CANDLE: MA44 slope confirmed + current open > setup open (LONG)\n")
-    terminal.write("              :                      + current open < setup open (SHORT)\n")
-    terminal.write("ENTRY         : Open of trigger candle\n")
+    terminal.write(f"Period     : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC\n")
+    terminal.write(f"Symbols    : {len(SYMBOLS)}\n")
+    terminal.write(f"Sideways   : MA44 range > {SIDEWAYS_THRESHOLD*100:.1f}% over {SIDEWAYS_LOOKBACK} candles\n")
+    terminal.write(f"Cross check: Both EMA9 & EMA26 crossed MA44 within last {CROSS_LOOKBACK} candles\n")
     terminal.write("=" * 70 + "\n\n")
 
-    all_signals   = []
-    symbols_ok    = 0
-    symbols_err   = 0
+    all_signals = []
+    symbols_ok  = 0
+    symbols_err = 0
 
     for idx, symbol in enumerate(SYMBOLS, 1):
         terminal.write(f"[{idx:>2}/{len(SYMBOLS)}] {symbol:<14} scanning... ")
@@ -433,39 +557,38 @@ def main():
             print(*args, **kwargs, file=f)
 
         p("=" * 80)
-        p("30-DAY BACKTEST REPORT — Updated Signal Logic")
+        p("30-DAY BACKTEST REPORT — Final Signal Logic")
         p("=" * 80)
         p(f"Period    : {start_dt.strftime('%Y-%m-%d')} to {end_dt.strftime('%Y-%m-%d')} UTC")
         p(f"Generated : {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
         p(f"Symbols   : {symbols_ok} scanned  |  {symbols_err} errors")
         p()
-        p("LOGIC SUMMARY:")
-        p("  SETUP candle (previous closed candle):")
-        p("    LONG : RSI 45.1-85 | EMA9>EMA26 | both EMAs>MA44 | bullish | close>all 3 MAs")
-        p("    SHORT: RSI 10-45   | EMA9<EMA26 | both EMAs<MA44 | bearish | close<all 3 MAs")
-        p("  TRIGGER candle (current candle, fires at open):")
-        p("    LONG : MA44(setup) > MA44(before setup)  AND  open > setup candle open")
-        p("    SHORT: MA44(setup) < MA44(before setup)  AND  open < setup candle open")
+        p("SIGNAL LOGIC (4 LAYERS):")
+        p(f"  Layer 1 — Sideways filter  : MA44 range > {SIDEWAYS_THRESHOLD*100:.1f}% over {SIDEWAYS_LOOKBACK} candles")
+        p(f"  Layer 2 — Cross confirm    : EMA9 & EMA26 each crossed MA44 within last {CROSS_LOOKBACK} candles")
+        p("  Layer 3 — Setup candle     : RSI + EMA positions + bullish/bearish + close above/below all 3 MAs")
+        p("  Layer 4 — Trigger candle   : MA44 slope + current open vs setup open")
         p("  Entry = open of trigger candle")
-        p("  SL/TP from entry: LONG SL=-0.5% TP=+1.5% | SHORT SL=+0.5% TP=-1.5%")
+        p("  SL/TP: LONG SL=-0.5% TP=+1.5%  |  SHORT SL=+0.5% TP=-1.5%")
         p("=" * 80)
         p()
 
-        total  = len(all_signals)
-        wins   = sum(1 for s in all_signals if s['outcome'] == 'WIN')
-        losses = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
-        longs  = sum(1 for s in all_signals if s['type'] == 'LONG')
-        shorts = sum(1 for s in all_signals if s['type'] == 'SHORT')
-        ongoing= sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
-        unknown= sum(1 for s in all_signals if s['outcome'] == 'UNKNOWN')
+        total   = len(all_signals)
+        wins    = sum(1 for s in all_signals if s['outcome'] == 'WIN')
+        losses  = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
+        longs   = sum(1 for s in all_signals if s['type'] == 'LONG')
+        shorts  = sum(1 for s in all_signals if s['type'] == 'SHORT')
+        ongoing = sum(1 for s in all_signals if s['outcome'] == 'ONGOING')
+        unknown = sum(1 for s in all_signals if s['outcome'] == 'UNKNOWN')
 
         if total == 0:
             p("NO SIGNALS found in the past 30 days.")
             p()
             p("Possible reasons:")
-            p("  - Condition 5 (close above/below ALL 3 MAs) is quite strict")
-            p("  - MA44 slope requires confirmed directional move")
-            p("  - Open price gap condition filters out flat opens")
+            p(f"  - MA44 was flat on most symbols (threshold: {SIDEWAYS_THRESHOLD*100:.1f}% over {SIDEWAYS_LOOKBACK} candles)")
+            p(f"  - EMA9/EMA26 cross of MA44 did not occur within {CROSS_LOOKBACK} candles of setup")
+            p("  - Setup candle conditions (RSI, close above MAs) did not align")
+            p("  - Trigger candle open gap condition was not met")
         else:
             p(f"TOTAL SIGNALS : {total}  (LONG: {longs}  SHORT: {shorts})")
             p()
@@ -475,17 +598,15 @@ def main():
                           'ONGOING': 'OPEN', 'UNKNOWN': '????'}.get(sig['outcome'], '????')
                 setup_time = datetime.utcfromtimestamp(sig['setup_ts'] / 1000)\
                                  .strftime('%Y-%m-%d %H:%M UTC')
-
                 p("-" * 80)
                 p(f"  [{status}]  {sig['type']:<6}  {sig['symbol']:<14}  {sig['time_str']}")
-                p(f"  Setup  : {setup_time}")
-                p(f"  Entry  : ${sig['entry']:.4f}  "
+                p(f"  Setup    : {setup_time}")
+                p(f"  Entry    : ${sig['entry']:.4f}  "
                   f"SL: ${sig['sl']:.4f}  TP: ${sig['tp']:.4f}")
                 p(f"  RSI={sig['rsi']:.1f}  EMA9={sig['ema9']:.4f}  "
                   f"EMA26={sig['ema26']:.4f}  MA44={sig['ma44']:.4f}")
             p()
 
-            # ── Summary ───────────────────────────────────────────────────────
             p("=" * 80)
             p("PERFORMANCE SUMMARY")
             p("=" * 80)
@@ -505,8 +626,7 @@ def main():
                 p(f"  Win rate      : {win_rate:.1f}%  ({wins}/{closed} closed trades)")
                 p(f"  Expectancy    : {expectancy:+.3f}% per trade")
                 p(f"  Total PnL     : {total_pnl:+.2f}%  (equal-size positions)")
-                p(f"  R/R ratio     : 1:{TP_PERCENT/SL_PERCENT:.0f}  "
-                  f"(SL {SL_PERCENT}%  /  TP {TP_PERCENT}%)")
+                p(f"  R/R ratio     : 1:{TP_PERCENT/SL_PERCENT:.0f}")
                 p()
 
                 if win_rate >= 60:
@@ -523,7 +643,6 @@ def main():
                 p(f"  Verdict       : {verdict}")
                 p()
 
-                # Per-symbol breakdown
                 p("=" * 80)
                 p("PER-SYMBOL BREAKDOWN")
                 p("=" * 80)
@@ -531,13 +650,13 @@ def main():
                   f"{'Win':>5} {'Loss':>5} {'Open':>5} {'WinRate':>8}")
                 p("  " + "-" * 60)
                 for sym in sorted(set(s['symbol'] for s in all_signals)):
-                    ss   = [s for s in all_signals if s['symbol'] == sym]
-                    sw   = sum(1 for s in ss if s['outcome'] == 'WIN')
-                    sl_  = sum(1 for s in ss if s['outcome'] == 'LOSS')
-                    so   = sum(1 for s in ss if s['outcome'] == 'ONGOING')
-                    lo   = sum(1 for s in ss if s['type'] == 'LONG')
-                    sh   = sum(1 for s in ss if s['type'] == 'SHORT')
-                    wr   = f"{sw/(sw+sl_)*100:.0f}%" if sw + sl_ > 0 else "n/a"
+                    ss  = [s for s in all_signals if s['symbol'] == sym]
+                    sw  = sum(1 for s in ss if s['outcome'] == 'WIN')
+                    sl_ = sum(1 for s in ss if s['outcome'] == 'LOSS')
+                    so  = sum(1 for s in ss if s['outcome'] == 'ONGOING')
+                    lo  = sum(1 for s in ss if s['type'] == 'LONG')
+                    sh  = sum(1 for s in ss if s['type'] == 'SHORT')
+                    wr  = f"{sw/(sw+sl_)*100:.0f}%" if sw + sl_ > 0 else "n/a"
                     p(f"  {sym:<14} {len(ss):>5} {lo:>5} {sh:>6} "
                       f"{sw:>5} {sl_:>5} {so:>5} {wr:>8}")
             else:
@@ -551,20 +670,19 @@ def main():
         p("  LOSS    : SL hit before TP within 48-hour window")
         p("  ONGOING : Neither hit within 48 hours")
         p("  UNKNOWN : Data unavailable")
-        p()
-        p("  Entry = open of trigger candle.")
-        p("  Outcome checked from trigger candle open onward.")
+        p("  Entry   : Open of trigger candle")
+        p("  Outcome : Checked from trigger candle open onward")
         p("=" * 80)
 
-    wins_final   = sum(1 for s in all_signals if s['outcome'] == 'WIN')
-    losses_final = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
-    closed_final = wins_final + losses_final
+    wins_f   = sum(1 for s in all_signals if s['outcome'] == 'WIN')
+    losses_f = sum(1 for s in all_signals if s['outcome'] == 'LOSS')
+    closed_f = wins_f + losses_f
 
     terminal.write(f"\nDone. Report → signal_analysis_report_new.txt\n")
-    terminal.write(f"Signals: {len(all_signals)}  |  "
-                   f"Wins: {wins_final}  Losses: {losses_final}  "
-                   + (f"Win rate: {wins_final/closed_final*100:.1f}%"
-                      if closed_final > 0 else "No closed trades") + "\n")
+    terminal.write(
+        f"Signals: {len(all_signals)}  |  Wins: {wins_f}  Losses: {losses_f}  " +
+        (f"Win rate: {wins_f/closed_f*100:.1f}%" if closed_f > 0 else "No closed trades") + "\n"
+    )
 
 
 if __name__ == "__main__":
