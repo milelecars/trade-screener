@@ -1,0 +1,672 @@
+================================================================================
+BTC/USDT -- BACKTEST REPORT  (Logic No. 2b -- MA44 Bounce, dist 0.75%)
+15-minute candles  |  Binance  |  No RSI  |  No Crossovers
+Generated : 2026-03-03 10:32:31 UTC
+SL: -0.5%  |  TP: +1.5%  |  R/R 1:3  |  Cooldown: 4h
+
+PARAMETERS:
+  MA44 slope         : 4 candles  |  continuously decreasing/increasing (no magnitude req)
+  Min candle wick    : 0.35%  (high to low)
+  Max dist from MA44 : 0.75%  (closest body edge to MA44)
+  Sloppiness         : NONE  (body must be strictly below/above MA44)
+
+SIGNAL LOGIC (TWO-STEP):
+  Step 1 Setup  -- SHORT: bearish candle | MA44 falling every candle for 4 | body strictly below MA44
+                          body top within 0.75% of MA44 | wick >= 0.35%
+                   LONG: bullish candle | MA44 rising every candle for 4  | body strictly above MA44
+                          body bottom within 0.75% of MA44 | wick >= 0.35%
+  Step 2 Entry  -- open of the next candle after the validation candle closes
+================================================================================
+
+################################################################################
+  PERIOD 1  --  Period 1 -- BTC/USDT  |  27 Jan 2026 -> 26 Feb 2026
+  27 Jan 2026 -> 26 Feb 2026  (30 days)
+################################################################################
+
+  SUMMARY
+--------------------------------------------------------------------------------
+  Total signals   : 88  (Long: 41  Short: 47)
+  Wins            : 25
+  Losses          : 63
+  Ongoing (<48h)  : 0
+  Unknown         : 0
+
+  Win rate        : 28.4%  (25/88 closed)
+  Expectancy      : +0.068% per trade
+  Total PnL       : +6.00%  (equal-size positions)
+  Verdict         : WEAK       (25-40%)
+--------------------------------------------------------------------------------
+
+  SIGNALS
+--------------------------------------------------------------------------------
+
+  Signal #1    [LOSS]  LONG    Entry: 2026-01-27 04:15 UTC
+  Setup candle  : 2026-01-27 04:00 UTC  open=88787.99  close=88822.31  wick=0.36%  dist_from_MA44=0.614%
+  MA44          : 88246.27
+  Entry         : $88822.31
+  Stop Loss     : $88378.20  (-0.5%)
+  Take Profit   : $90154.64  (+1.5%)
+
+  Signal #2    [LOSS]  SHORT   Entry: 2026-01-27 15:30 UTC
+  Setup candle  : 2026-01-27 15:15 UTC  open=87981.87  close=87630.10  wick=0.45%  dist_from_MA44=0.183%
+  MA44          : 88142.87
+  Entry         : $87630.09
+  Stop Loss     : $88068.24  (+0.5%)
+  Take Profit   : $86315.64  (-1.5%)
+
+  Signal #3    [WIN ]  LONG    Entry: 2026-01-27 20:15 UTC
+  Setup candle  : 2026-01-27 20:00 UTC  open=88408.78  close=88739.13  wick=0.41%  dist_from_MA44=0.429%
+  MA44          : 88031.22
+  Entry         : $88739.14
+  Stop Loss     : $88295.44  (-0.5%)
+  Take Profit   : $90070.23  (+1.5%)
+
+  Signal #4    [LOSS]  LONG    Entry: 2026-01-28 11:45 UTC
+  Setup candle  : 2026-01-28 11:30 UTC  open=89456.89  close=89667.52  wick=0.35%  dist_from_MA44=0.280%
+  MA44          : 89207.27
+  Entry         : $89667.51
+  Stop Loss     : $89219.17  (-0.5%)
+  Take Profit   : $91012.52  (+1.5%)
+
+  Signal #5    [LOSS]  LONG    Entry: 2026-01-28 17:45 UTC
+  Setup candle  : 2026-01-28 17:30 UTC  open=89593.88  close=89857.68  wick=0.79%  dist_from_MA44=0.042%
+  MA44          : 89556.26
+  Entry         : $89857.68
+  Stop Loss     : $89408.39  (-0.5%)
+  Take Profit   : $91205.55  (+1.5%)
+
+  Signal #6    [WIN ]  SHORT   Entry: 2026-01-29 01:30 UTC
+  Setup candle  : 2026-01-29 01:15 UTC  open=89106.72  close=88831.59  wick=0.55%  dist_from_MA44=0.334%
+  MA44          : 89405.74
+  Entry         : $88831.50
+  Stop Loss     : $89275.66  (+0.5%)
+  Take Profit   : $87499.03  (-1.5%)
+
+  Signal #7    [LOSS]  SHORT   Entry: 2026-01-29 08:15 UTC
+  Setup candle  : 2026-01-29 08:00 UTC  open=88352.96  close=87950.01  wick=0.46%  dist_from_MA44=0.314%
+  MA44          : 88631.11
+  Entry         : $87950.01
+  Stop Loss     : $88389.76  (+0.5%)
+  Take Profit   : $86630.76  (-1.5%)
+
+  Signal #8    [WIN ]  SHORT   Entry: 2026-01-29 15:00 UTC
+  Setup candle  : 2026-01-29 14:45 UTC  open=87682.65  close=87014.40  wick=0.97%  dist_from_MA44=0.432%
+  MA44          : 88063.26
+  Entry         : $87014.40
+  Stop Loss     : $87449.47  (+0.5%)
+  Take Profit   : $85709.18  (-1.5%)
+
+  Signal #9    [WIN ]  SHORT   Entry: 2026-01-30 01:00 UTC
+  Setup candle  : 2026-01-30 00:45 UTC  open=84403.62  close=84192.00  wick=0.50%  dist_from_MA44=0.402%
+  MA44          : 84744.37
+  Entry         : $84192.00
+  Stop Loss     : $84612.96  (+0.5%)
+  Take Profit   : $82929.12  (-1.5%)
+
+  Signal #10   [LOSS]  SHORT   Entry: 2026-01-30 07:30 UTC
+  Setup candle  : 2026-01-30 07:15 UTC  open=82946.04  close=82669.63  wick=0.41%  dist_from_MA44=0.540%
+  MA44          : 83396.32
+  Entry         : $82669.63
+  Stop Loss     : $83082.98  (+0.5%)
+  Take Profit   : $81429.59  (-1.5%)
+
+  Signal #11   [LOSS]  LONG    Entry: 2026-01-30 14:45 UTC
+  Setup candle  : 2026-01-30 14:30 UTC  open=82979.99  close=83650.86  wick=1.05%  dist_from_MA44=0.240%
+  MA44          : 82781.57
+  Entry         : $83650.86
+  Stop Loss     : $83232.61  (-0.5%)
+  Take Profit   : $84905.62  (+1.5%)
+
+  Signal #12   [LOSS]  LONG    Entry: 2026-01-31 02:45 UTC
+  Setup candle  : 2026-01-31 02:30 UTC  open=83892.92  close=84138.66  wick=0.41%  dist_from_MA44=0.099%
+  MA44          : 83809.71
+  Entry         : $84138.67
+  Stop Loss     : $83717.98  (-0.5%)
+  Take Profit   : $85400.75  (+1.5%)
+
+  Signal #13   [WIN ]  SHORT   Entry: 2026-01-31 07:45 UTC
+  Setup candle  : 2026-01-31 07:30 UTC  open=83700.16  close=83482.07  wick=0.38%  dist_from_MA44=0.399%
+  MA44          : 84035.87
+  Entry         : $83482.07
+  Stop Loss     : $83899.48  (+0.5%)
+  Take Profit   : $82229.84  (-1.5%)
+
+  Signal #14   [WIN ]  SHORT   Entry: 2026-01-31 12:15 UTC
+  Setup candle  : 2026-01-31 12:00 UTC  open=83020.00  close=82842.66  wick=0.41%  dist_from_MA44=0.707%
+  MA44          : 83611.38
+  Entry         : $82842.66
+  Stop Loss     : $83256.87  (+0.5%)
+  Take Profit   : $81600.02  (-1.5%)
+
+  Signal #15   [LOSS]  SHORT   Entry: 2026-01-31 23:45 UTC
+  Setup candle  : 2026-01-31 23:30 UTC  open=78975.17  close=78839.36  wick=0.53%  dist_from_MA44=0.720%
+  MA44          : 79547.88
+  Entry         : $78839.36
+  Stop Loss     : $79233.56  (+0.5%)
+  Take Profit   : $77656.77  (-1.5%)
+
+  Signal #16   [LOSS]  LONG    Entry: 2026-02-01 10:00 UTC
+  Setup candle  : 2026-02-01 09:45 UTC  open=78867.00  close=79034.45  wick=0.49%  dist_from_MA44=0.185%
+  MA44          : 78721.09
+  Entry         : $79034.45
+  Stop Loss     : $78639.28  (-0.5%)
+  Take Profit   : $80219.97  (+1.5%)
+
+  Signal #17   [LOSS]  SHORT   Entry: 2026-02-01 14:30 UTC
+  Setup candle  : 2026-02-01 14:15 UTC  open=78188.31  close=77849.34  wick=0.51%  dist_from_MA44=0.547%
+  MA44          : 78618.28
+  Entry         : $77849.34
+  Stop Loss     : $78238.59  (+0.5%)
+  Take Profit   : $76681.60  (-1.5%)
+
+  Signal #18   [WIN ]  SHORT   Entry: 2026-02-01 19:15 UTC
+  Setup candle  : 2026-02-01 19:00 UTC  open=78029.29  close=77736.00  wick=0.47%  dist_from_MA44=0.214%
+  MA44          : 78196.32
+  Entry         : $77736.00
+  Stop Loss     : $78124.68  (+0.5%)
+  Take Profit   : $76569.96  (-1.5%)
+
+  Signal #19   [LOSS]  SHORT   Entry: 2026-02-01 23:15 UTC
+  Setup candle  : 2026-02-01 23:00 UTC  open=77249.31  close=76639.72  wick=2.12%  dist_from_MA44=0.480%
+  MA44          : 77621.68
+  Entry         : $76639.73
+  Stop Loss     : $77022.93  (+0.5%)
+  Take Profit   : $75490.13  (-1.5%)
+
+  Signal #20   [LOSS]  SHORT   Entry: 2026-02-02 07:15 UTC
+  Setup candle  : 2026-02-02 07:00 UTC  open=76549.32  close=76537.52  wick=0.63%  dist_from_MA44=0.124%
+  MA44          : 76644.57
+  Entry         : $76537.52
+  Stop Loss     : $76920.21  (+0.5%)
+  Take Profit   : $75389.46  (-1.5%)
+
+  Signal #21   [LOSS]  LONG    Entry: 2026-02-02 18:45 UTC
+  Setup candle  : 2026-02-02 18:30 UTC  open=78430.36  close=78578.87  wick=0.59%  dist_from_MA44=0.508%
+  MA44          : 78033.57
+  Entry         : $78578.86
+  Stop Loss     : $78185.97  (-0.5%)
+  Take Profit   : $79757.54  (+1.5%)
+
+  Signal #22   [LOSS]  LONG    Entry: 2026-02-02 23:45 UTC
+  Setup candle  : 2026-02-02 23:30 UTC  open=78620.73  close=78892.42  wick=0.46%  dist_from_MA44=0.131%
+  MA44          : 78517.93
+  Entry         : $78892.43
+  Stop Loss     : $78497.97  (-0.5%)
+  Take Profit   : $80075.82  (+1.5%)
+
+  Signal #23   [LOSS]  LONG    Entry: 2026-02-03 07:45 UTC
+  Setup candle  : 2026-02-03 07:30 UTC  open=78670.92  close=78839.99  wick=0.36%  dist_from_MA44=0.087%
+  MA44          : 78602.43
+  Entry         : $78839.99
+  Stop Loss     : $78445.79  (-0.5%)
+  Take Profit   : $80022.59  (+1.5%)
+
+  Signal #24   [LOSS]  SHORT   Entry: 2026-02-03 15:45 UTC
+  Setup candle  : 2026-02-03 15:30 UTC  open=77736.78  close=77480.00  wick=0.92%  dist_from_MA44=0.735%
+  MA44          : 78312.23
+  Entry         : $77480.00
+  Stop Loss     : $77867.40  (+0.5%)
+  Take Profit   : $76317.80  (-1.5%)
+
+  Signal #25   [LOSS]  SHORT   Entry: 2026-02-03 21:45 UTC
+  Setup candle  : 2026-02-03 21:30 UTC  open=76497.41  close=76368.51  wick=0.55%  dist_from_MA44=0.314%
+  MA44          : 76738.65
+  Entry         : $76368.52
+  Stop Loss     : $76750.36  (+0.5%)
+  Take Profit   : $75222.99  (-1.5%)
+
+  Signal #26   [LOSS]  LONG    Entry: 2026-02-04 06:15 UTC
+  Setup candle  : 2026-02-04 06:00 UTC  open=76280.00  close=76550.62  wick=0.42%  dist_from_MA44=0.206%
+  MA44          : 76123.41
+  Entry         : $76550.62
+  Stop Loss     : $76167.87  (-0.5%)
+  Take Profit   : $77698.88  (+1.5%)
+
+  Signal #27   [WIN ]  SHORT   Entry: 2026-02-04 13:30 UTC
+  Setup candle  : 2026-02-04 13:15 UTC  open=76112.00  close=75858.81  wick=0.50%  dist_from_MA44=0.271%
+  MA44          : 76318.58
+  Entry         : $75858.81
+  Stop Loss     : $76238.10  (+0.5%)
+  Take Profit   : $74720.93  (-1.5%)
+
+  Signal #28   [WIN ]  SHORT   Entry: 2026-02-05 00:00 UTC
+  Setup candle  : 2026-02-04 23:45 UTC  open=73383.50  close=73165.83  wick=0.51%  dist_from_MA44=0.502%
+  MA44          : 73753.82
+  Entry         : $73165.84
+  Stop Loss     : $73531.67  (+0.5%)
+  Take Profit   : $72068.35  (-1.5%)
+
+  Signal #29   [LOSS]  SHORT   Entry: 2026-02-05 08:45 UTC
+  Setup candle  : 2026-02-05 08:30 UTC  open=71344.76  close=71252.73  wick=0.44%  dist_from_MA44=0.737%
+  MA44          : 71874.29
+  Entry         : $71252.73
+  Stop Loss     : $71608.99  (+0.5%)
+  Take Profit   : $70183.94  (-1.5%)
+
+  Signal #30   [WIN ]  SHORT   Entry: 2026-02-05 15:00 UTC
+  Setup candle  : 2026-02-05 14:45 UTC  open=70435.25  close=69404.76  wick=2.10%  dist_from_MA44=0.324%
+  MA44          : 70663.88
+  Entry         : $69404.75
+  Stop Loss     : $69751.77  (+0.5%)
+  Take Profit   : $68363.68  (-1.5%)
+
+  Signal #31   [LOSS]  SHORT   Entry: 2026-02-06 02:30 UTC
+  Setup candle  : 2026-02-06 02:15 UTC  open=64856.88  close=64612.73  wick=1.43%  dist_from_MA44=0.223%
+  MA44          : 65001.67
+  Entry         : $64612.73
+  Stop Loss     : $64935.79  (+0.5%)
+  Take Profit   : $63643.54  (-1.5%)
+
+  Signal #32   [LOSS]  LONG    Entry: 2026-02-06 08:15 UTC
+  Setup candle  : 2026-02-06 08:00 UTC  open=64856.00  close=65108.90  wick=1.08%  dist_from_MA44=0.623%
+  MA44          : 64454.44
+  Entry         : $65108.90
+  Stop Loss     : $64783.36  (-0.5%)
+  Take Profit   : $66085.53  (+1.5%)
+
+  Signal #33   [WIN ]  LONG    Entry: 2026-02-07 02:00 UTC
+  Setup candle  : 2026-02-07 01:45 UTC  open=70287.55  close=70471.49  wick=0.58%  dist_from_MA44=0.232%
+  MA44          : 70124.80
+  Entry         : $70471.48
+  Stop Loss     : $70119.12  (-0.5%)
+  Take Profit   : $71528.55  (+1.5%)
+
+  Signal #34   [LOSS]  SHORT   Entry: 2026-02-07 13:00 UTC
+  Setup candle  : 2026-02-07 12:45 UTC  open=69157.33  close=69024.98  wick=0.73%  dist_from_MA44=0.191%
+  MA44          : 69289.96
+  Entry         : $69024.98
+  Stop Loss     : $69370.10  (+0.5%)
+  Take Profit   : $67989.61  (-1.5%)
+
+  Signal #35   [LOSS]  LONG    Entry: 2026-02-07 20:45 UTC
+  Setup candle  : 2026-02-07 20:30 UTC  open=69443.72  close=69547.10  wick=0.35%  dist_from_MA44=0.744%
+  MA44          : 68931.20
+  Entry         : $69547.10
+  Stop Loss     : $69199.36  (-0.5%)
+  Take Profit   : $70590.31  (+1.5%)
+
+  Signal #36   [LOSS]  LONG    Entry: 2026-02-08 02:15 UTC
+  Setup candle  : 2026-02-08 02:00 UTC  open=69379.57  close=69410.39  wick=0.37%  dist_from_MA44=0.098%
+  MA44          : 69311.36
+  Entry         : $69410.40
+  Stop Loss     : $69063.35  (-0.5%)
+  Take Profit   : $70451.56  (+1.5%)
+
+  Signal #37   [WIN ]  LONG    Entry: 2026-02-08 10:45 UTC
+  Setup candle  : 2026-02-08 10:30 UTC  open=70046.48  close=70234.67  wick=0.44%  dist_from_MA44=0.736%
+  MA44          : 69534.91
+  Entry         : $70234.67
+  Stop Loss     : $69883.50  (-0.5%)
+  Take Profit   : $71288.19  (+1.5%)
+
+  Signal #38   [LOSS]  LONG    Entry: 2026-02-08 18:15 UTC
+  Setup candle  : 2026-02-08 18:00 UTC  open=70786.00  close=70905.49  wick=0.35%  dist_from_MA44=0.130%
+  MA44          : 70693.98
+  Entry         : $70905.48
+  Stop Loss     : $70550.95  (-0.5%)
+  Take Profit   : $71969.06  (+1.5%)
+
+  Signal #39   [LOSS]  LONG    Entry: 2026-02-08 23:15 UTC
+  Setup candle  : 2026-02-08 23:00 UTC  open=71066.09  close=71366.00  wick=1.71%  dist_from_MA44=0.027%
+  MA44          : 71047.04
+  Entry         : $71366.00
+  Stop Loss     : $71009.17  (-0.5%)
+  Take Profit   : $72436.49  (+1.5%)
+
+  Signal #40   [LOSS]  LONG    Entry: 2026-02-09 04:30 UTC
+  Setup candle  : 2026-02-09 04:15 UTC  open=71035.55  close=71251.26  wick=0.35%  dist_from_MA44=0.267%
+  MA44          : 70846.25
+  Entry         : $71251.26
+  Stop Loss     : $70895.00  (-0.5%)
+  Take Profit   : $72320.03  (+1.5%)
+
+  Signal #41   [WIN ]  SHORT   Entry: 2026-02-09 08:30 UTC
+  Setup candle  : 2026-02-09 08:15 UTC  open=70532.48  close=70087.20  wick=0.70%  dist_from_MA44=0.259%
+  MA44          : 70715.69
+  Entry         : $70087.20
+  Stop Loss     : $70437.64  (+0.5%)
+  Take Profit   : $69035.89  (-1.5%)
+
+  Signal #42   [LOSS]  SHORT   Entry: 2026-02-09 15:30 UTC
+  Setup candle  : 2026-02-09 15:15 UTC  open=69483.18  close=68921.04  wick=1.28%  dist_from_MA44=0.370%
+  MA44          : 69741.56
+  Entry         : $68921.05
+  Stop Loss     : $69265.66  (+0.5%)
+  Take Profit   : $67887.23  (-1.5%)
+
+  Signal #43   [LOSS]  LONG    Entry: 2026-02-09 22:00 UTC
+  Setup candle  : 2026-02-09 21:45 UTC  open=70011.43  close=70400.00  wick=0.96%  dist_from_MA44=0.314%
+  MA44          : 69792.37
+  Entry         : $70400.01
+  Stop Loss     : $70048.01  (-0.5%)
+  Take Profit   : $71456.01  (+1.5%)
+
+  Signal #44   [WIN ]  SHORT   Entry: 2026-02-10 04:45 UTC
+  Setup candle  : 2026-02-10 04:30 UTC  open=69823.66  close=69696.90  wick=0.35%  dist_from_MA44=0.652%
+  MA44          : 70281.68
+  Entry         : $69696.89
+  Stop Loss     : $70045.37  (+0.5%)
+  Take Profit   : $68651.44  (-1.5%)
+
+  Signal #45   [LOSS]  SHORT   Entry: 2026-02-10 10:00 UTC
+  Setup candle  : 2026-02-10 09:45 UTC  open=69204.19  close=69151.50  wick=0.44%  dist_from_MA44=0.633%
+  MA44          : 69645.13
+  Entry         : $69151.50
+  Stop Loss     : $69497.26  (+0.5%)
+  Take Profit   : $68114.23  (-1.5%)
+
+  Signal #46   [LOSS]  SHORT   Entry: 2026-02-10 14:00 UTC
+  Setup candle  : 2026-02-10 13:45 UTC  open=69029.99  close=69027.95  wick=0.36%  dist_from_MA44=0.167%
+  MA44          : 69145.23
+  Entry         : $69027.94
+  Stop Loss     : $69373.08  (+0.5%)
+  Take Profit   : $67992.52  (-1.5%)
+
+  Signal #47   [LOSS]  SHORT   Entry: 2026-02-10 21:00 UTC
+  Setup candle  : 2026-02-10 20:45 UTC  open=68901.61  close=68753.70  wick=0.39%  dist_from_MA44=0.190%
+  MA44          : 69032.90
+  Entry         : $68753.69
+  Stop Loss     : $69097.46  (+0.5%)
+  Take Profit   : $67722.38  (-1.5%)
+
+  Signal #48   [WIN ]  SHORT   Entry: 2026-02-11 03:30 UTC
+  Setup candle  : 2026-02-11 03:15 UTC  open=68525.94  close=68288.19  wick=0.80%  dist_from_MA44=0.646%
+  MA44          : 68971.32
+  Entry         : $68288.18
+  Stop Loss     : $68629.62  (+0.5%)
+  Take Profit   : $67263.86  (-1.5%)
+
+  Signal #49   [LOSS]  SHORT   Entry: 2026-02-11 12:45 UTC
+  Setup candle  : 2026-02-11 12:30 UTC  open=67220.85  close=67082.74  wick=0.43%  dist_from_MA44=0.275%
+  MA44          : 67406.26
+  Entry         : $67082.74
+  Stop Loss     : $67418.15  (+0.5%)
+  Take Profit   : $66076.50  (-1.5%)
+
+  Signal #50   [LOSS]  SHORT   Entry: 2026-02-11 16:45 UTC
+  Setup candle  : 2026-02-11 16:30 UTC  open=66602.70  close=66127.50  wick=0.92%  dist_from_MA44=0.524%
+  MA44          : 66953.64
+  Entry         : $66127.50
+  Stop Loss     : $66458.14  (+0.5%)
+  Take Profit   : $65135.59  (-1.5%)
+
+  Signal #51   [WIN ]  LONG    Entry: 2026-02-11 20:45 UTC
+  Setup candle  : 2026-02-11 20:30 UTC  open=67213.29  close=67312.30  wick=0.37%  dist_from_MA44=0.362%
+  MA44          : 66970.55
+  Entry         : $67312.30
+  Stop Loss     : $66975.74  (-0.5%)
+  Take Profit   : $68321.98  (+1.5%)
+
+  Signal #52   [LOSS]  LONG    Entry: 2026-02-12 02:45 UTC
+  Setup candle  : 2026-02-12 02:30 UTC  open=67532.41  close=67740.49  wick=0.41%  dist_from_MA44=0.367%
+  MA44          : 67285.17
+  Entry         : $67740.49
+  Stop Loss     : $67401.79  (-0.5%)
+  Take Profit   : $68756.60  (+1.5%)
+
+  Signal #53   [LOSS]  SHORT   Entry: 2026-02-12 08:30 UTC
+  Setup candle  : 2026-02-12 08:15 UTC  open=67248.41  close=66932.00  wick=0.53%  dist_from_MA44=0.176%
+  MA44          : 67367.02
+  Entry         : $66931.99
+  Stop Loss     : $67266.65  (+0.5%)
+  Take Profit   : $65928.01  (-1.5%)
+
+  Signal #54   [LOSS]  LONG    Entry: 2026-02-12 13:45 UTC
+  Setup candle  : 2026-02-12 13:30 UTC  open=67769.41  close=68116.83  wick=0.65%  dist_from_MA44=0.465%
+  MA44          : 67455.71
+  Entry         : $68116.82
+  Stop Loss     : $67776.24  (-0.5%)
+  Take Profit   : $69138.57  (+1.5%)
+
+  Signal #55   [LOSS]  SHORT   Entry: 2026-02-12 23:45 UTC
+  Setup candle  : 2026-02-12 23:30 UTC  open=66404.21  close=66247.44  wick=0.42%  dist_from_MA44=0.021%
+  MA44          : 66417.85
+  Entry         : $66246.00
+  Stop Loss     : $66577.23  (+0.5%)
+  Take Profit   : $65252.31  (-1.5%)
+
+  Signal #56   [WIN ]  LONG    Entry: 2026-02-13 09:00 UTC
+  Setup candle  : 2026-02-13 08:45 UTC  open=66504.62  close=66699.96  wick=0.36%  dist_from_MA44=0.252%
+  MA44          : 66337.35
+  Entry         : $66699.96
+  Stop Loss     : $66366.46  (-0.5%)
+  Take Profit   : $67700.46  (+1.5%)
+
+  Signal #57   [LOSS]  LONG    Entry: 2026-02-13 13:30 UTC
+  Setup candle  : 2026-02-13 13:15 UTC  open=66969.47  close=67337.21  wick=0.67%  dist_from_MA44=0.487%
+  MA44          : 66644.79
+  Entry         : $67337.21
+  Stop Loss     : $67000.52  (-0.5%)
+  Take Profit   : $68347.27  (+1.5%)
+
+  Signal #58   [LOSS]  LONG    Entry: 2026-02-14 08:15 UTC
+  Setup candle  : 2026-02-14 08:00 UTC  open=69219.27  close=69567.06  wick=0.80%  dist_from_MA44=0.404%
+  MA44          : 68940.42
+  Entry         : $69567.05
+  Stop Loss     : $69219.21  (-0.5%)
+  Take Profit   : $70610.56  (+1.5%)
+
+  Signal #59   [LOSS]  LONG    Entry: 2026-02-14 13:15 UTC
+  Setup candle  : 2026-02-14 13:00 UTC  open=69640.20  close=69713.23  wick=0.48%  dist_from_MA44=0.391%
+  MA44          : 69368.77
+  Entry         : $69713.23
+  Stop Loss     : $69364.66  (-0.5%)
+  Take Profit   : $70758.93  (+1.5%)
+
+  Signal #60   [LOSS]  LONG    Entry: 2026-02-14 17:15 UTC
+  Setup candle  : 2026-02-14 17:00 UTC  open=69755.10  close=69860.98  wick=0.36%  dist_from_MA44=0.167%
+  MA44          : 69639.10
+  Entry         : $69860.99
+  Stop Loss     : $69511.69  (-0.5%)
+  Take Profit   : $70908.90  (+1.5%)
+
+  Signal #61   [LOSS]  LONG    Entry: 2026-02-15 05:30 UTC
+  Setup candle  : 2026-02-15 05:15 UTC  open=70205.38  close=70331.18  wick=0.43%  dist_from_MA44=0.522%
+  MA44          : 69840.92
+  Entry         : $70331.18
+  Stop Loss     : $69979.52  (-0.5%)
+  Take Profit   : $71386.15  (+1.5%)
+
+  Signal #62   [LOSS]  LONG    Entry: 2026-02-15 12:30 UTC
+  Setup candle  : 2026-02-15 12:15 UTC  open=70224.74  close=70370.31  wick=0.52%  dist_from_MA44=0.012%
+  MA44          : 70216.17
+  Entry         : $70370.30
+  Stop Loss     : $70018.45  (-0.5%)
+  Take Profit   : $71425.85  (+1.5%)
+
+  Signal #63   [LOSS]  SHORT   Entry: 2026-02-16 01:45 UTC
+  Setup candle  : 2026-02-16 01:30 UTC  open=68722.89  close=68590.12  wick=0.46%  dist_from_MA44=0.066%
+  MA44          : 68768.45
+  Entry         : $68590.13
+  Stop Loss     : $68933.08  (+0.5%)
+  Take Profit   : $67561.28  (-1.5%)
+
+  Signal #64   [LOSS]  LONG    Entry: 2026-02-17 02:15 UTC
+  Setup candle  : 2026-02-17 02:00 UTC  open=68618.12  close=69124.74  wick=1.23%  dist_from_MA44=0.399%
+  MA44          : 68345.70
+  Entry         : $69124.73
+  Stop Loss     : $68779.11  (-0.5%)
+  Take Profit   : $70161.60  (+1.5%)
+
+  Signal #65   [WIN ]  SHORT   Entry: 2026-02-17 09:15 UTC
+  Setup candle  : 2026-02-17 09:00 UTC  open=68177.53  close=68109.03  wick=0.36%  dist_from_MA44=0.570%
+  MA44          : 68568.61
+  Entry         : $68109.02
+  Stop Loss     : $68449.57  (+0.5%)
+  Take Profit   : $67087.38  (-1.5%)
+
+  Signal #66   [WIN ]  SHORT   Entry: 2026-02-17 14:15 UTC
+  Setup candle  : 2026-02-17 14:00 UTC  open=68136.35  close=68097.67  wick=0.41%  dist_from_MA44=0.095%
+  MA44          : 68200.99
+  Entry         : $68097.67
+  Stop Loss     : $68438.16  (+0.5%)
+  Take Profit   : $67076.20  (-1.5%)
+
+  Signal #67   [LOSS]  SHORT   Entry: 2026-02-18 01:15 UTC
+  Setup candle  : 2026-02-18 01:00 UTC  open=67302.65  close=67100.78  wick=0.48%  dist_from_MA44=0.346%
+  MA44          : 67536.40
+  Entry         : $67100.79
+  Stop Loss     : $67436.29  (+0.5%)
+  Take Profit   : $66094.28  (-1.5%)
+
+  Signal #68   [LOSS]  LONG    Entry: 2026-02-18 07:45 UTC
+  Setup candle  : 2026-02-18 07:30 UTC  open=67751.15  close=68074.00  wick=0.52%  dist_from_MA44=0.259%
+  MA44          : 67576.41
+  Entry         : $68074.00
+  Stop Loss     : $67733.63  (-0.5%)
+  Take Profit   : $69095.11  (+1.5%)
+
+  Signal #69   [WIN ]  SHORT   Entry: 2026-02-18 16:45 UTC
+  Setup candle  : 2026-02-18 16:30 UTC  open=67256.05  close=67230.83  wick=0.43%  dist_from_MA44=0.643%
+  MA44          : 67691.36
+  Entry         : $67230.84
+  Stop Loss     : $67566.99  (+0.5%)
+  Take Profit   : $66222.38  (-1.5%)
+
+  Signal #70   [LOSS]  LONG    Entry: 2026-02-19 06:30 UTC
+  Setup candle  : 2026-02-19 06:15 UTC  open=66993.70  close=67176.84  wick=0.37%  dist_from_MA44=0.584%
+  MA44          : 66605.02
+  Entry         : $67176.84
+  Stop Loss     : $66840.96  (-0.5%)
+  Take Profit   : $68184.49  (+1.5%)
+
+  Signal #71   [LOSS]  SHORT   Entry: 2026-02-19 13:15 UTC
+  Setup candle  : 2026-02-19 13:00 UTC  open=66516.67  close=66387.99  wick=0.49%  dist_from_MA44=0.555%
+  MA44          : 66888.19
+  Entry         : $66387.99
+  Stop Loss     : $66719.93  (+0.5%)
+  Take Profit   : $65392.17  (-1.5%)
+
+  Signal #72   [LOSS]  SHORT   Entry: 2026-02-19 17:45 UTC
+  Setup candle  : 2026-02-19 17:30 UTC  open=66621.44  close=66609.81  wick=0.36%  dist_from_MA44=0.015%
+  MA44          : 66631.13
+  Entry         : $66609.80
+  Stop Loss     : $66942.85  (+0.5%)
+  Take Profit   : $65610.65  (-1.5%)
+
+  Signal #73   [WIN ]  LONG    Entry: 2026-02-20 00:15 UTC
+  Setup candle  : 2026-02-20 00:00 UTC  open=67003.73  close=67191.72  wick=0.36%  dist_from_MA44=0.523%
+  MA44          : 66655.09
+  Entry         : $67191.72
+  Stop Loss     : $66855.76  (-0.5%)
+  Take Profit   : $68199.60  (+1.5%)
+
+  Signal #74   [LOSS]  LONG    Entry: 2026-02-20 05:45 UTC
+  Setup candle  : 2026-02-20 05:30 UTC  open=67407.34  close=67910.17  wick=0.80%  dist_from_MA44=0.391%
+  MA44          : 67144.82
+  Entry         : $67910.17
+  Stop Loss     : $67570.62  (-0.5%)
+  Take Profit   : $68928.82  (+1.5%)
+
+  Signal #75   [LOSS]  LONG    Entry: 2026-02-21 09:30 UTC
+  Setup candle  : 2026-02-21 09:15 UTC  open=68000.27  close=68235.09  wick=0.40%  dist_from_MA44=0.148%
+  MA44          : 67899.97
+  Entry         : $68235.10
+  Stop Loss     : $67893.92  (-0.5%)
+  Take Profit   : $69258.63  (+1.5%)
+
+  Signal #76   [LOSS]  LONG    Entry: 2026-02-21 14:30 UTC
+  Setup candle  : 2026-02-21 14:15 UTC  open=68267.99  close=68432.80  wick=0.62%  dist_from_MA44=0.394%
+  MA44          : 68000.40
+  Entry         : $68432.80
+  Stop Loss     : $68090.64  (-0.5%)
+  Take Profit   : $69459.29  (+1.5%)
+
+  Signal #77   [WIN ]  SHORT   Entry: 2026-02-22 13:45 UTC
+  Setup candle  : 2026-02-22 13:30 UTC  open=67930.52  close=67633.61  wick=0.59%  dist_from_MA44=0.131%
+  MA44          : 68019.93
+  Entry         : $67633.62
+  Stop Loss     : $67971.79  (+0.5%)
+  Take Profit   : $66619.12  (-1.5%)
+
+  Signal #78   [LOSS]  SHORT   Entry: 2026-02-22 17:45 UTC
+  Setup candle  : 2026-02-22 17:30 UTC  open=67496.26  close=67260.75  wick=0.52%  dist_from_MA44=0.536%
+  MA44          : 67859.71
+  Entry         : $67260.75
+  Stop Loss     : $67597.05  (+0.5%)
+  Take Profit   : $66251.84  (-1.5%)
+
+  Signal #79   [WIN ]  SHORT   Entry: 2026-02-23 00:45 UTC
+  Setup candle  : 2026-02-23 00:30 UTC  open=67474.00  close=67180.25  wick=0.45%  dist_from_MA44=0.051%
+  MA44          : 67508.42
+  Entry         : $67180.24
+  Stop Loss     : $67516.14  (+0.5%)
+  Take Profit   : $66172.54  (-1.5%)
+
+  Signal #80   [LOSS]  SHORT   Entry: 2026-02-23 08:30 UTC
+  Setup candle  : 2026-02-23 08:15 UTC  open=65845.71  close=65682.68  wick=0.43%  dist_from_MA44=0.106%
+  MA44          : 65915.36
+  Entry         : $65682.69
+  Stop Loss     : $66011.10  (+0.5%)
+  Take Profit   : $64697.45  (-1.5%)
+
+  Signal #81   [LOSS]  LONG    Entry: 2026-02-23 15:00 UTC
+  Setup candle  : 2026-02-23 14:45 UTC  open=65832.42  close=65923.53  wick=0.75%  dist_from_MA44=0.003%
+  MA44          : 65830.36
+  Entry         : $65923.52
+  Stop Loss     : $65593.90  (-0.5%)
+  Take Profit   : $66912.37  (+1.5%)
+
+  Signal #82   [WIN ]  SHORT   Entry: 2026-02-23 23:00 UTC
+  Setup candle  : 2026-02-23 22:45 UTC  open=64794.49  close=64725.56  wick=0.37%  dist_from_MA44=0.641%
+  MA44          : 65212.73
+  Entry         : $64725.56
+  Stop Loss     : $65049.19  (+0.5%)
+  Take Profit   : $63754.68  (-1.5%)
+
+  Signal #83   [LOSS]  SHORT   Entry: 2026-02-24 12:45 UTC
+  Setup candle  : 2026-02-24 12:30 UTC  open=63324.03  close=63113.58  wick=0.41%  dist_from_MA44=0.069%
+  MA44          : 63367.57
+  Entry         : $63113.58
+  Stop Loss     : $63429.15  (+0.5%)
+  Take Profit   : $62166.88  (-1.5%)
+
+  Signal #84   [LOSS]  LONG    Entry: 2026-02-24 22:15 UTC
+  Setup candle  : 2026-02-24 22:00 UTC  open=64042.66  close=64219.60  wick=0.40%  dist_from_MA44=0.343%
+  MA44          : 63824.05
+  Entry         : $64219.60
+  Stop Loss     : $63898.50  (-0.5%)
+  Take Profit   : $65182.89  (+1.5%)
+
+  Signal #85   [WIN ]  LONG    Entry: 2026-02-25 08:30 UTC
+  Setup candle  : 2026-02-25 08:15 UTC  open=65032.95  close=65192.31  wick=0.36%  dist_from_MA44=0.055%
+  MA44          : 64997.37
+  Entry         : $65192.32
+  Stop Loss     : $64866.36  (-0.5%)
+  Take Profit   : $66170.20  (+1.5%)
+
+  Signal #86   [LOSS]  LONG    Entry: 2026-02-25 23:00 UTC
+  Setup candle  : 2026-02-25 22:45 UTC  open=68420.42  close=68432.13  wick=0.69%  dist_from_MA44=0.730%
+  MA44          : 67924.57
+  Entry         : $68432.13
+  Stop Loss     : $68089.97  (-0.5%)
+  Take Profit   : $69458.61  (+1.5%)
+
+  Signal #87   [LOSS]  SHORT   Entry: 2026-02-26 08:30 UTC
+  Setup candle  : 2026-02-26 08:15 UTC  open=68048.93  close=68029.71  wick=0.40%  dist_from_MA44=0.398%
+  MA44          : 68321.16
+  Entry         : $68029.72
+  Stop Loss     : $68369.87  (+0.5%)
+  Take Profit   : $67009.27  (-1.5%)
+
+  Signal #88   [LOSS]  SHORT   Entry: 2026-02-26 19:45 UTC
+  Setup candle  : 2026-02-26 19:30 UTC  open=67572.95  close=67478.24  wick=0.46%  dist_from_MA44=0.215%
+  MA44          : 67718.42
+  Entry         : $67478.24
+  Stop Loss     : $67815.63  (+0.5%)
+  Take Profit   : $66466.07  (-1.5%)
+
+--------------------------------------------------------------------------------
+
+================================================================================
+METHODOLOGY
+================================================================================
+  WIN     : TP hit before SL within 48h of entry
+  LOSS    : SL hit before TP within 48h of entry
+  ONGOING : Neither hit within 48h
+  UNKNOWN : Data unavailable
+
+  Sloppiness : min required MA44 slope over 3 candles (0.2% = MA44 must have
+               moved at least 0.2% in the right direction to qualify)
+  Distance   : measures from closest body edge (not wick) to MA44
+================================================================================

@@ -1,0 +1,176 @@
+========================================================================
+  BTCUSDT -- MISSED TRADE DIAGNOSTIC
+  Checking all 4 signal logic layers for each missed trade
+
+  Parameters used:
+    RSI_SHORT_MAX  : 55  (expanded from 45)
+    CROSS_LOOKBACK : 8 candles  (expanded from 4)
+    MA44 slope ref : 3 candles back  (current slope, not historical)
+    Cross logic    : 1 freshly crossed + other already below/above MA44
+========================================================================
+
+========================================================================
+  MISSED TRADE #1
+  Setup candle  : 2026-01-31 06:15 UTC
+  Trigger candle: 2026-01-31 06:30 UTC
+  Expected dir  : SHORT
+  Known EMA9    : 83,954
+  Known EMA26   : 84,004
+  Known MA44    : 84,077
+  Trigger price : 83,670
+  Note          : EMA9 < EMA26 < MA44 -- suggests SHORT setup
+========================================================================
+
+Fetching 92 candles of BTCUSDT 15m ending at setup candle...
+  Got 92 candles.
+  Last candle   : 2026-01-31 06:15 UTC  close=83,670.65
+
+  COMPUTED INDICATORS (setup candle):
+  RSI     : 24.31
+  EMA9    : 83,954.79
+  EMA26   : 84,004.09
+  MA44    : 84,077.22
+  Candle  : open=83,990.57  close=83,670.65  (bearish)
+
+------------------------------------------------------------------------
+  LAYER 1 -- SIDEWAYS FILTER  (MA44 range > 0.2% over last 20 candles)
+------------------------------------------------------------------------
+  [PASS]  MA44 range 379.80 > threshold 167.34  (max=84,095.22  min=83,715.43)
+
+------------------------------------------------------------------------
+  LAYER 2 -- CROSS CONFIRMATION  (within last 8 candles)
+------------------------------------------------------------------------
+  Logic: at least 1 freshly crossed below MA44 within last 8 candles,
+         AND the other is currently below MA44 (may have crossed earlier).
+
+  Current positions vs MA44 (84,077.2):
+    EMA9  83,954.8  -> BELOW MA44  [OK]
+    EMA26 84,004.1  -> BELOW MA44  [OK]
+
+  k=1 (2026-01-31 06:15 UTC): EMA9 84,025.8->83,954.8  MA44 84,091.8->84,077.2  EMA26 84,030.8->84,004.1
+  k=2 (2026-01-31 06:00 UTC): EMA9 84,034.6->84,025.8  MA44 84,095.2->84,091.8  EMA26 84,034.0->84,030.8
+  k=3 (2026-01-31 05:45 UTC): EMA9 84,043.3->84,034.6  MA44 84,093.7->84,095.2  EMA26 84,036.7->84,034.0
+  k=4 (2026-01-31 05:30 UTC): EMA9 84,049.8->84,043.3  MA44 84,073.6->84,093.7  EMA26 84,038.3->84,036.7
+  k=5 (2026-01-31 05:15 UTC): EMA9 84,062.6->84,049.8  MA44 84,039.5->84,073.6  EMA26 84,041.4->84,038.3 << EMA9 CROSSED << EMA26 CROSSED
+  k=6 (2026-01-31 05:00 UTC): EMA9 84,073.2->84,062.6  MA44 84,013.4->84,039.5  EMA26 84,043.1->84,041.4
+  k=7 (2026-01-31 04:45 UTC): EMA9 84,093.4->84,073.2  MA44 83,989.5->84,013.4  EMA26 84,047.2->84,043.1
+  k=8 (2026-01-31 04:30 UTC): EMA9 84,101.5->84,093.4  MA44 83,969.0->83,989.5  EMA26 84,046.1->84,047.2
+
+  [PASS]  EMA9  freshly crossed below MA44 in last 8 candles
+  [PASS]  EMA26 currently below MA44 (positioned correctly)
+  Scenario A (EMA9 crossed + EMA26 positioned): PASS
+  [PASS]  EMA26 freshly crossed below MA44 in last 8 candles
+  [PASS]  EMA9  currently below MA44 (positioned correctly)
+  Scenario B (EMA26 crossed + EMA9 positioned): PASS
+
+  [PASS]  Layer 2 overall (Scenario A OR Scenario B)
+
+------------------------------------------------------------------------
+  LAYER 3 -- SETUP CANDLE CONDITIONS
+------------------------------------------------------------------------
+  [PASS]  RSI 24.31 in range [10, 55]
+  [PASS]  EMA9 83,954.79 < EMA26 84,004.09
+  [PASS]  EMA9 83,954.79 < MA44 84,077.22  AND  EMA26 84,004.09 < MA44 84,077.22
+  [PASS]  Bearish candle: close 83,670.65 < open 83,990.57
+  [PASS]  Close 83,670.65 < EMA9 83,954.79, EMA26 84,004.09, MA44 84,077.22
+
+------------------------------------------------------------------------
+  LAYER 4 -- TRIGGER CANDLE CONDITIONS
+------------------------------------------------------------------------
+  Trigger candle open : 83,670.65
+  Setup candle open   : 83,990.57
+  MA44 at setup candle: 84,077.22
+  MA44 3 candles ago  : 84,093.66  (current slope reference)
+
+  [PASS]  MA44 sloping DOWN now: MA44(setup) 84,077.22 < MA44(3ago) 84,093.66
+  [PASS]  Trigger open 83,670.65 < Setup open 83,990.57
+
+========================================================================
+  VERDICT: ALL CONDITIONS PASS -- signal should have fired.
+  >> Check cooldown or pending_setup_i logic in scanner.
+========================================================================
+
+
+========================================================================
+  MISSED TRADE #2
+  Setup candle  : 2026-02-01 10:45 UTC
+  Trigger candle: 2026-02-01 11:00 UTC
+  Expected dir  : SHORT
+  Known EMA9    : 78,671
+  Known EMA26   : 78,679
+  Known MA44    : 78,722
+  Trigger price : 78,279
+  Note          : EMA9 < EMA26 < MA44 -- suggests SHORT setup
+========================================================================
+
+Fetching 92 candles of BTCUSDT 15m ending at setup candle...
+  Got 92 candles.
+  Last candle   : 2026-02-01 10:45 UTC  close=78,279.73
+
+  COMPUTED INDICATORS (setup candle):
+  RSI     : 51.12
+  EMA9    : 78,671.18
+  EMA26   : 78,679.31
+  MA44    : 78,722.84
+  Candle  : open=78,384.94  close=78,279.73  (bearish)
+
+------------------------------------------------------------------------
+  LAYER 1 -- SIDEWAYS FILTER  (MA44 range > 0.2% over last 20 candles)
+------------------------------------------------------------------------
+  [PASS]  MA44 range 263.63 > threshold 156.56  (max=78,743.66  min=78,480.03)
+
+------------------------------------------------------------------------
+  LAYER 2 -- CROSS CONFIRMATION  (within last 8 candles)
+------------------------------------------------------------------------
+  Logic: at least 1 freshly crossed below MA44 within last 8 candles,
+         AND the other is currently below MA44 (may have crossed earlier).
+
+  Current positions vs MA44 (78,722.8):
+    EMA9  78,671.2  -> BELOW MA44  [OK]
+    EMA26 78,679.3  -> BELOW MA44  [OK]
+
+  k=1 (2026-02-01 10:45 UTC): EMA9 78,769.0->78,671.2  MA44 78,733.3->78,722.8  EMA26 78,711.3->78,679.3 << EMA9 CROSSED
+  k=2 (2026-02-01 10:30 UTC): EMA9 78,865.1->78,769.0  MA44 78,743.7->78,733.3  EMA26 78,737.4->78,711.3
+  k=3 (2026-02-01 10:15 UTC): EMA9 78,826.3->78,865.1  MA44 78,742.6->78,743.7  EMA26 78,714.8->78,737.4
+  k=4 (2026-02-01 10:00 UTC): EMA9 78,738.9->78,826.3  MA44 78,721.1->78,742.6  EMA26 78,677.9->78,714.8
+  k=5 (2026-02-01 09:45 UTC): EMA9 78,665.0->78,738.9  MA44 78,701.1->78,721.1  EMA26 78,649.4->78,677.9
+  k=6 (2026-02-01 09:30 UTC): EMA9 78,614.5->78,665.0  MA44 78,683.6->78,701.1  EMA26 78,631.9->78,649.4
+  k=7 (2026-02-01 09:15 UTC): EMA9 78,597.8->78,614.5  MA44 78,675.9->78,683.6  EMA26 78,628.0->78,631.9
+  k=8 (2026-02-01 09:00 UTC): EMA9 78,557.1->78,597.8  MA44 78,662.9->78,675.9  EMA26 78,617.4->78,628.0
+
+  [PASS]  EMA9  freshly crossed below MA44 in last 8 candles
+  [PASS]  EMA26 currently below MA44 (positioned correctly)
+  Scenario A (EMA9 crossed + EMA26 positioned): PASS
+  [FAIL] <---  EMA26 freshly crossed below MA44 in last 8 candles
+  [PASS]  EMA9  currently below MA44 (positioned correctly)
+  Scenario B (EMA26 crossed + EMA9 positioned): FAIL
+
+  [PASS]  Layer 2 overall (Scenario A OR Scenario B)
+
+------------------------------------------------------------------------
+  LAYER 3 -- SETUP CANDLE CONDITIONS
+------------------------------------------------------------------------
+  [PASS]  RSI 51.12 in range [10, 55]
+  [PASS]  EMA9 78,671.18 < EMA26 78,679.31
+  [PASS]  EMA9 78,671.18 < MA44 78,722.84  AND  EMA26 78,679.31 < MA44 78,722.84
+  [PASS]  Bearish candle: close 78,279.73 < open 78,384.94
+  [PASS]  Close 78,279.73 < EMA9 78,671.18, EMA26 78,679.31, MA44 78,722.84
+
+------------------------------------------------------------------------
+  LAYER 4 -- TRIGGER CANDLE CONDITIONS
+------------------------------------------------------------------------
+  Trigger candle open : 78,279.73
+  Setup candle open   : 78,384.94
+  MA44 at setup candle: 78,722.84
+  MA44 3 candles ago  : 78,742.63  (current slope reference)
+
+  [PASS]  MA44 sloping DOWN now: MA44(setup) 78,722.84 < MA44(3ago) 78,742.63
+  [PASS]  Trigger open 78,279.73 < Setup open 78,384.94
+
+========================================================================
+  VERDICT: ALL CONDITIONS PASS -- signal should have fired.
+  >> Check cooldown or pending_setup_i logic in scanner.
+========================================================================
+
+
+Done. Review [FAIL] lines above to identify blocking conditions.
