@@ -1,782 +1,194 @@
 ================================================================================
-BTC/USDT -- BACKTEST REPORT  (Logic No. 2b Enhanced -- MA44 Bounce)
+BTC/USDT -- BACKTEST REPORT  (Logic No. 2b Enhanced v3 -- SHORT ONLY)
 15-minute candles  |  Binance  |  No RSI  |  No Crossovers
-Generated : 2026-03-09 08:41:46 UTC
-SL: -1.5%  |  TP: +4.5%  |  R/R 1:3  |  Cooldown: 4h
+Generated : 2026-03-10 11:00:47 UTC
+SL: +2.0%  |  TP: -6.0%  |  R/R 1:3  |  Cooldown: 4h
+Direction : SHORT ONLY  (LONGs disabled — insufficient edge)
 
-FILTERS APPLIED:
-  F1  body_ratio      : body / candle range >= 0.60  (no doji/spinning top)
-  F2  dist_from_MA44  : body edge >= 0.20% from MA44  (no touching-MA bounce)
-  F3  dist_from_MA44  : body edge <= 0.65% from MA44  (no overextension)
-  F4  wick_pct        : candle range / high: 0.35%–1.00%
-  F5  ma_slope_8bar   : (MA[0]-MA[-8])/MA[0]*100, abs >= 0.10%  (no flat MA)
-  F6  ma_accel        : current 4-bar slope > prior 4-bar slope, same sign as trend
-  F7  atr_14_pct      : ATR(14)/close < 0.60%  (no noisy conditions)
-  F8  h4_ma44_dir     : 4h MA44 rising=LONG only | falling=SHORT only  (macro gate)
-  F9  consec_loss     : 2 consecutive losses same side → pause 8h  (circuit breaker)
-
-MA TREND:
-  Window    : 8 consecutive candles (monotonic + slope magnitude)
-  Magnitude : abs 8-bar slope >= 0.10%
-  Accel     : current 4-bar slope steeper than prior 4-bar slope
+FILTERS:
+  F1  body_ratio    >= 0.60  (no doji/spinning top)
+  F2a dist zone A   0.20%–0.35%  (close bounce)
+  F2b dist zone B   0.50%–0.65%  (far bounce)
+      [0.35–0.50% middle band REJECTED — 19% WR historically]
+  F4  wick range    0.35%–1.00%
+  F5  slope 8-bar   abs >= 0.10%  [HARD REJECT — no fallthrough]
+  F6  ma_accel      slope_recent < slope_prior < 0  [STRICT SIGN — both negative]
+  F7  ATR(14)       < 0.60% of close
+  F8  4H MA44       must be FALLING for SHORT
+  F9  consec loss   2 losses → 8h pause  [resets on WIN]
 
 SIGNAL LOGIC (TWO-STEP):
-  Step 1 Setup  -- SHORT: bearish candle | MA44 falling 8 candles | body strictly below MA44
-                          dist 0.20%–0.65% | wick 0.35%–1.00% | body>=60% | ATR<0.60% | 4H falling
-                   LONG:  bullish candle | MA44 rising 8 candles  | body strictly above MA44
-                          dist 0.20%–0.65% | wick 0.35%–1.00% | body>=60% | ATR<0.60% | 4H rising
-  Step 2 Entry  -- open of next candle | SHORT: open < MA44 | LONG: open > MA44
+  Step 1  bearish candle | MA44 falling 8 consecutive candles
+          body strictly below MA44 | dist in zone A or B
+          F5 hard reject | F6 strict negative accel | F7 ATR | F8 4H falling
+  Step 2  next candle open must be below MA44 → entry
 ================================================================================
 
 ################################################################################
-  PERIOD 1  --  Period 1 -- BTC/USDT  |  27 Feb 2026 -> 26 Feb 2026
-  27 Feb 2025 -> 26 Feb 2026  (364 days)
+  PERIOD 1  --  Period 1 -- BTC/USDT  |  01 Oct 2025 -> 26 Feb 2026
+  01 Oct 2025 -> 26 Feb 2026  (148 days)
 ################################################################################
 
   SUMMARY
 --------------------------------------------------------------------------------
-  Total signals   : 104  (Long: 43  Short: 61)
-  Wins            : 17
-  Losses          : 60
-  Ongoing (<48h)  : 27
+  Total signals   : 20  (Short: 20)
+  Wins            : 5
+  Losses          : 7
+  Ongoing (<48h)  : 8
   Unknown         : 0
 
-  Win rate        : 22.1%  (17/77 closed)
-  Expectancy      : -0.175% per trade
-  Total PnL       : -13.50%  (equal-size positions)
-  Verdict         : POOR       (<25%)
+  Win rate        : 41.7%  (5/12 closed)
+  Expectancy      : +1.333% per trade
+  Total PnL       : +16.00%  (equal-size positions)
+  Verdict         : MARGINAL   (40-50%)
+
+  ZONE BREAKDOWN
+  Zone A (0.20–0.35%) : 7 signals  W:2 L:2  WR:50.0%
+  Zone B (0.50–0.65%) : 13 signals  W:3 L:5  WR:37.5%
 --------------------------------------------------------------------------------
 
   SIGNALS
 --------------------------------------------------------------------------------
 
-  Signal #1    [LOSS]  SHORT   Entry: 2025-03-04 10:00 UTC
-  Setup candle  : 2025-03-04 09:45 UTC  open=84110.01  close=83748.00  wick=0.52%  body=82.1%  dist=0.247%
-  MA44          : 84318.52  slope_8bar=-0.522%  ATR=0.557%
-  Entry         : $83748.00
-  Stop Loss     : $85004.22  (+1.5%)
-  Take Profit   : $79979.34  (-4.5%)
-
-  Signal #2    [LOSS]  LONG    Entry: 2025-03-06 01:15 UTC
-  Setup candle  : 2025-03-06 01:00 UTC  open=90046.35  close=90419.14  wick=0.41%  body=100.0%  dist=0.394%
-  MA44          : 89692.51  slope_8bar=+0.108%  ATR=0.377%
-  Entry         : $90419.14
-  Stop Loss     : $89062.85  (-1.5%)
-  Take Profit   : $94488.00  (+4.5%)
-
-  Signal #3    [LOSS]  SHORT   Entry: 2025-03-13 13:00 UTC
-  Setup candle  : 2025-03-13 12:45 UTC  open=83007.22  close=82517.99  wick=0.87%  body=67.8%  dist=0.313%
-  MA44          : 83267.56  slope_8bar=-0.171%  ATR=0.460%
-  Entry         : $82518.00
-  Stop Loss     : $83755.77  (+1.5%)
-  Take Profit   : $78804.69  (-4.5%)
-
-  Signal #4    [LOSS]  SHORT   Entry: 2025-03-16 11:15 UTC
-  Setup candle  : 2025-03-16 11:00 UTC  open=83666.98  close=83249.50  wick=0.70%  body=71.4%  dist=0.555%
-  MA44          : 84134.22  slope_8bar=-0.122%  ATR=0.234%
-  Entry         : $83249.49
-  Stop Loss     : $84498.23  (+1.5%)
-  Take Profit   : $79503.26  (-4.5%)
-
-  Signal #5    [OPEN]  LONG    Entry: 2025-03-19 14:45 UTC
-  Setup candle  : 2025-03-19 14:30 UTC  open=83964.34  close=84198.12  wick=0.43%  body=64.3%  dist=0.595%
-  MA44          : 83467.47  slope_8bar=+0.258%  ATR=0.393%
-  Entry         : $84198.12
-  Stop Loss     : $82935.15  (-1.5%)
-  Take Profit   : $87987.04  (+4.5%)
-
-  Signal #6    [LOSS]  LONG    Entry: 2025-03-19 18:45 UTC
-  Setup candle  : 2025-03-19 18:30 UTC  open=84267.97  close=84587.34  wick=0.55%  body=68.0%  dist=0.369%
-  MA44          : 83958.00  slope_8bar=+0.256%  ATR=0.515%
-  Entry         : $84588.47
-  Stop Loss     : $83319.64  (-1.5%)
-  Take Profit   : $88394.95  (+4.5%)
-
-  Signal #7    [OPEN]  LONG    Entry: 2025-03-24 00:00 UTC
-  Setup candle  : 2025-03-23 23:45 UTC  open=85670.59  close=86082.50  wick=0.55%  body=87.6%  dist=0.615%
-  MA44          : 85146.78  slope_8bar=+0.179%  ATR=0.239%
-  Entry         : $86082.50
-  Stop Loss     : $84791.26  (-1.5%)
-  Take Profit   : $89956.21  (+4.5%)
-
-  Signal #8    [LOSS]  LONG    Entry: 2025-03-24 14:15 UTC
-  Setup candle  : 2025-03-24 14:00 UTC  open=87704.47  close=88354.48  wick=0.84%  body=87.2%  dist=0.579%
-  MA44          : 87199.68  slope_8bar=+0.361%  ATR=0.317%
-  Entry         : $88354.21
-  Stop Loss     : $87028.90  (-1.5%)
-  Take Profit   : $92330.15  (+4.5%)
-
-  Signal #9    [LOSS]  SHORT   Entry: 2025-03-31 00:45 UTC
-  Setup candle  : 2025-03-31 00:30 UTC  open=81989.68  close=81361.51  wick=0.81%  body=94.8%  dist=0.611%
-  MA44          : 82494.09  slope_8bar=-0.205%  ATR=0.459%
-  Entry         : $81361.50
-  Stop Loss     : $82581.92  (+1.5%)
-  Take Profit   : $77700.23  (-4.5%)
-
-  Signal #10   [LOSS]  SHORT   Entry: 2025-04-03 19:30 UTC
-  Setup candle  : 2025-04-03 19:15 UTC  open=82193.98  close=81931.93  wick=0.45%  body=71.3%  dist=0.341%
-  MA44          : 82475.59  slope_8bar=-0.309%  ATR=0.438%
-  Entry         : $81931.92
-  Stop Loss     : $83160.90  (+1.5%)
-  Take Profit   : $78244.98  (-4.5%)
-
-  Signal #11   [WIN ]  SHORT   Entry: 2025-04-05 13:30 UTC
-  Setup candle  : 2025-04-05 13:15 UTC  open=83140.69  close=82824.32  wick=0.56%  body=68.0%  dist=0.555%
-  MA44          : 83604.94  slope_8bar=-0.134%  ATR=0.200%
-  Entry         : $82824.31
-  Stop Loss     : $84066.67  (+1.5%)
-  Take Profit   : $79097.22  (-4.5%)
-
-  Signal #12   [WIN ]  SHORT   Entry: 2025-04-06 16:45 UTC
-  Setup candle  : 2025-04-06 16:30 UTC  open=82339.43  close=82139.13  wick=0.40%  body=60.6%  dist=0.581%
-  MA44          : 82820.94  slope_8bar=-0.208%  ATR=0.310%
-  Entry         : $82139.14
-  Stop Loss     : $83371.23  (+1.5%)
-  Take Profit   : $78442.88  (-4.5%)
-
-  Signal #13   [LOSS]  LONG    Entry: 2025-04-23 08:00 UTC
-  Setup candle  : 2025-04-23 07:45 UTC  open=93703.31  close=94133.82  wick=0.59%  body=76.8%  dist=0.632%
-  MA44          : 93115.18  slope_8bar=+0.463%  ATR=0.299%
-  Entry         : $94133.82
-  Stop Loss     : $92721.81  (-1.5%)
-  Take Profit   : $98369.84  (+4.5%)
-
-  Signal #14   [LOSS]  LONG    Entry: 2025-04-25 14:15 UTC
-  Setup candle  : 2025-04-25 14:00 UTC  open=94400.01  close=95299.51  wick=0.99%  body=95.6%  dist=0.647%
-  MA44          : 93793.62  slope_8bar=+0.216%  ATR=0.465%
-  Entry         : $95299.50
-  Stop Loss     : $93870.01  (-1.5%)
-  Take Profit   : $99587.98  (+4.5%)
-
-  Signal #15   [LOSS]  LONG    Entry: 2025-04-28 10:45 UTC
-  Setup candle  : 2025-04-28 10:30 UTC  open=94580.44  close=95187.67  wick=0.67%  body=95.1%  dist=0.511%
-  MA44          : 94099.85  slope_8bar=+0.166%  ATR=0.227%
-  Entry         : $95187.68
-  Stop Loss     : $93759.86  (-1.5%)
-  Take Profit   : $99471.13  (+4.5%)
-
-  Signal #16   [LOSS]  LONG    Entry: 2025-04-29 16:45 UTC
-  Setup candle  : 2025-04-29 16:30 UTC  open=95143.29  close=95443.88  wick=0.39%  body=81.3%  dist=0.247%
-  MA44          : 94909.04  slope_8bar=+0.102%  ATR=0.315%
-  Entry         : $95443.88
-  Stop Loss     : $94012.22  (-1.5%)
-  Take Profit   : $99738.85  (+4.5%)
-
-  Signal #17   [OPEN]  LONG    Entry: 2025-05-09 07:15 UTC
-  Setup candle  : 2025-05-09 07:00 UTC  open=103230.11  close=103511.52  wick=0.39%  body=70.0%  dist=0.410%
-  MA44          : 102808.49  slope_8bar=+0.315%  ATR=0.192%
-  Entry         : $103511.52
-  Stop Loss     : $101958.85  (-1.5%)
-  Take Profit   : $108169.54  (+4.5%)
-
-  Signal #18   [LOSS]  LONG    Entry: 2025-05-11 00:45 UTC
-  Setup candle  : 2025-05-11 00:30 UTC  open=103926.48  close=104414.84  wick=0.47%  body=99.9%  dist=0.376%
-  MA44          : 103537.52  slope_8bar=+0.122%  ATR=0.372%
-  Entry         : $104414.84
-  Stop Loss     : $102848.62  (-1.5%)
-  Take Profit   : $109113.51  (+4.5%)
-
-  Signal #19   [LOSS]  LONG    Entry: 2025-05-13 19:30 UTC
-  Setup candle  : 2025-05-13 19:15 UTC  open=104271.47  close=104589.68  wick=0.47%  body=65.1%  dist=0.569%
-  MA44          : 103681.92  slope_8bar=+0.285%  ATR=0.315%
-  Entry         : $104589.68
-  Stop Loss     : $103020.83  (-1.5%)
-  Take Profit   : $109296.22  (+4.5%)
-
-  Signal #20   [LOSS]  LONG    Entry: 2025-05-18 13:45 UTC
-  Setup candle  : 2025-05-18 13:30 UTC  open=103902.01  close=104459.99  wick=0.60%  body=88.9%  dist=0.206%
-  MA44          : 103688.74  slope_8bar=+0.116%  ATR=0.112%
-  Entry         : $104460.00
-  Stop Loss     : $102893.10  (-1.5%)
-  Take Profit   : $109160.70  (+4.5%)
-
-  Signal #21   [LOSS]  LONG    Entry: 2025-05-18 23:00 UTC
-  Setup candle  : 2025-05-18 22:45 UTC  open=105227.94  close=105928.10  wick=0.75%  body=88.2%  dist=0.513%
-  MA44          : 104690.37  slope_8bar=+0.145%  ATR=0.419%
-  Entry         : $105928.11
-  Stop Loss     : $104339.19  (-1.5%)
-  Take Profit   : $110694.87  (+4.5%)
-
-  Signal #22   [LOSS]  LONG    Entry: 2025-05-20 00:15 UTC
-  Setup candle  : 2025-05-20 00:00 UTC  open=105573.73  close=105999.99  wick=0.42%  body=95.6%  dist=0.601%
-  MA44          : 104942.78  slope_8bar=+0.497%  ATR=0.232%
-  Entry         : $105999.99
-  Stop Loss     : $104409.99  (-1.5%)
-  Take Profit   : $110769.99  (+4.5%)
-
-  Signal #23   [WIN ]  LONG    Entry: 2025-05-20 19:30 UTC
-  Setup candle  : 2025-05-20 19:15 UTC  open=105844.94  close=106309.55  wick=0.60%  body=72.9%  dist=0.590%
-  MA44          : 105223.71  slope_8bar=+0.116%  ATR=0.398%
-  Entry         : $106309.56
-  Stop Loss     : $104714.92  (-1.5%)
-  Take Profit   : $111093.49  (+4.5%)
-
-  Signal #24   [LOSS]  LONG    Entry: 2025-05-21 06:30 UTC
-  Setup candle  : 2025-05-21 06:15 UTC  open=107410.00  close=107865.09  wick=0.56%  body=74.9%  dist=0.513%
-  MA44          : 106861.57  slope_8bar=+0.266%  ATR=0.312%
-  Entry         : $107865.09
-  Stop Loss     : $106247.11  (-1.5%)
-  Take Profit   : $112719.02  (+4.5%)
-
-  Signal #25   [LOSS]  LONG    Entry: 2025-05-27 13:15 UTC
-  Setup candle  : 2025-05-27 13:00 UTC  open=109603.03  close=110374.07  wick=0.89%  body=78.2%  dist=0.274%
-  MA44          : 109303.83  slope_8bar=+0.158%  ATR=0.209%
-  Entry         : $110374.06
-  Stop Loss     : $108718.45  (-1.5%)
-  Take Profit   : $115340.89  (+4.5%)
-
-  Signal #26   [OPEN]  SHORT   Entry: 2025-05-30 16:30 UTC
-  Setup candle  : 2025-05-30 16:15 UTC  open=105331.12  close=104685.85  wick=0.66%  body=93.4%  dist=0.206%
-  MA44          : 105548.84  slope_8bar=-0.110%  ATR=0.387%
-  Entry         : $104685.85
-  Stop Loss     : $106256.14  (+1.5%)
-  Take Profit   : $99974.99  (-4.5%)
-
-  Signal #27   [LOSS]  SHORT   Entry: 2025-05-30 22:45 UTC
-  Setup candle  : 2025-05-30 22:30 UTC  open=104476.20  close=103994.20  wick=0.49%  body=95.0%  dist=0.442%
-  MA44          : 104940.25  slope_8bar=-0.200%  ATR=0.254%
-  Entry         : $103994.20
-  Stop Loss     : $105554.11  (+1.5%)
-  Take Profit   : $99314.46  (-4.5%)
-
-  Signal #28   [OPEN]  LONG    Entry: 2025-06-13 16:15 UTC
-  Setup candle  : 2025-06-13 16:00 UTC  open=105436.87  close=105856.88  wick=0.52%  body=76.4%  dist=0.596%
-  MA44          : 104812.42  slope_8bar=+0.175%  ATR=0.410%
-  Entry         : $105856.89
-  Stop Loss     : $104269.04  (-1.5%)
-  Take Profit   : $110620.45  (+4.5%)
-
-  Signal #29   [LOSS]  LONG    Entry: 2025-06-16 14:30 UTC
-  Setup candle  : 2025-06-16 14:15 UTC  open=106969.18  close=107356.00  wick=0.51%  body=70.2%  dist=0.201%
-  MA44          : 106754.08  slope_8bar=+0.180%  ATR=0.231%
-  Entry         : $107356.00
-  Stop Loss     : $105745.66  (-1.5%)
-  Take Profit   : $112187.02  (+4.5%)
-
-  Signal #30   [LOSS]  SHORT   Entry: 2025-06-18 20:00 UTC
-  Setup candle  : 2025-06-18 19:45 UTC  open=104176.81  close=103808.41  wick=0.37%  body=95.7%  dist=0.292%
-  MA44          : 104481.77  slope_8bar=-0.152%  ATR=0.483%
-  Entry         : $103808.41
-  Stop Loss     : $105365.54  (+1.5%)
-  Take Profit   : $99137.03  (-4.5%)
-
-  Signal #31   [OPEN]  LONG    Entry: 2025-06-25 00:15 UTC
-  Setup candle  : 2025-06-25 00:00 UTC  open=106083.00  close=106438.21  wick=0.40%  body=83.0%  dist=0.360%
-  MA44          : 105703.00  slope_8bar=+0.138%  ATR=0.199%
-  Entry         : $106438.20
-  Stop Loss     : $104841.63  (-1.5%)
-  Take Profit   : $111227.92  (+4.5%)
-
-  Signal #32   [OPEN]  LONG    Entry: 2025-06-25 10:30 UTC
-  Setup candle  : 2025-06-25 10:15 UTC  open=106730.75  close=107108.63  wick=0.44%  body=80.1%  dist=0.303%
-  MA44          : 106408.32  slope_8bar=+0.134%  ATR=0.211%
-  Entry         : $107108.64
-  Stop Loss     : $105502.01  (-1.5%)
-  Take Profit   : $111928.53  (+4.5%)
-
-  Signal #33   [LOSS]  LONG    Entry: 2025-07-06 21:30 UTC
-  Setup candle  : 2025-07-06 21:15 UTC  open=108921.68  close=109305.85  wick=0.37%  body=94.0%  dist=0.313%
-  MA44          : 108581.62  slope_8bar=+0.131%  ATR=0.193%
-  Entry         : $109305.85
-  Stop Loss     : $107666.26  (-1.5%)
-  Take Profit   : $114224.61  (+4.5%)
-
-  Signal #34   [WIN ]  LONG    Entry: 2025-07-09 19:30 UTC
-  Setup candle  : 2025-07-09 19:15 UTC  open=109656.59  close=110346.01  wick=0.63%  body=99.4%  dist=0.466%
-  MA44          : 109148.31  slope_8bar=+0.130%  ATR=0.202%
-  Entry         : $110346.02
-  Stop Loss     : $108690.83  (-1.5%)
-  Take Profit   : $115311.59  (+4.5%)
-
-  Signal #35   [OPEN]  LONG    Entry: 2025-07-11 12:15 UTC
-  Setup candle  : 2025-07-11 12:00 UTC  open=117821.91  close=118235.01  wick=0.37%  body=94.5%  dist=0.345%
-  MA44          : 117417.38  slope_8bar=+0.346%  ATR=0.248%
-  Entry         : $118235.02
-  Stop Loss     : $116461.49  (-1.5%)
-  Take Profit   : $123555.60  (+4.5%)
-
-  Signal #36   [LOSS]  LONG    Entry: 2025-07-13 14:30 UTC
-  Setup candle  : 2025-07-13 14:15 UTC  open=118638.60  close=119150.00  wick=0.62%  body=69.4%  dist=0.551%
-  MA44          : 117988.83  slope_8bar=+0.145%  ATR=0.226%
-  Entry         : $119149.99
-  Stop Loss     : $117362.74  (-1.5%)
-  Take Profit   : $124511.74  (+4.5%)
-
-  Signal #37   [LOSS]  LONG    Entry: 2025-07-16 17:30 UTC
-  Setup candle  : 2025-07-16 17:15 UTC  open=119207.60  close=119635.87  wick=0.42%  body=86.1%  dist=0.349%
-  MA44          : 118793.29  slope_8bar=+0.204%  ATR=0.455%
-  Entry         : $119635.88
-  Stop Loss     : $117841.34  (-1.5%)
-  Take Profit   : $125019.49  (+4.5%)
-
-  Signal #38   [LOSS]  LONG    Entry: 2025-07-18 01:15 UTC
-  Setup candle  : 2025-07-18 01:00 UTC  open=119739.06  close=120272.01  wick=0.70%  body=63.4%  dist=0.319%
-  MA44          : 119358.82  slope_8bar=+0.248%  ATR=0.373%
-  Entry         : $120272.01
-  Stop Loss     : $118467.93  (-1.5%)
-  Take Profit   : $125684.25  (+4.5%)
-
-  Signal #39   [LOSS]  SHORT   Entry: 2025-07-21 18:45 UTC
-  Setup candle  : 2025-07-21 18:30 UTC  open=117972.99  close=117466.88  wick=0.47%  body=90.5%  dist=0.390%
-  MA44          : 118435.17  slope_8bar=-0.195%  ATR=0.329%
-  Entry         : $117466.88
-  Stop Loss     : $119228.88  (+1.5%)
-  Take Profit   : $112180.87  (-4.5%)
-
-  Signal #40   [LOSS]  LONG    Entry: 2025-07-22 20:15 UTC
-  Setup candle  : 2025-07-22 20:00 UTC  open=119282.11  close=119655.91  wick=0.44%  body=71.1%  dist=0.227%
-  MA44          : 119011.91  slope_8bar=+0.219%  ATR=0.341%
-  Entry         : $119655.91
-  Stop Loss     : $117861.07  (-1.5%)
-  Take Profit   : $125040.43  (+4.5%)
-
-  Signal #41   [LOSS]  LONG    Entry: 2025-07-27 22:15 UTC
-  Setup candle  : 2025-07-27 22:00 UTC  open=119265.75  close=119701.24  wick=0.43%  body=84.7%  dist=0.453%
-  MA44          : 118728.02  slope_8bar=+0.151%  ATR=0.161%
-  Entry         : $119701.25
-  Stop Loss     : $117905.73  (-1.5%)
-  Take Profit   : $125087.81  (+4.5%)
-
-  Signal #42   [OPEN]  SHORT   Entry: 2025-07-29 20:45 UTC
-  Setup candle  : 2025-07-29 20:30 UTC  open=117561.31  close=117211.99  wick=0.42%  body=71.2%  dist=0.416%
-  MA44          : 118052.39  slope_8bar=-0.217%  ATR=0.281%
-  Entry         : $117211.99
-  Stop Loss     : $118970.17  (+1.5%)
-  Take Profit   : $111937.45  (-4.5%)
-
-  Signal #43   [LOSS]  SHORT   Entry: 2025-07-30 19:00 UTC
-  Setup candle  : 2025-07-30 18:45 UTC  open=117436.27  close=116523.14  wick=0.84%  body=92.3%  dist=0.391%
-  MA44          : 117897.75  slope_8bar=-0.102%  ATR=0.290%
-  Entry         : $116523.15
-  Stop Loss     : $118271.00  (+1.5%)
-  Take Profit   : $111279.61  (-4.5%)
-
-  Signal #44   [WIN ]  SHORT   Entry: 2025-07-31 19:15 UTC
-  Setup candle  : 2025-07-31 19:00 UTC  open=117658.81  close=117299.98  wick=0.48%  body=63.8%  dist=0.528%
-  MA44          : 118283.66  slope_8bar=-0.140%  ATR=0.312%
-  Entry         : $117299.99
-  Stop Loss     : $119059.49  (+1.5%)
-  Take Profit   : $112021.49  (-4.5%)
-
-  Signal #45   [LOSS]  SHORT   Entry: 2025-08-02 23:30 UTC
-  Setup candle  : 2025-08-02 23:15 UTC  open=112615.34  close=112308.86  wick=0.36%  body=74.7%  dist=0.235%
-  MA44          : 112880.95  slope_8bar=-0.154%  ATR=0.247%
-  Entry         : $112308.86
-  Stop Loss     : $113993.49  (+1.5%)
-  Take Profit   : $107254.96  (-4.5%)
-
-  Signal #46   [OPEN]  SHORT   Entry: 2025-08-18 01:30 UTC
-  Setup candle  : 2025-08-18 01:15 UTC  open=117304.29  close=116670.05  wick=0.63%  body=85.7%  dist=0.371%
-  MA44          : 117741.53  slope_8bar=-0.152%  ATR=0.213%
-  Entry         : $116670.04
-  Stop Loss     : $118420.09  (+1.5%)
-  Take Profit   : $111419.89  (-4.5%)
-
-  Signal #47   [LOSS]  SHORT   Entry: 2025-08-21 15:15 UTC
-  Setup candle  : 2025-08-21 15:00 UTC  open=113282.00  close=112700.03  wick=0.61%  body=84.8%  dist=0.229%
-  MA44          : 113542.17  slope_8bar=-0.111%  ATR=0.354%
-  Entry         : $112700.04
-  Stop Loss     : $114390.54  (+1.5%)
-  Take Profit   : $107628.54  (-4.5%)
-
-  Signal #48   [OPEN]  SHORT   Entry: 2025-08-25 00:30 UTC
-  Setup candle  : 2025-08-25 00:15 UTC  open=113409.76  close=113062.95  wick=0.37%  body=82.7%  dist=0.395%
-  MA44          : 113859.83  slope_8bar=-0.199%  ATR=0.302%
-  Entry         : $113062.95
-  Stop Loss     : $114758.89  (+1.5%)
-  Take Profit   : $107975.12  (-4.5%)
-
-  Signal #49   [LOSS]  SHORT   Entry: 2025-08-25 13:45 UTC
-  Setup candle  : 2025-08-25 13:30 UTC  open=111660.70  close=110831.99  wick=0.80%  body=92.7%  dist=0.253%
-  MA44          : 111943.98  slope_8bar=-0.265%  ATR=0.334%
-  Entry         : $110832.00
-  Stop Loss     : $112494.48  (+1.5%)
-  Take Profit   : $105844.56  (-4.5%)
-
-  Signal #50   [OPEN]  SHORT   Entry: 2025-08-28 19:45 UTC
-  Setup candle  : 2025-08-28 19:30 UTC  open=112361.31  close=112047.36  wick=0.35%  body=78.7%  dist=0.383%
-  MA44          : 112793.69  slope_8bar=-0.128%  ATR=0.259%
-  Entry         : $112047.37
-  Stop Loss     : $113728.08  (+1.5%)
-  Take Profit   : $107005.24  (-4.5%)
-
-  Signal #51   [OPEN]  SHORT   Entry: 2025-08-29 01:30 UTC
-  Setup candle  : 2025-08-29 01:15 UTC  open=111926.36  close=111551.91  wick=0.45%  body=74.7%  dist=0.402%
-  MA44          : 112377.72  slope_8bar=-0.120%  ATR=0.209%
-  Entry         : $111551.92
-  Stop Loss     : $113225.20  (+1.5%)
-  Take Profit   : $106532.08  (-4.5%)
-
-  Signal #52   [LOSS]  SHORT   Entry: 2025-09-01 21:30 UTC
-  Setup candle  : 2025-09-01 21:15 UTC  open=108433.54  close=108112.74  wick=0.43%  body=68.3%  dist=0.441%
-  MA44          : 108913.69  slope_8bar=-0.115%  ATR=0.243%
-  Entry         : $108112.74
-  Stop Loss     : $109734.43  (+1.5%)
-  Take Profit   : $103247.67  (-4.5%)
-
-  Signal #53   [LOSS]  LONG    Entry: 2025-09-03 17:15 UTC
-  Setup candle  : 2025-09-03 17:00 UTC  open=111858.65  close=112380.33  wick=0.48%  body=96.4%  dist=0.361%
-  MA44          : 111456.58  slope_8bar=+0.198%  ATR=0.377%
-  Entry         : $112380.32
-  Stop Loss     : $110694.62  (-1.5%)
-  Take Profit   : $117437.43  (+4.5%)
-
-  Signal #54   [LOSS]  SHORT   Entry: 2025-09-04 14:15 UTC
-  Setup candle  : 2025-09-04 14:00 UTC  open=110463.99  close=109810.20  wick=0.72%  body=82.4%  dist=0.278%
-  MA44          : 110771.93  slope_8bar=-0.176%  ATR=0.307%
-  Entry         : $109810.20
-  Stop Loss     : $111457.35  (+1.5%)
-  Take Profit   : $104868.74  (-4.5%)
-
-  Signal #55   [LOSS]  LONG    Entry: 2025-09-05 13:00 UTC
-  Setup candle  : 2025-09-05 12:45 UTC  open=112670.01  close=113214.78  wick=0.74%  body=65.3%  dist=0.587%
-  MA44          : 112012.98  slope_8bar=+0.284%  ATR=0.282%
-  Entry         : $113214.78
-  Stop Loss     : $111516.56  (-1.5%)
-  Take Profit   : $118309.45  (+4.5%)
-
-  Signal #56   [OPEN]  LONG    Entry: 2025-09-07 08:30 UTC
-  Setup candle  : 2025-09-07 08:15 UTC  open=110831.26  close=111235.81  wick=0.42%  body=85.7%  dist=0.309%
-  MA44          : 110489.36  slope_8bar=+0.102%  ATR=0.121%
-  Entry         : $111235.80
-  Stop Loss     : $109567.26  (-1.5%)
-  Take Profit   : $116241.41  (+4.5%)
-
-  Signal #57   [OPEN]  LONG    Entry: 2025-09-10 12:45 UTC
-  Setup candle  : 2025-09-10 12:30 UTC  open=112580.00  close=113260.28  wick=0.88%  body=68.5%  dist=0.534%
-  MA44          : 111981.58  slope_8bar=+0.207%  ATR=0.201%
-  Entry         : $113260.29
-  Stop Loss     : $111561.39  (-1.5%)
-  Take Profit   : $118357.00  (+4.5%)
-
-  Signal #58   [OPEN]  SHORT   Entry: 2025-09-22 02:00 UTC
-  Setup candle  : 2025-09-22 01:45 UTC  open=114608.28  close=114273.45  wick=0.37%  body=79.7%  dist=0.596%
-  MA44          : 115295.86  slope_8bar=-0.144%  ATR=0.219%
-  Entry         : $114273.44
-  Stop Loss     : $115987.54  (+1.5%)
-  Take Profit   : $109131.14  (-4.5%)
-
-  Signal #59   [OPEN]  SHORT   Entry: 2025-09-22 06:00 UTC
-  Setup candle  : 2025-09-22 05:45 UTC  open=114328.01  close=113691.19  wick=0.67%  body=83.7%  dist=0.493%
-  MA44          : 114894.51  slope_8bar=-0.183%  ATR=0.193%
-  Entry         : $113691.18
-  Stop Loss     : $115396.55  (+1.5%)
-  Take Profit   : $108575.08  (-4.5%)
-
-  Signal #60   [OPEN]  SHORT   Entry: 2025-09-25 04:15 UTC
-  Setup candle  : 2025-09-25 04:00 UTC  open=112546.22  close=112279.96  wick=0.36%  body=66.6%  dist=0.622%
-  MA44          : 113251.09  slope_8bar=-0.158%  ATR=0.292%
-  Entry         : $112279.96
-  Stop Loss     : $113964.16  (+1.5%)
-  Take Profit   : $107227.36  (-4.5%)
-
-  Signal #61   [OPEN]  SHORT   Entry: 2025-09-25 12:30 UTC
-  Setup candle  : 2025-09-25 12:15 UTC  open=111559.59  close=111125.76  wick=0.39%  body=99.0%  dist=0.344%
-  MA44          : 111944.34  slope_8bar=-0.283%  ATR=0.217%
-  Entry         : $111125.76
-  Stop Loss     : $112792.65  (+1.5%)
-  Take Profit   : $106125.10  (-4.5%)
-
-  Signal #62   [OPEN]  SHORT   Entry: 2025-09-25 17:15 UTC
-  Setup candle  : 2025-09-25 17:00 UTC  open=110957.28  close=110160.00  wick=0.74%  body=97.4%  dist=0.466%
-  MA44          : 111477.25  slope_8bar=-0.119%  ATR=0.357%
-  Entry         : $110160.37
-  Stop Loss     : $111812.78  (+1.5%)
-  Take Profit   : $105203.15  (-4.5%)
-
-  Signal #63   [OPEN]  SHORT   Entry: 2025-09-26 00:45 UTC
-  Setup candle  : 2025-09-26 00:30 UTC  open=109299.99  close=108809.25  wick=0.45%  body=100.0%  dist=0.594%
-  MA44          : 109952.87  slope_8bar=-0.337%  ATR=0.268%
-  Entry         : $108809.25
-  Stop Loss     : $110441.39  (+1.5%)
-  Take Profit   : $103912.83  (-4.5%)
-
-  Signal #64   [LOSS]  LONG    Entry: 2025-10-06 14:00 UTC
-  Setup candle  : 2025-10-06 13:45 UTC  open=124565.80  close=125031.33  wick=0.55%  body=67.1%  dist=0.469%
-  MA44          : 123983.85  slope_8bar=+0.109%  ATR=0.278%
-  Entry         : $125031.34
-  Stop Loss     : $123155.87  (-1.5%)
-  Take Profit   : $130657.75  (+4.5%)
-
-  Signal #65   [LOSS]  LONG    Entry: 2025-10-08 10:45 UTC
-  Setup candle  : 2025-10-08 10:30 UTC  open=122608.00  close=122974.02  wick=0.42%  body=70.1%  dist=0.630%
-  MA44          : 121839.85  slope_8bar=+0.108%  ATR=0.271%
-  Entry         : $122974.02
-  Stop Loss     : $121129.41  (-1.5%)
-  Take Profit   : $128507.85  (+4.5%)
-
-  Signal #66   [LOSS]  LONG    Entry: 2025-10-08 17:15 UTC
-  Setup candle  : 2025-10-08 17:00 UTC  open=123051.02  close=123669.93  wick=0.58%  body=86.9%  dist=0.488%
-  MA44          : 122453.87  slope_8bar=+0.181%  ATR=0.413%
-  Entry         : $123669.93
-  Stop Loss     : $121814.88  (-1.5%)
-  Take Profit   : $129235.08  (+4.5%)
-
-  Signal #67   [WIN ]  SHORT   Entry: 2025-10-15 12:30 UTC
-  Setup candle  : 2025-10-15 12:15 UTC  open=111992.59  close=111469.76  wick=0.55%  body=85.1%  dist=0.411%
-  MA44          : 112454.60  slope_8bar=-0.135%  ATR=0.319%
-  Entry         : $111469.76
-  Stop Loss     : $113141.81  (+1.5%)
-  Take Profit   : $106453.62  (-4.5%)
-
-  Signal #68   [WIN ]  SHORT   Entry: 2025-10-16 15:30 UTC
-  Setup candle  : 2025-10-16 15:15 UTC  open=110587.95  close=110044.97  wick=0.67%  body=73.6%  dist=0.421%
-  MA44          : 111055.98  slope_8bar=-0.140%  ATR=0.540%
-  Entry         : $110044.97
-  Stop Loss     : $111695.64  (+1.5%)
-  Take Profit   : $105092.95  (-4.5%)
-
-  Signal #69   [LOSS]  LONG    Entry: 2025-10-28 17:00 UTC
-  Setup candle  : 2025-10-28 16:45 UTC  open=115086.90  close=115341.59  wick=0.36%  body=61.7%  dist=0.414%
-  MA44          : 114612.62  slope_8bar=+0.182%  ATR=0.456%
-  Entry         : $115341.59
-  Stop Loss     : $113611.47  (-1.5%)
-  Take Profit   : $120531.96  (+4.5%)
-
-  Signal #70   [WIN ]  SHORT   Entry: 2025-11-02 22:45 UTC
-  Setup candle  : 2025-11-02 22:30 UTC  open=109992.30  close=109632.89  wick=0.47%  body=69.0%  dist=0.244%
-  MA44          : 110260.89  slope_8bar=-0.118%  ATR=0.147%
+  Signal #1    [WIN ]  SHORT   Entry: 2025-11-02 22:45 UTC
+  Setup         : 2025-11-02 22:30 UTC  open=109992.30  close=109632.89  wick=0.47%  body=69.0%  dist=0.244%  zone=A
+  MA44          : 110260.89  slope_8bar=-0.118%  ma_accel=-20.47432 (↓steep)  h4_ma_dir=FALLING  atr_14=0.147%
   Entry         : $109632.89
-  Stop Loss     : $111277.38  (+1.5%)
-  Take Profit   : $104699.41  (-4.5%)
+  Stop Loss     : $111825.55  (+2.0%)
+  Take Profit   : $103054.92  (-6.0%)
 
-  Signal #71   [WIN ]  SHORT   Entry: 2025-11-03 10:45 UTC
-  Setup candle  : 2025-11-03 10:30 UTC  open=107592.09  close=107246.09  wick=0.39%  body=82.5%  dist=0.617%
-  MA44          : 108259.97  slope_8bar=-0.439%  ATR=0.324%
+  Signal #2    [WIN ]  SHORT   Entry: 2025-11-03 10:45 UTC
+  Setup         : 2025-11-03 10:30 UTC  open=107592.09  close=107246.09  wick=0.39%  body=82.5%  dist=0.617%  zone=B
+  MA44          : 108259.97  slope_8bar=-0.439%  ma_accel=-43.80295 (↓steep)  h4_ma_dir=FALLING  atr_14=0.324%
   Entry         : $107246.08
-  Stop Loss     : $108854.77  (+1.5%)
-  Take Profit   : $102420.01  (-4.5%)
+  Stop Loss     : $109391.00  (+2.0%)
+  Take Profit   : $100811.32  (-6.0%)
 
-  Signal #72   [LOSS]  SHORT   Entry: 2025-11-06 15:45 UTC
-  Setup candle  : 2025-11-06 15:30 UTC  open=102438.03  close=101806.60  wick=0.72%  body=86.1%  dist=0.597%
-  MA44          : 103052.76  slope_8bar=-0.195%  ATR=0.548%
+  Signal #3    [LOSS]  SHORT   Entry: 2025-11-06 15:45 UTC
+  Setup         : 2025-11-06 15:30 UTC  open=102438.03  close=101806.60  wick=0.72%  body=86.1%  dist=0.597%  zone=B
+  MA44          : 103052.76  slope_8bar=-0.195%  ma_accel=-93.39977 (↓steep)  h4_ma_dir=FALLING  atr_14=0.548%
   Entry         : $101806.60
-  Stop Loss     : $103333.70  (+1.5%)
-  Take Profit   : $97225.30  (-4.5%)
+  Stop Loss     : $103842.73  (+2.0%)
+  Take Profit   : $95698.20  (-6.0%)
 
-  Signal #73   [OPEN]  SHORT   Entry: 2025-11-11 14:45 UTC
-  Setup candle  : 2025-11-11 14:30 UTC  open=104478.34  close=104089.14  wick=0.40%  body=94.0%  dist=0.611%
-  MA44          : 105120.18  slope_8bar=-0.369%  ATR=0.302%
+  Signal #4    [OPEN]  SHORT   Entry: 2025-11-11 14:45 UTC
+  Setup         : 2025-11-11 14:30 UTC  open=104478.34  close=104089.14  wick=0.40%  body=94.0%  dist=0.611%  zone=B
+  MA44          : 105120.18  slope_8bar=-0.369%  ma_accel=-40.69886 (↓steep)  h4_ma_dir=FALLING  atr_14=0.302%
   Entry         : $104089.15
-  Stop Loss     : $105650.49  (+1.5%)
-  Take Profit   : $99405.14  (-4.5%)
+  Stop Loss     : $106170.93  (+2.0%)
+  Take Profit   : $97843.80  (-6.0%)
 
-  Signal #74   [LOSS]  SHORT   Entry: 2025-11-13 00:30 UTC
-  Setup candle  : 2025-11-13 00:15 UTC  open=101724.77  close=101483.60  wick=0.37%  body=64.7%  dist=0.444%
-  MA44          : 102178.91  slope_8bar=-0.572%  ATR=0.274%
-  Entry         : $101483.61
-  Stop Loss     : $103005.86  (+1.5%)
-  Take Profit   : $96916.85  (-4.5%)
-
-  Signal #75   [WIN ]  SHORT   Entry: 2025-11-14 01:00 UTC
-  Setup candle  : 2025-11-14 00:45 UTC  open=99357.13  close=98973.95  wick=0.63%  body=60.8%  dist=0.582%
-  MA44          : 99939.27  slope_8bar=-0.567%  ATR=0.517%
+  Signal #5    [OPEN]  SHORT   Entry: 2025-11-14 01:00 UTC
+  Setup         : 2025-11-14 00:45 UTC  open=99357.13  close=98973.95  wick=0.63%  body=60.8%  dist=0.582%  zone=B
+  MA44          : 99939.27  slope_8bar=-0.567%  ma_accel=-34.08500 (↓steep)  h4_ma_dir=FALLING  atr_14=0.517%
   Entry         : $98973.95
-  Stop Loss     : $100458.56  (+1.5%)
-  Take Profit   : $94520.12  (-4.5%)
+  Stop Loss     : $100953.43  (+2.0%)
+  Take Profit   : $93035.51  (-6.0%)
 
-  Signal #76   [LOSS]  SHORT   Entry: 2025-11-16 01:45 UTC
-  Setup candle  : 2025-11-16 01:30 UTC  open=95450.00  close=95003.54  wick=0.61%  body=77.0%  dist=0.338%
-  MA44          : 95774.12  slope_8bar=-0.142%  ATR=0.265%
+  Signal #6    [OPEN]  SHORT   Entry: 2025-11-16 01:45 UTC
+  Setup         : 2025-11-16 01:30 UTC  open=95450.00  close=95003.54  wick=0.61%  body=77.0%  dist=0.338%  zone=A
+  MA44          : 95774.12  slope_8bar=-0.142%  ma_accel=-38.50114 (↓steep)  h4_ma_dir=FALLING  atr_14=0.265%
   Entry         : $95003.53
-  Stop Loss     : $96428.58  (+1.5%)
-  Take Profit   : $90728.37  (-4.5%)
+  Stop Loss     : $96903.60  (+2.0%)
+  Take Profit   : $89303.32  (-6.0%)
 
-  Signal #77   [LOSS]  SHORT   Entry: 2025-11-24 09:30 UTC
-  Setup candle  : 2025-11-24 09:15 UTC  open=86613.63  close=85943.63  wick=0.89%  body=87.0%  dist=0.541%
-  MA44          : 87085.01  slope_8bar=-0.176%  ATR=0.422%
+  Signal #7    [LOSS]  SHORT   Entry: 2025-11-24 09:30 UTC
+  Setup         : 2025-11-24 09:15 UTC  open=86613.63  close=85943.63  wick=0.89%  body=87.0%  dist=0.541%  zone=B
+  MA44          : 87085.01  slope_8bar=-0.176%  ma_accel=-71.88068 (↓steep)  h4_ma_dir=FALLING  atr_14=0.422%
   Entry         : $85943.64
-  Stop Loss     : $87232.79  (+1.5%)
-  Take Profit   : $82076.18  (-4.5%)
+  Stop Loss     : $87662.51  (+2.0%)
+  Take Profit   : $80787.02  (-6.0%)
 
-  Signal #78   [LOSS]  SHORT   Entry: 2025-11-25 07:30 UTC
-  Setup candle  : 2025-11-25 07:15 UTC  open=88022.01  close=87699.78  wick=0.38%  body=95.6%  dist=0.229%
-  MA44          : 88224.34  slope_8bar=-0.123%  ATR=0.270%
+  Signal #8    [LOSS]  SHORT   Entry: 2025-11-25 07:30 UTC
+  Setup         : 2025-11-25 07:15 UTC  open=88022.01  close=87699.78  wick=0.38%  body=95.6%  dist=0.229%  zone=A
+  MA44          : 88224.34  slope_8bar=-0.123%  ma_accel=-13.80864 (↓steep)  h4_ma_dir=FALLING  atr_14=0.270%
   Entry         : $87699.77
-  Stop Loss     : $89015.27  (+1.5%)
-  Take Profit   : $83753.28  (-4.5%)
+  Stop Loss     : $89453.77  (+2.0%)
+  Take Profit   : $82437.78  (-6.0%)
 
-  Signal #79   [LOSS]  SHORT   Entry: 2025-11-25 14:45 UTC
-  Setup candle  : 2025-11-25 14:30 UTC  open=87180.07  close=86599.99  wick=0.78%  body=84.8%  dist=0.420%
-  MA44          : 87547.48  slope_8bar=-0.118%  ATR=0.390%
-  Entry         : $86599.99
-  Stop Loss     : $87898.99  (+1.5%)
-  Take Profit   : $82702.99  (-4.5%)
-
-  Signal #80   [LOSS]  SHORT   Entry: 2025-11-26 12:15 UTC
-  Setup candle  : 2025-11-26 12:00 UTC  open=87095.78  close=86559.81  wick=0.73%  body=83.9%  dist=0.372%
-  MA44          : 87420.85  slope_8bar=-0.124%  ATR=0.260%
-  Entry         : $86559.82
-  Stop Loss     : $87858.22  (+1.5%)
-  Take Profit   : $82664.63  (-4.5%)
-
-  Signal #81   [LOSS]  LONG    Entry: 2025-11-28 14:00 UTC
-  Setup candle  : 2025-11-28 13:45 UTC  open=91840.00  close=92377.01  wick=0.86%  body=67.5%  dist=0.432%
-  MA44          : 91444.83  slope_8bar=+0.153%  ATR=0.319%
-  Entry         : $92377.00
-  Stop Loss     : $90991.35  (-1.5%)
-  Take Profit   : $96533.96  (+4.5%)
-
-  Signal #82   [WIN ]  LONG    Entry: 2025-12-02 14:00 UTC
-  Setup candle  : 2025-12-02 13:45 UTC  open=87475.10  close=87731.41  wick=0.47%  body=61.9%  dist=0.535%
-  MA44          : 87009.47  slope_8bar=+0.160%  ATR=0.342%
-  Entry         : $87731.41
-  Stop Loss     : $86415.44  (-1.5%)
-  Take Profit   : $91679.32  (+4.5%)
-
-  Signal #83   [OPEN]  SHORT   Entry: 2025-12-14 19:15 UTC
-  Setup candle  : 2025-12-14 19:00 UTC  open=88997.27  close=88748.98  wick=0.37%  body=75.9%  dist=0.383%
-  MA44          : 89339.32  slope_8bar=-0.268%  ATR=0.316%
-  Entry         : $88748.98
-  Stop Loss     : $90080.21  (+1.5%)
-  Take Profit   : $84755.28  (-4.5%)
-
-  Signal #84   [LOSS]  SHORT   Entry: 2025-12-17 08:30 UTC
-  Setup candle  : 2025-12-17 08:15 UTC  open=86800.01  close=86521.10  wick=0.41%  body=78.3%  dist=0.525%
-  MA44          : 87258.52  slope_8bar=-0.169%  ATR=0.316%
+  Signal #9    [LOSS]  SHORT   Entry: 2025-12-17 08:30 UTC
+  Setup         : 2025-12-17 08:15 UTC  open=86800.01  close=86521.10  wick=0.41%  body=78.3%  dist=0.525%  zone=B
+  MA44          : 87258.52  slope_8bar=-0.169%  ma_accel=-2.25841 (↓steep)  h4_ma_dir=FALLING  atr_14=0.316%
   Entry         : $86521.11
-  Stop Loss     : $87818.93  (+1.5%)
-  Take Profit   : $82627.66  (-4.5%)
+  Stop Loss     : $88251.53  (+2.0%)
+  Take Profit   : $81329.84  (-6.0%)
 
-  Signal #85   [LOSS]  SHORT   Entry: 2025-12-17 23:15 UTC
-  Setup candle  : 2025-12-17 23:00 UTC  open=86339.10  close=86001.02  wick=0.39%  body=99.6%  dist=0.496%
-  MA44          : 86769.40  slope_8bar=-0.158%  ATR=0.377%
-  Entry         : $86001.01
-  Stop Loss     : $87291.03  (+1.5%)
-  Take Profit   : $82130.96  (-4.5%)
-
-  Signal #86   [LOSS]  LONG    Entry: 2025-12-22 08:30 UTC
-  Setup candle  : 2025-12-22 08:15 UTC  open=89195.55  close=89815.81  wick=0.78%  body=88.0%  dist=0.469%
-  MA44          : 88779.42  slope_8bar=+0.175%  ATR=0.229%
-  Entry         : $89815.81
-  Stop Loss     : $88468.57  (-1.5%)
-  Take Profit   : $93857.52  (+4.5%)
-
-  Signal #87   [LOSS]  SHORT   Entry: 2025-12-24 05:45 UTC
-  Setup candle  : 2025-12-24 05:30 UTC  open=87160.00  close=86846.67  wick=0.40%  body=89.3%  dist=0.383%
-  MA44          : 87495.52  slope_8bar=-0.117%  ATR=0.241%
-  Entry         : $86846.68
-  Stop Loss     : $88149.38  (+1.5%)
-  Take Profit   : $82938.58  (-4.5%)
-
-  Signal #88   [OPEN]  LONG    Entry: 2026-01-02 16:30 UTC
-  Setup candle  : 2026-01-02 16:15 UTC  open=89771.41  close=90055.85  wick=0.50%  body=63.6%  dist=0.533%
-  MA44          : 89295.30  slope_8bar=+0.157%  ATR=0.567%
-  Entry         : $90055.86
-  Stop Loss     : $88705.02  (-1.5%)
-  Take Profit   : $94108.37  (+4.5%)
-
-  Signal #89   [LOSS]  LONG    Entry: 2026-01-05 17:45 UTC
-  Setup candle  : 2026-01-05 17:30 UTC  open=93446.54  close=93794.67  wick=0.45%  body=82.0%  dist=0.455%
-  MA44          : 93023.52  slope_8bar=+0.246%  ATR=0.443%
-  Entry         : $93794.68
-  Stop Loss     : $92387.76  (-1.5%)
-  Take Profit   : $98015.44  (+4.5%)
-
-  Signal #90   [LOSS]  SHORT   Entry: 2026-01-12 14:30 UTC
-  Setup candle  : 2026-01-12 14:15 UTC  open=90651.13  close=90290.20  wick=0.59%  body=67.4%  dist=0.637%
-  MA44          : 91231.92  slope_8bar=-0.256%  ATR=0.211%
+  Signal #10   [LOSS]  SHORT   Entry: 2026-01-12 14:30 UTC
+  Setup         : 2026-01-12 14:15 UTC  open=90651.13  close=90290.20  wick=0.59%  body=67.4%  dist=0.637%  zone=B
+  MA44          : 91231.92  slope_8bar=-0.256%  ma_accel=-72.15727 (↓steep)  h4_ma_dir=FALLING  atr_14=0.211%
   Entry         : $90290.19
-  Stop Loss     : $91644.54  (+1.5%)
-  Take Profit   : $86227.13  (-4.5%)
+  Stop Loss     : $92095.99  (+2.0%)
+  Take Profit   : $84872.78  (-6.0%)
 
-  Signal #91   [OPEN]  SHORT   Entry: 2026-01-20 13:15 UTC
-  Setup candle  : 2026-01-20 13:00 UTC  open=91280.31  close=90920.83  wick=0.44%  body=89.2%  dist=0.248%
-  MA44          : 91507.04  slope_8bar=-0.289%  ATR=0.173%
+  Signal #11   [OPEN]  SHORT   Entry: 2026-01-20 13:15 UTC
+  Setup         : 2026-01-20 13:00 UTC  open=91280.31  close=90920.83  wick=0.44%  body=89.2%  dist=0.248%  zone=A
+  MA44          : 91507.04  slope_8bar=-0.289%  ma_accel=-19.30068 (↓steep)  h4_ma_dir=FALLING  atr_14=0.173%
   Entry         : $90920.83
-  Stop Loss     : $92284.64  (+1.5%)
-  Take Profit   : $86829.39  (-4.5%)
+  Stop Loss     : $92739.25  (+2.0%)
+  Take Profit   : $85465.58  (-6.0%)
 
-  Signal #92   [OPEN]  SHORT   Entry: 2026-01-25 08:45 UTC
-  Setup candle  : 2026-01-25 08:30 UTC  open=88682.54  close=88317.02  wick=0.57%  body=72.5%  dist=0.422%
-  MA44          : 89057.94  slope_8bar=-0.138%  ATR=0.158%
-  Entry         : $88317.03
-  Stop Loss     : $89641.79  (+1.5%)
-  Take Profit   : $84342.76  (-4.5%)
-
-  Signal #93   [WIN ]  SHORT   Entry: 2026-01-29 08:15 UTC
-  Setup candle  : 2026-01-29 08:00 UTC  open=88352.96  close=87950.01  wick=0.46%  body=100.0%  dist=0.314%
-  MA44          : 88631.11  slope_8bar=-0.221%  ATR=0.166%
+  Signal #12   [WIN ]  SHORT   Entry: 2026-01-29 08:15 UTC
+  Setup         : 2026-01-29 08:00 UTC  open=88352.96  close=87950.01  wick=0.46%  body=100.0%  dist=0.314%  zone=A
+  MA44          : 88631.11  slope_8bar=-0.221%  ma_accel=-6.55932 (↓steep)  h4_ma_dir=FALLING  atr_14=0.166%
   Entry         : $87950.01
-  Stop Loss     : $89269.26  (+1.5%)
-  Take Profit   : $83992.26  (-4.5%)
+  Stop Loss     : $89709.01  (+2.0%)
+  Take Profit   : $82673.01  (-6.0%)
 
-  Signal #94   [LOSS]  SHORT   Entry: 2026-01-30 07:30 UTC
-  Setup candle  : 2026-01-30 07:15 UTC  open=82946.04  close=82669.63  wick=0.41%  body=81.0%  dist=0.540%
-  MA44          : 83396.32  slope_8bar=-0.258%  ATR=0.391%
+  Signal #13   [LOSS]  SHORT   Entry: 2026-01-30 07:30 UTC
+  Setup         : 2026-01-30 07:15 UTC  open=82946.04  close=82669.63  wick=0.41%  body=81.0%  dist=0.540%  zone=B
+  MA44          : 83396.32  slope_8bar=-0.258%  ma_accel=-44.89364 (↓steep)  h4_ma_dir=FALLING  atr_14=0.391%
   Entry         : $82669.63
-  Stop Loss     : $83909.67  (+1.5%)
-  Take Profit   : $78949.50  (-4.5%)
+  Stop Loss     : $84323.02  (+2.0%)
+  Take Profit   : $77709.45  (-6.0%)
 
-  Signal #95   [LOSS]  SHORT   Entry: 2026-02-04 00:15 UTC
-  Setup candle  : 2026-02-04 00:00 UTC  open=75770.21  close=75467.23  wick=0.41%  body=98.6%  dist=0.555%
-  MA44          : 76193.44  slope_8bar=-0.588%  ATR=0.532%
+  Signal #14   [WIN ]  SHORT   Entry: 2026-02-04 00:15 UTC
+  Setup         : 2026-02-04 00:00 UTC  open=75770.21  close=75467.23  wick=0.41%  body=98.6%  dist=0.555%  zone=B
+  MA44          : 76193.44  slope_8bar=-0.588%  ma_accel=-26.82432 (↓steep)  h4_ma_dir=FALLING  atr_14=0.532%
   Entry         : $75467.23
-  Stop Loss     : $76599.24  (+1.5%)
-  Take Profit   : $72071.20  (-4.5%)
+  Stop Loss     : $76976.57  (+2.0%)
+  Take Profit   : $70939.20  (-6.0%)
 
-  Signal #96   [WIN ]  SHORT   Entry: 2026-02-09 08:30 UTC
-  Setup candle  : 2026-02-09 08:15 UTC  open=70532.48  close=70087.20  wick=0.70%  body=89.7%  dist=0.259%
-  MA44          : 70715.69  slope_8bar=-0.146%  ATR=0.420%
+  Signal #15   [OPEN]  SHORT   Entry: 2026-02-09 08:30 UTC
+  Setup         : 2026-02-09 08:15 UTC  open=70532.48  close=70087.20  wick=0.70%  body=89.7%  dist=0.259%  zone=A
+  MA44          : 70715.69  slope_8bar=-0.146%  ma_accel=-7.65659 (↓steep)  h4_ma_dir=FALLING  atr_14=0.420%
   Entry         : $70087.20
-  Stop Loss     : $71138.51  (+1.5%)
-  Take Profit   : $66933.28  (-4.5%)
+  Stop Loss     : $71488.94  (+2.0%)
+  Take Profit   : $65881.97  (-6.0%)
 
-  Signal #97   [WIN ]  SHORT   Entry: 2026-02-10 05:30 UTC
-  Setup candle  : 2026-02-10 05:15 UTC  open=69807.35  close=69526.80  wick=0.46%  body=86.5%  dist=0.602%
-  MA44          : 70230.06  slope_8bar=-0.160%  ATR=0.399%
+  Signal #16   [OPEN]  SHORT   Entry: 2026-02-10 05:30 UTC
+  Setup         : 2026-02-10 05:15 UTC  open=69807.35  close=69526.80  wick=0.46%  body=86.5%  dist=0.602%  zone=B
+  MA44          : 70230.06  slope_8bar=-0.160%  ma_accel=-43.73136 (↓steep)  h4_ma_dir=FALLING  atr_14=0.399%
   Entry         : $69526.80
-  Stop Loss     : $70569.70  (+1.5%)
-  Take Profit   : $66398.09  (-4.5%)
+  Stop Loss     : $70917.34  (+2.0%)
+  Take Profit   : $65355.19  (-6.0%)
 
-  Signal #98   [WIN ]  SHORT   Entry: 2026-02-10 21:45 UTC
-  Setup candle  : 2026-02-10 21:30 UTC  open=68652.28  close=68462.55  wick=0.42%  body=65.4%  dist=0.506%
-  MA44          : 69001.58  slope_8bar=-0.103%  ATR=0.496%
+  Signal #17   [OPEN]  SHORT   Entry: 2026-02-10 21:45 UTC
+  Setup         : 2026-02-10 21:30 UTC  open=68652.28  close=68462.55  wick=0.42%  body=65.4%  dist=0.506%  zone=B
+  MA44          : 69001.58  slope_8bar=-0.103%  ma_accel=-9.60659 (↓steep)  h4_ma_dir=FALLING  atr_14=0.496%
   Entry         : $68462.55
-  Stop Loss     : $69489.49  (+1.5%)
-  Take Profit   : $65381.74  (-4.5%)
+  Stop Loss     : $69831.80  (+2.0%)
+  Take Profit   : $64354.80  (-6.0%)
 
-  Signal #99   [LOSS]  SHORT   Entry: 2026-02-16 03:30 UTC
-  Setup candle  : 2026-02-16 03:15 UTC  open=68382.12  close=68182.59  wick=0.36%  body=81.7%  dist=0.410%
-  MA44          : 68663.32  slope_8bar=-0.172%  ATR=0.349%
-  Entry         : $68182.58
-  Stop Loss     : $69205.32  (+1.5%)
-  Take Profit   : $65114.36  (-4.5%)
-
-  Signal #100  [OPEN]  SHORT   Entry: 2026-02-17 10:30 UTC
-  Setup candle  : 2026-02-17 10:15 UTC  open=68132.99  close=67916.30  wick=0.49%  body=65.1%  dist=0.540%
-  MA44          : 68502.68  slope_8bar=-0.151%  ATR=0.251%
+  Signal #18   [OPEN]  SHORT   Entry: 2026-02-17 10:30 UTC
+  Setup         : 2026-02-17 10:15 UTC  open=68132.99  close=67916.30  wick=0.49%  body=65.1%  dist=0.540%  zone=B
+  MA44          : 68502.68  slope_8bar=-0.151%  ma_accel=-2.39341 (↓steep)  h4_ma_dir=FALLING  atr_14=0.251%
   Entry         : $67916.30
-  Stop Loss     : $68935.04  (+1.5%)
-  Take Profit   : $64860.07  (-4.5%)
+  Stop Loss     : $69274.63  (+2.0%)
+  Take Profit   : $63841.32  (-6.0%)
 
-  Signal #101  [LOSS]  SHORT   Entry: 2026-02-18 01:15 UTC
-  Setup candle  : 2026-02-18 01:00 UTC  open=67302.65  close=67100.78  wick=0.48%  body=62.6%  dist=0.346%
-  MA44          : 67536.40  slope_8bar=-0.176%  ATR=0.242%
+  Signal #19   [LOSS]  SHORT   Entry: 2026-02-18 01:15 UTC
+  Setup         : 2026-02-18 01:00 UTC  open=67302.65  close=67100.78  wick=0.48%  body=62.6%  dist=0.346%  zone=A
+  MA44          : 67536.40  slope_8bar=-0.176%  ma_accel=-18.36636 (↓steep)  h4_ma_dir=FALLING  atr_14=0.242%
   Entry         : $67100.79
-  Stop Loss     : $68107.30  (+1.5%)
-  Take Profit   : $64081.25  (-4.5%)
+  Stop Loss     : $68442.81  (+2.0%)
+  Take Profit   : $63074.74  (-6.0%)
 
-  Signal #102  [WIN ]  SHORT   Entry: 2026-02-22 17:45 UTC
-  Setup candle  : 2026-02-22 17:30 UTC  open=67496.26  close=67260.75  wick=0.52%  body=67.5%  dist=0.536%
-  MA44          : 67859.71  slope_8bar=-0.122%  ATR=0.254%
+  Signal #20   [WIN ]  SHORT   Entry: 2026-02-22 17:45 UTC
+  Setup         : 2026-02-22 17:30 UTC  open=67496.26  close=67260.75  wick=0.52%  body=67.5%  dist=0.536%  zone=B
+  MA44          : 67859.71  slope_8bar=-0.122%  ma_accel=-18.71432 (↓steep)  h4_ma_dir=FALLING  atr_14=0.254%
   Entry         : $67260.75
-  Stop Loss     : $68269.66  (+1.5%)
-  Take Profit   : $64234.02  (-4.5%)
-
-  Signal #103  [WIN ]  SHORT   Entry: 2026-02-23 01:00 UTC
-  Setup candle  : 2026-02-23 00:45 UTC  open=67180.24  close=66740.47  wick=0.69%  body=94.5%  dist=0.456%
-  MA44          : 67487.69  slope_8bar=-0.129%  ATR=0.281%
-  Entry         : $66740.47
-  Stop Loss     : $67741.58  (+1.5%)
-  Take Profit   : $63737.15  (-4.5%)
-
-  Signal #104  [LOSS]  SHORT   Entry: 2026-02-23 23:45 UTC
-  Setup candle  : 2026-02-23 23:30 UTC  open=64839.93  close=64621.91  wick=0.41%  body=81.7%  dist=0.417%
-  MA44          : 65111.44  slope_8bar=-0.412%  ATR=0.366%
-  Entry         : $64621.95
-  Stop Loss     : $65591.28  (+1.5%)
-  Take Profit   : $61713.96  (-4.5%)
+  Stop Loss     : $68605.96  (+2.0%)
+  Take Profit   : $63225.10  (-6.0%)
 
 --------------------------------------------------------------------------------
 
@@ -788,12 +200,13 @@ METHODOLOGY
   ONGOING : Neither hit within 48h
   UNKNOWN : Data unavailable
 
-  F2/F3 Distance : closest body edge (not wick) to MA44
-                   Min 0.20% — too close = noise / unconfirmed touch
-                   Max 0.65% — too far  = overextended from MA44
-  F5 MA Slope    : 8-bar slope magnitude eliminates flat/drifting MA conditions
-  F6 MA Accel    : recent 4-bar slope must exceed prior 4-bar slope (trend strengthening)
-  F7 ATR         : high ATR = SL too tight relative to noise, skip entry
-  F8 4H Gate     : only trade in direction of 4h MA44 slope (macro alignment)
-  F9 Circuit Brk : 2 consecutive losses same side triggers 8h pause on that side
+  F5 HARD REJECT  : abs(slope) < 0.10% kills the candle immediately,
+                    no other checks run after this failure
+  F6 STRICT SIGN  : slope_recent < slope_prior < 0 required for SHORT
+                    both halves of 8-bar window must be negative AND
+                    recent must be steeper (more negative) than prior
+  F9 FIXED        : counter resets on WIN; pause compared vs entry_ts
+  DIST ZONES      : 0.20–0.35% (zone A) and 0.50–0.65% (zone B)
+                    0.35–0.50% middle band excluded (historically 19% WR)
+  LONGs DISABLED  : 1W/8T (12.5%) over 5 months — no statistical edge
 ================================================================================
