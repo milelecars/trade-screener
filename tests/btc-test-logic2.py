@@ -3,16 +3,12 @@ BTC/USDT BACKTEST — Logic No. 2b (Enhanced v3)
 ===============================================
 MA44 Bounce Strategy — SHORT ONLY — No RSI, No Crossovers
 
-PERIOD : 01 Oct 2025 → 26 Feb 2026
+PERIOD : 01 Jan 2024 → 31 Jan 2026
 
 CHANGES vs previous version:
-  - SHORT only (LONGs disabled — 1W/8T over 5 months)
-  - F5 hard reject: abs 8-bar slope < 0.10% → skip, no fallthrough
-  - F6 strict sign: ma_accel must be negative for SHORT (steepening down)
-  - F9 fixed: counter resets on WIN, pause compared against entry_ts
-  - Distance zone split: accept 0.20–0.35% AND 0.50–0.65%, reject 0.35–0.50%
-  - SL 2.0% / TP 6.0%  (was 1.5% / 4.5%)
-  - Per-signal output: ma_slope_8bar, ma_accel, h4_ma_dir, atr_14_pct
+  - No 48h cutoff — trades stay open until SL or TP is hit
+  - ONGOING = trade still running at report generation time only
+  - All other logic identical to v3
 
 TWO-STEP SIGNAL:
   Step 1 — Setup candle (all filters must pass):
@@ -33,7 +29,8 @@ TWO-STEP SIGNAL:
 
 SL : 2.0%
 TP : 6.0%
-Cooldown : 4 hours
+Cooldown  : 4 hours
+Time limit: NONE — trade runs until SL or TP hit
 """
 
 import requests
@@ -49,31 +46,31 @@ import time
 MA_PERIOD         = 44
 SL_PERCENT        = 2.0
 TP_PERCENT        = 6.0
-COOLDOWN_MS       = 4 * 60 * 60 * 1000        # 4 hours
+COOLDOWN_MS       = 4 * 60 * 60 * 1000
 
 # F1
 MIN_BODY_RATIO    = 0.60
 
-# F2 — split distance zones (middle band 0.35–0.50% rejected)
-DIST_ZONE_A_MIN   = 0.0020   # 0.20%
-DIST_ZONE_A_MAX   = 0.0035   # 0.35%
-DIST_ZONE_B_MIN   = 0.0050   # 0.50%
-DIST_ZONE_B_MAX   = 0.0065   # 0.65%
+# F2 — split distance zones
+DIST_ZONE_A_MIN   = 0.0020
+DIST_ZONE_A_MAX   = 0.0035
+DIST_ZONE_B_MIN   = 0.0050
+DIST_ZONE_B_MAX   = 0.0065
 
 # F4
-MIN_WICK_PCT      = 0.0035   # 0.35%
-MAX_WICK_PCT      = 0.0100   # 1.00%
+MIN_WICK_PCT      = 0.0035
+MAX_WICK_PCT      = 0.0100
 
 # F5
 SLOPE_LOOKBACK    = 8
-MA_SLOPE_MIN_PCT  = 0.10     # hard reject below this
+MA_SLOPE_MIN_PCT  = 0.10
 
 # F6
 MA_ACCEL_BARS     = 4
 
 # F7
 ATR_PERIOD        = 14
-ATR_MAX_PCT       = 0.0060   # 0.60%
+ATR_MAX_PCT       = 0.0060
 
 # F8
 H4_MA_PERIOD      = 44
@@ -81,9 +78,8 @@ H4_SLOPE_BARS     = 4
 
 # F9
 CONSEC_LOSS_PAUSE = 2
-CONSEC_LOSS_MS    = 8 * 60 * 60 * 1000        # 8 hours
+CONSEC_LOSS_MS    = 8 * 60 * 60 * 1000
 
-# Direction gate — LONGs disabled
 ENABLE_LONG       = False
 ENABLE_SHORT      = True
 
@@ -91,9 +87,9 @@ SYMBOL = 'BTCUSDT'
 
 PERIODS = [
     {
-        'label':    'Period 1 -- BTC/USDT  |  01 Oct 2025 -> 26 Feb 2026',
-        'start_dt': datetime(2025, 10, 1, 0, 0, 0, tzinfo=timezone.utc),
-        'end_dt':   datetime(2026, 2, 26, 23, 59, 59, tzinfo=timezone.utc),
+        'label':    'Period 1 -- BTC/USDT  |  01 Jan 2024 -> 31 Jan 2026',
+        'start_dt': datetime(2024, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+        'end_dt':   datetime(2026, 1, 31, 23, 59, 59, tzinfo=timezone.utc),
     },
 ]
 
@@ -133,7 +129,6 @@ def fetch_h4_candles(symbol, end_ts, limit=200):
 
 
 def get_h4_ma44_direction(symbol, ts_ms):
-    """True = rising, False = falling, None = unavailable."""
     candles = fetch_h4_candles(symbol, ts_ms, limit=H4_MA_PERIOD + H4_SLOPE_BARS + 10)
     if candles is None:
         return None
@@ -146,26 +141,79 @@ def get_h4_ma44_direction(symbol, ts_ms):
 
 
 def dist_in_zone(dist_pct_raw):
-    """
-    Returns True if distance falls in accepted zones:
-      Zone A: 0.20–0.35%
-      Zone B: 0.50–0.65%
-    Rejects the 0.35–0.50% middle band.
-    """
     return (
         (DIST_ZONE_A_MIN <= dist_pct_raw <= DIST_ZONE_A_MAX) or
         (DIST_ZONE_B_MIN <= dist_pct_raw <= DIST_ZONE_B_MAX)
     )
 
 # ============================================================================
+# OUTCOME CHECKER — no time limit, fetch until SL/TP hit or now
+# ============================================================================
+
+def check_trade_outcome(signal_ts_ms, entry, sl, tp, stype):
+    """
+    Fetches 15m candles from entry forward in batches of 1000,
+    scanning until SL or TP is hit. No time cap.
+    If neither is hit by the current time, returns ONGOING.
+    """
+    now_ms        = int(time.time() * 1000)
+    current_start = signal_ts_ms
+    first_batch   = True
+
+    while current_start < now_ms:
+        try:
+            resp = requests.get(
+                "https://api.binance.com/api/v3/klines",
+                params={
+                    'symbol':    SYMBOL,
+                    'interval':  '15m',
+                    'startTime': current_start,
+                    'endTime':   now_ms,
+                    'limit':     1000,
+                },
+                timeout=15
+            )
+            if resp.status_code != 200:
+                return 'UNKNOWN'
+            candles = resp.json()
+            if not isinstance(candles, list) or len(candles) == 0:
+                break
+        except Exception:
+            return 'UNKNOWN'
+
+        for idx, c in enumerate(candles):
+            h = float(c[2])
+            l = float(c[3])
+
+            # On the very first candle of the trade, entry is at the open.
+            # Ignore price action before the open price on that candle.
+            if first_batch and idx == 0:
+                if stype == 'LONG':
+                    l = min(float(c[1]), float(c[4]))
+                else:
+                    h = max(float(c[1]), float(c[4]))
+                first_batch = False
+
+            if stype == 'LONG':
+                if l <= sl: return 'LOSS'
+                if h >= tp: return 'WIN'
+            else:
+                if h >= sl: return 'LOSS'
+                if l <= tp: return 'WIN'
+
+        # Advance to candle after the last one fetched
+        current_start = int(candles[-1][0]) + 1
+
+        if len(candles) < 1000:
+            break   # no more candles available — trade still open
+
+    return 'ONGOING'   # still running at report generation time
+
+# ============================================================================
 # STEP 1 — SETUP CANDLE CHECK
 # ============================================================================
 
 def check_setup_candle(closes, opens, highs, lows):
-    """
-    Returns ('SHORT', diagnostics_dict) or (None, None).
-    LONGs disabled. F5 and F6 are hard rejects with no fallthrough.
-    """
     min_len = MA_PERIOD + SLOPE_LOOKBACK + ATR_PERIOD + 5
     if len(closes) < min_len:
         return None, None
@@ -175,7 +223,6 @@ def check_setup_candle(closes, opens, highs, lows):
     c_high  = highs[-1]
     c_low   = lows[-1]
 
-    # Must be bearish for SHORT
     if c_close >= c_open:
         return None, None
 
@@ -183,41 +230,36 @@ def check_setup_candle(closes, opens, highs, lows):
     if ma44 is None:
         return None, None
 
-    # ── F5: MA slope — HARD REJECT ───────────────────────────────────────────
+    # F5 — hard reject
     ma44_8ago = calculate_sma(closes[:-SLOPE_LOOKBACK], MA_PERIOD)
     if ma44_8ago is None:
         return None, None
-    ma_slope_pct = (ma44 - ma44_8ago) / ma44 * 100   # negative = falling
-
+    ma_slope_pct = (ma44 - ma44_8ago) / ma44 * 100
     if abs(ma_slope_pct) < MA_SLOPE_MIN_PCT:
-        return None, None   # F5 HARD REJECT — flat MA, no fallthrough
+        return None, None
 
-    # ── Monotonic slope: MA44 must fall every candle for SLOPE_LOOKBACK bars ─
+    # Monotonic slope
     ma44_series = []
     for k in range(SLOPE_LOOKBACK, -1, -1):
         val = calculate_sma(closes[:-k] if k > 0 else closes, MA_PERIOD)
         if val is None:
             return None, None
         ma44_series.append(val)
-
     if not all(ma44_series[i] > ma44_series[i + 1] for i in range(len(ma44_series) - 1)):
-        return None, None   # MA44 not continuously falling
-
-    # ── F6: MA acceleration — strict sign check ───────────────────────────────
-    ma44_4ago  = calculate_sma(closes[:-MA_ACCEL_BARS],       MA_PERIOD)
-    ma44_8ago2 = calculate_sma(closes[:-MA_ACCEL_BARS * 2],   MA_PERIOD)
-    if ma44_4ago is None or ma44_8ago2 is None:
         return None, None
 
-    slope_recent = ma44 - ma44_4ago        # last 4 bars (must be negative)
-    slope_prior  = ma44_4ago - ma44_8ago2  # prior 4 bars (must be negative)
+    # F6 — strict sign
+    ma44_4ago  = calculate_sma(closes[:-MA_ACCEL_BARS],     MA_PERIOD)
+    ma44_8ago2 = calculate_sma(closes[:-MA_ACCEL_BARS * 2], MA_PERIOD)
+    if ma44_4ago is None or ma44_8ago2 is None:
+        return None, None
+    slope_recent = ma44 - ma44_4ago
+    slope_prior  = ma44_4ago - ma44_8ago2
     ma_accel_val = slope_recent - slope_prior
-
-    # Strict: both slopes negative AND recent steeper (more negative) than prior
     if not (slope_recent < 0 and slope_prior < 0 and slope_recent < slope_prior):
-        return None, None   # F6 HARD REJECT — not a steepening downtrend
+        return None, None
 
-    # ── Candle geometry ───────────────────────────────────────────────────────
+    # Candle geometry
     body_top    = max(c_open, c_close)
     body_bottom = min(c_open, c_close)
     candle_size = c_high - c_low
@@ -225,22 +267,17 @@ def check_setup_candle(closes, opens, highs, lows):
     wick_pct    = candle_size / c_high if c_high > 0 else 0
     body_ratio  = body_size / candle_size if candle_size > 0 else 0
 
-    # F1 — body ratio
     if body_ratio < MIN_BODY_RATIO:
         return None, None
-
-    # F4 — wick bounds
     if wick_pct < MIN_WICK_PCT or wick_pct > MAX_WICK_PCT:
         return None, None
-
-    # F2/F3 — body strictly below MA44 + split distance zone
     if body_top >= ma44:
         return None, None
-    dist_raw = ma44 - body_top   # absolute distance
+
+    dist_raw = ma44 - body_top
     if not dist_in_zone(dist_raw / ma44):
         return None, None
 
-    # All candle-level filters passed — return with diagnostics
     diag = {
         'ma_slope_8bar': ma_slope_pct,
         'ma_accel':      ma_accel_val,
@@ -261,41 +298,6 @@ def check_validation_candle(opens, closes, direction, setup_index):
     if direction == 'SHORT' and val_open < ma44:
         return val_open
     return None
-
-# ============================================================================
-# OUTCOME CHECKER
-# ============================================================================
-
-def check_trade_outcome(signal_ts_ms, entry, sl, tp, stype):
-    try:
-        resp = requests.get(
-            "https://api.binance.com/api/v3/klines",
-            params={'symbol': SYMBOL, 'interval': '15m',
-                    'startTime': signal_ts_ms,
-                    'endTime':   signal_ts_ms + 48 * 3600 * 1000,
-                    'limit': 200},
-            timeout=10
-        )
-        if resp.status_code != 200:
-            return 'UNKNOWN'
-        candles = resp.json()
-        if not isinstance(candles, list) or len(candles) == 0:
-            return 'ONGOING'
-        for idx, c in enumerate(candles):
-            h = float(c[2])
-            l = float(c[3])
-            if idx == 0:
-                if stype == 'LONG':  l = min(float(c[1]), float(c[4]))
-                else:                h = max(float(c[1]), float(c[4]))
-            if stype == 'LONG':
-                if l <= sl: return 'LOSS'
-                if h >= tp: return 'WIN'
-            else:
-                if h >= sl: return 'LOSS'
-                if l <= tp: return 'WIN'
-        return 'ONGOING'
-    except Exception:
-        return 'UNKNOWN'
 
 # ============================================================================
 # SCANNER
@@ -341,11 +343,8 @@ def scan_period(start_ts, end_ts):
     pending_direction = None
     pending_setup_i   = None
     pending_diag      = None
-
-    # F9 — per-side consecutive loss counter (SHORT only but keep structure)
     consec_loss       = {'LONG': 0, 'SHORT': 0}
     pause_until       = {'LONG': 0, 'SHORT': 0}
-
     h4_cache          = {}
     start_i           = MA_PERIOD + SLOPE_LOOKBACK + ATR_PERIOD + 5
 
@@ -353,7 +352,7 @@ def scan_period(start_ts, end_ts):
         candle_ts = times_all[i]
         in_window = (start_ts <= candle_ts <= end_ts)
 
-        # ── STEP 2: fire pending setup ────────────────────────────────────────
+        # ── STEP 2 ────────────────────────────────────────────────────────────
         if pending_direction is not None:
             entry = check_validation_candle(
                 opens_all, closes_all, pending_direction, pending_setup_i
@@ -362,7 +361,6 @@ def scan_period(start_ts, end_ts):
             if entry is not None and in_window:
                 side = pending_direction
 
-                # F9 — compare against entry timestamp (fixed)
                 if candle_ts < pause_until[side]:
                     pending_direction = None
                     pending_setup_i   = None
@@ -370,10 +368,9 @@ def scan_period(start_ts, end_ts):
                     continue
 
                 if candle_ts - last_signal_ts >= COOLDOWN_MS:
-                    sl = entry * (1 + SL_PERCENT / 100)   # SHORT SL above entry
-                    tp = entry * (1 - TP_PERCENT / 100)   # SHORT TP below entry
-
-                    si          = pending_setup_i
+                    sl = entry * (1 + SL_PERCENT / 100)
+                    tp = entry * (1 - TP_PERCENT / 100)
+                    si = pending_setup_i
                     diag        = pending_diag or {}
                     ma44_val    = calculate_sma(closes_all[:si + 1], MA_PERIOD)
                     setup_open  = opens_all[si]
@@ -387,19 +384,17 @@ def scan_period(start_ts, end_ts):
                     wick_pct_s  = candle_size / setup_high * 100 if setup_high > 0 else 0
                     body_ratio  = body_size / candle_size if candle_size > 0 else 0
                     dist_pct    = (ma44_val - body_top) / ma44_val * 100
-
                     atr_val     = calculate_atr(
                         highs_all[:si + 1], lows_all[:si + 1],
                         closes_all[:si + 1], ATR_PERIOD
                     )
                     atr_pct     = atr_val / closes_all[si] * 100 if atr_val else 0
-
-                    # H4 direction at setup time (from cache)
                     h4_bucket   = (times_all[si] // (4 * 3600 * 1000)) * (4 * 3600 * 1000)
                     h4_rising   = h4_cache.get(h4_bucket)
                     h4_dir_str  = ('FALLING' if h4_rising is False else
                                    'RISING'  if h4_rising is True  else 'N/A')
 
+                    # No time limit — scan forward until SL/TP or now
                     outcome = check_trade_outcome(candle_ts, entry, sl, tp, side)
 
                     signals.append({
@@ -412,12 +407,10 @@ def scan_period(start_ts, end_ts):
                         'sl':            sl,
                         'tp':            tp,
                         'ma44':          ma44_val,
-                        # ── four audit fields ──────────────────────────────
                         'ma_slope_8bar': diag.get('ma_slope_8bar', 0.0),
                         'ma_accel':      diag.get('ma_accel', 0.0),
                         'h4_ma_dir':     h4_dir_str,
                         'atr_14_pct':    atr_pct,
-                        # ── candle detail ──────────────────────────────────
                         'setup_open':    setup_open,
                         'setup_close':   setup_close,
                         'setup_high':    setup_high,
@@ -429,20 +422,19 @@ def scan_period(start_ts, end_ts):
                     })
                     last_signal_ts = candle_ts
 
-                    # F9 — update counter; reset on WIN (fixed)
                     if outcome == 'LOSS':
                         consec_loss[side] += 1
                         if consec_loss[side] >= CONSEC_LOSS_PAUSE:
                             pause_until[side] = candle_ts + CONSEC_LOSS_MS
-                            consec_loss[side] = 0   # reset after triggering pause
+                            consec_loss[side] = 0
                     elif outcome == 'WIN':
-                        consec_loss[side] = 0       # reset on win (fixed)
+                        consec_loss[side] = 0
 
             pending_direction = None
             pending_setup_i   = None
             pending_diag      = None
 
-        # ── STEP 1: check setup candle ────────────────────────────────────────
+        # ── STEP 1 ────────────────────────────────────────────────────────────
         if not in_window:
             continue
 
@@ -452,29 +444,26 @@ def scan_period(start_ts, end_ts):
         )
         if direction is None:
             continue
-
-        # Direction gate
         if direction == 'LONG'  and not ENABLE_LONG:  continue
         if direction == 'SHORT' and not ENABLE_SHORT: continue
 
-        # F7 — ATR hard check
+        # F7
         atr_now = calculate_atr(
             highs_all[:i + 1], lows_all[:i + 1],
             closes_all[:i + 1], ATR_PERIOD
         )
         if atr_now is not None:
             if (atr_now / closes_all[i] * 100) >= ATR_MAX_PCT * 100:
-                continue   # F7 fail
+                continue
 
-        # F8 — 4H gate (cached per 4h bucket)
+        # F8
         h4_bucket = (candle_ts // (4 * 3600 * 1000)) * (4 * 3600 * 1000)
         if h4_bucket not in h4_cache:
             h4_cache[h4_bucket] = get_h4_ma44_direction(SYMBOL, candle_ts)
         h4_rising = h4_cache[h4_bucket]
-
         if h4_rising is not None:
-            if direction == 'LONG'  and not h4_rising: continue  # need rising 4H
-            if direction == 'SHORT' and h4_rising:     continue  # need falling 4H
+            if direction == 'LONG'  and not h4_rising: continue
+            if direction == 'SHORT' and h4_rising:     continue
 
         pending_direction = direction
         pending_setup_i   = i
@@ -539,25 +528,20 @@ def generate_txt(results, filename='btc_backtest_v2b_report.txt'):
         p('15-minute candles  |  Binance  |  No RSI  |  No Crossovers')
         p(f'Generated : {gen}')
         p(f'SL: +{SL_PERCENT}%  |  TP: -{TP_PERCENT}%  |  R/R 1:3  |  Cooldown: 4h')
-        p(f'Direction : SHORT ONLY  (LONGs disabled — insufficient edge)')
+        p(f'Direction : SHORT ONLY  (LONGs disabled)')
+        p(f'Time limit: NONE — trades run until SL or TP is hit')
         p()
         p('FILTERS:')
-        p(f'  F1  body_ratio    >= {MIN_BODY_RATIO:.2f}  (no doji/spinning top)')
+        p(f'  F1  body_ratio    >= {MIN_BODY_RATIO:.2f}')
         p(f'  F2a dist zone A   {DIST_ZONE_A_MIN*100:.2f}%–{DIST_ZONE_A_MAX*100:.2f}%  (close bounce)')
         p(f'  F2b dist zone B   {DIST_ZONE_B_MIN*100:.2f}%–{DIST_ZONE_B_MAX*100:.2f}%  (far bounce)')
-        p(f'      [0.35–0.50% middle band REJECTED — 19% WR historically]')
+        p(f'      [0.35–0.50% middle band REJECTED]')
         p(f'  F4  wick range    {MIN_WICK_PCT*100:.2f}%–{MAX_WICK_PCT*100:.2f}%')
-        p(f'  F5  slope 8-bar   abs >= {MA_SLOPE_MIN_PCT:.2f}%  [HARD REJECT — no fallthrough]')
-        p(f'  F6  ma_accel      slope_recent < slope_prior < 0  [STRICT SIGN — both negative]')
+        p(f'  F5  slope 8-bar   abs >= {MA_SLOPE_MIN_PCT:.2f}%  HARD REJECT')
+        p(f'  F6  ma_accel      slope_recent < slope_prior < 0  STRICT SIGN')
         p(f'  F7  ATR(14)       < {ATR_MAX_PCT*100:.2f}% of close')
         p(f'  F8  4H MA44       must be FALLING for SHORT')
-        p(f'  F9  consec loss   {CONSEC_LOSS_PAUSE} losses → {CONSEC_LOSS_MS//3600000}h pause  [resets on WIN]')
-        p()
-        p('SIGNAL LOGIC (TWO-STEP):')
-        p('  Step 1  bearish candle | MA44 falling 8 consecutive candles')
-        p('          body strictly below MA44 | dist in zone A or B')
-        p('          F5 hard reject | F6 strict negative accel | F7 ATR | F8 4H falling')
-        p('  Step 2  next candle open must be below MA44 → entry')
+        p(f'  F9  consec loss   {CONSEC_LOSS_PAUSE} losses → {CONSEC_LOSS_MS//3600000}h pause  (resets on WIN)')
         div('=')
         p()
 
@@ -593,7 +577,6 @@ def generate_txt(results, filename='btc_backtest_v2b_report.txt'):
                 'POOR       (<25%)'
             ) if closed > 0 else 'NO CLOSED TRADES'
 
-            # Zone breakdown
             zone_a = [s for s in signals if DIST_ZONE_A_MIN*100 <= s['dist_pct'] <= DIST_ZONE_A_MAX*100]
             zone_b = [s for s in signals if DIST_ZONE_B_MIN*100 <= s['dist_pct'] <= DIST_ZONE_B_MAX*100]
             za_w   = sum(1 for s in zone_a if s['outcome'] == 'WIN')
@@ -608,13 +591,13 @@ def generate_txt(results, filename='btc_backtest_v2b_report.txt'):
             p(f'  Total signals   : {total}  (Short: {shorts})')
             p(f'  Wins            : {wins}')
             p(f'  Losses          : {losses}')
-            p(f'  Ongoing (<48h)  : {ongoing}')
+            p(f'  Ongoing (open)  : {ongoing}  ← still running at {gen}')
             p(f'  Unknown         : {unknown}')
             p()
             if closed > 0:
                 p(f'  Win rate        : {wr:.1f}%  ({wins}/{closed} closed)')
                 p(f'  Expectancy      : {exp:+.3f}% per trade')
-                p(f'  Total PnL       : {pnl:+.2f}%  (equal-size positions)')
+                p(f'  Total PnL       : {pnl:+.2f}%  (equal-size positions, closed trades only)')
                 p(f'  Verdict         : {verdict}')
             else:
                 p('  Win rate        : n/a')
@@ -630,11 +613,11 @@ def generate_txt(results, filename='btc_backtest_v2b_report.txt'):
             p()
 
             for idx, s in enumerate(sorted(signals, key=lambda x: x['entry_ts']), 1):
-                ol    = {'WIN': '[WIN ]', 'LOSS': '[LOSS]',
-                         'ONGOING': '[OPEN]', 'UNKNOWN': '[????]'}.get(s['outcome'], '[????]')
-                zone  = ('A' if DIST_ZONE_A_MIN*100 <= s['dist_pct'] <= DIST_ZONE_A_MAX*100
-                         else 'B' if DIST_ZONE_B_MIN*100 <= s['dist_pct'] <= DIST_ZONE_B_MAX*100
-                         else '?')
+                ol   = {'WIN': '[WIN ]', 'LOSS': '[LOSS]',
+                        'ONGOING': '[OPEN]', 'UNKNOWN': '[????]'}.get(s['outcome'], '[????]')
+                zone = ('A' if DIST_ZONE_A_MIN*100 <= s['dist_pct'] <= DIST_ZONE_A_MAX*100
+                        else 'B' if DIST_ZONE_B_MIN*100 <= s['dist_pct'] <= DIST_ZONE_B_MAX*100
+                        else '?')
                 accel_sign = '↓steep' if s['ma_accel'] < 0 else '↑flat'
 
                 p(f'  Signal #{idx:<3}  {ol}  SHORT   Entry: {s["entry_time"]}')
@@ -658,20 +641,21 @@ def generate_txt(results, filename='btc_backtest_v2b_report.txt'):
         div('=')
         p('METHODOLOGY')
         div('=')
-        p('  WIN     : TP hit before SL within 48h of entry')
-        p('  LOSS    : SL hit before TP within 48h of entry')
-        p('  ONGOING : Neither hit within 48h')
-        p('  UNKNOWN : Data unavailable')
+        p('  WIN     : TP hit before SL — no time limit')
+        p('  LOSS    : SL hit before TP — no time limit')
+        p('  ONGOING : Trade still open at report generation time')
+        p('            (neither SL nor TP has been hit as of report date)')
+        p('  UNKNOWN : Data fetch error')
         p()
-        p('  F5 HARD REJECT  : abs(slope) < 0.10% kills the candle immediately,')
-        p('                    no other checks run after this failure')
-        p('  F6 STRICT SIGN  : slope_recent < slope_prior < 0 required for SHORT')
-        p('                    both halves of 8-bar window must be negative AND')
-        p('                    recent must be steeper (more negative) than prior')
-        p('  F9 FIXED        : counter resets on WIN; pause compared vs entry_ts')
-        p('  DIST ZONES      : 0.20–0.35% (zone A) and 0.50–0.65% (zone B)')
-        p('                    0.35–0.50% middle band excluded (historically 19% WR)')
-        p('  LONGs DISABLED  : 1W/8T (12.5%) over 5 months — no statistical edge')
+        p('  No 48h cutoff — every trade scans forward candle by candle')
+        p('  until SL or TP is triggered, or until the current timestamp')
+        p('  is reached (in which case the trade is marked ONGOING).')
+        p()
+        p('  F5 HARD REJECT  : abs(slope) < 0.10% — immediate discard')
+        p('  F6 STRICT SIGN  : slope_recent < slope_prior < 0 required')
+        p('  F9 FIXED        : resets on WIN, pause vs entry_ts')
+        p('  DIST ZONES      : 0.20–0.35% (A) and 0.50–0.65% (B)')
+        p('  LONGs DISABLED  : 1W/8T over 5 months — no edge')
         div('=')
 
     return filename
@@ -684,18 +668,19 @@ def main():
     t = sys.__stdout__
     t.write('\n' + '=' * 60 + '\n')
     t.write('BTC/USDT BACKTEST -- Logic No. 2b Enhanced v3\n')
-    t.write('SHORT ONLY  |  Oct 2025 – Feb 2026\n')
+    t.write('SHORT ONLY  |  Jan 2024 – Jan 2026  |  No time limit\n')
     t.write('=' * 60 + '\n\n')
-    t.write(f'  Direction      : SHORT only (LONGs off)\n')
+    t.write(f'  Direction      : SHORT only\n')
     t.write(f'  SL / TP        : {SL_PERCENT}% / {TP_PERCENT}%\n')
+    t.write(f'  Time limit     : NONE (trades run until SL/TP hit)\n')
     t.write(f'  F1  body ratio : >= {MIN_BODY_RATIO:.0%}\n')
     t.write(f'  F2  dist zones : {DIST_ZONE_A_MIN*100:.2f}–{DIST_ZONE_A_MAX*100:.2f}%  |  {DIST_ZONE_B_MIN*100:.2f}–{DIST_ZONE_B_MAX*100:.2f}%\n')
     t.write(f'  F4  wick range : {MIN_WICK_PCT*100:.2f}%–{MAX_WICK_PCT*100:.2f}%\n')
     t.write(f'  F5  slope      : abs >= {MA_SLOPE_MIN_PCT:.2f}%  HARD REJECT\n')
-    t.write(f'  F6  accel      : slope_recent < slope_prior < 0  STRICT SIGN\n')
+    t.write(f'  F6  accel      : slope_recent < slope_prior < 0\n')
     t.write(f'  F7  ATR(14)    : < {ATR_MAX_PCT*100:.2f}%\n')
     t.write(f'  F8  4H gate    : FALLING required\n')
-    t.write(f'  F9  circuit    : {CONSEC_LOSS_PAUSE} losses → {CONSEC_LOSS_MS//3600000}h pause  (resets on WIN)\n')
+    t.write(f'  F9  circuit    : {CONSEC_LOSS_PAUSE} losses → {CONSEC_LOSS_MS//3600000}h pause\n')
     t.write(f'  Cooldown       : 4h\n\n')
 
     results = []
@@ -716,11 +701,12 @@ def main():
             results.append((period, []))
             continue
 
-        wins   = sum(1 for s in signals if s['outcome'] == 'WIN')
-        losses = sum(1 for s in signals if s['outcome'] == 'LOSS')
-        closed = wins + losses
-        wr     = f'{wins/closed*100:.1f}%' if closed > 0 else 'n/a'
-        t.write(f'{len(signals)} signals  [W:{wins} L:{losses} WR:{wr}]\n')
+        wins    = sum(1 for s in signals if s['outcome'] == 'WIN')
+        losses  = sum(1 for s in signals if s['outcome'] == 'LOSS')
+        ongoing = sum(1 for s in signals if s['outcome'] == 'ONGOING')
+        closed  = wins + losses
+        wr      = f'{wins/closed*100:.1f}%' if closed > 0 else 'n/a'
+        t.write(f'{len(signals)} signals  [W:{wins} L:{losses} Open:{ongoing} WR:{wr}]\n')
         results.append((period, signals))
         time.sleep(0.2)
 
@@ -740,7 +726,6 @@ def main():
         else:
             t.write(f'  ERROR exporting OHLC for {period["label"]}\n')
 
-    # ── Report ────────────────────────────────────────────────────────────────
     t.write('\nWriting report...\n')
     fname = generate_txt(results)
     t.write(f'Done -> {fname}\n\n')
