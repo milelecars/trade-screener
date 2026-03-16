@@ -1,0 +1,165 @@
+=================================================================
+WIN RATE IDENTIFIER — BACKTEST SIGNAL ANALYSIS
+Generated : 2026-03-13 06:10:56 UTC
+Signals   : 1087 total
+Source    : signals_parsed.py
+=================================================================
+
+OVERALL
+-----------------------------------------------------------------
+  Win rate  : 31.0%  (W:337  L:750  /  1087 closed)
+  Ongoing   : 0  (excluded from win rate)
+  Total PnL : +522.00%  (TP=6.0%  SL=2.0%  equal-size)
+-----------------------------------------------------------------
+
+BY DISTANCE ZONE
+-----------------------------------------------------------------
+  Zone A  0.20–0.35%  close bounce       30.5%  W:138 L:314 (452)  ❌ no edge
+  Zone B  0.50–0.65%  far bounce         31.3%  W:199 L:436 (635)  ❌ no edge
+  Middle  0.35–0.50%  rejected band       0.0%  W:0 L:0 (0)  ⚠  few trades
+-----------------------------------------------------------------
+
+BY SLOPE MAGNITUDE  (slope_8bar %)
+-----------------------------------------------------------------
+  steep     <  -0.30%              25.3%  W:99 L:293 (392)  ❌ no edge
+  moderate  -0.30 to -0.20%        34.4%  W:107 L:204 (311)  ❌ no edge
+  mild      -0.20 to -0.10%        34.3%  W:131 L:251 (382)  ❌ no edge
+  minimal   -0.10 to  0.00%         0.0%  W:0 L:2 (2)  ⚠  few trades
+-----------------------------------------------------------------
+
+BY MA ACCELERATION  (ma_accel)
+-----------------------------------------------------------------
+  strong   < -0.010                29.4%  W:37 L:89 (126)  ❌ no edge
+  moderate -0.010 to -0.005        17.4%  W:4 L:19 (23)  ❌ no edge
+  mild     -0.005 to -0.001        29.5%  W:36 L:86 (122)  ❌ no edge
+  weak     -0.001 to  0            32.4%  W:243 L:508 (751)  ❌ no edge
+-----------------------------------------------------------------
+
+BY ATR  (atr_14_pct %)
+-----------------------------------------------------------------
+  ATR 0.00–0.20%  very low           53.8%  W:7 L:6 (13)  ✅ edge
+  ATR 0.20–0.35%  low                38.2%  W:81 L:131 (212)  ❌ no edge
+  ATR 0.35–0.45%  medium             32.2%  W:115 L:242 (357)  ❌ no edge
+  ATR 0.45–0.60%  high               26.5%  W:134 L:371 (505)  ❌ no edge
+  ATR >= 0.60%   very high            0.0%  W:0 L:0 (0)  ⚠  few trades
+-----------------------------------------------------------------
+
+BY H4 DIRECTION
+-----------------------------------------------------------------
+  H4=FALLING    31.0%  W:337 L:750 (1087)  ← target condition
+  H4=RISING      0.0%  W:0 L:0 (0)  ← F8 should block these
+  H4=N/A         0.0%  W:0 L:0 (0)
+-----------------------------------------------------------------
+
+BY SYMBOL
+-----------------------------------------------------------------
+  Symbol             WR%    W   L    C Total  Bar
+-----------------------------------------------------------------
+  DOGEUSDT          64.7   11   6   17    17  ██████  ✅ strong edge
+  VIRTUALUSDT       63.6    7   4   11    11  ██████  ✅ strong edge
+  STXUSDT           61.1   11   7   18    18  ██████  ✅ strong edge
+  BTCUSDT           60.0   12   8   20    20  ██████  ✅ strong edge
+  DASHUSDT          60.0    3   2    5     5  ██████  ✅ strong edge
+  WIFUSDT           60.0    3   2    5     5  ██████  ✅ strong edge
+  NEARUSDT          57.1    4   3    7     7  █████  ✅ edge
+  PENGUUSDT         54.5    6   5   11    11  █████  ✅ edge
+  XRPUSDT           52.9    9   8   17    17  █████  ✅ edge
+  TRUMPUSDT         52.6   10   9   19    19  █████  ✅ edge
+  2ZUSDT            50.0    3   3    6     6  █████  ✅ edge
+  DCRUSDT           50.0    2   2    4     4  █████  ✅ edge
+  FILUSDT           50.0    4   4    8     8  █████  ✅ edge
+  JUPUSDT           50.0    2   2    4     4  █████  ✅ edge
+  STRKUSDT          50.0    6   6   12    12  █████  ✅ edge
+  THETAUSDT         50.0    5   5   10    10  █████  ✅ edge
+  ENAUSDT           46.2    6   7   13    13  ████  〰 marginal
+  GLMUSDT           43.8    7   9   16    16  ████  〰 marginal
+  FETUSDT           42.9    3   4    7     7  ████  〰 marginal
+  1INCHUSDT         41.7    5   7   12    12  ████  〰 marginal
+  BATUSDT           41.7    5   7   12    12  ████  〰 marginal
+  INJUSDT           41.7    5   7   12    12  ████  〰 marginal
+  PYTHUSDT          41.7    5   7   12    12  ████  〰 marginal
+  WALUSDT           41.7    5   7   12    12  ████  〰 marginal
+  ETCUSDT           40.0    4   6   10    10  ████  〰 marginal
+  JASMYUSDT         40.0    6   9   15    15  ████  〰 marginal
+  SANDUSDT          40.0    4   6   10    10  ████  〰 marginal
+  SUSDT             40.0    6   9   15    15  ████  〰 marginal
+  ZKUSDT            40.0    2   3    5     5  ████  〰 marginal
+  EGLDUSDT          38.5    5   8   13    13  ███  ❌ no edge
+  ETHUSDT           37.5    3   5    8     8  ███  ❌ no edge
+  ENSUSDT           36.4    4   7   11    11  ███  ❌ no edge
+  NEXOUSDT          36.4    4   7   11    11  ███  ❌ no edge
+  BONKUSDT          35.7    5   9   14    14  ███  ❌ no edge
+  CAKEUSDT          35.7    5   9   14    14  ███  ❌ no edge
+  NEOUSDT           35.3    6  11   17    17  ███  ❌ no edge
+  SUIUSDT           35.3    6  11   17    17  ███  ❌ no edge
+  ATOMUSDT          33.3    6  12   18    18  ███  ❌ no edge
+  AXSUSDT           33.3    4   8   12    12  ███  ❌ no edge
+  BNBUSDT           33.3    7  14   21    21  ███  ❌ no edge
+  CHZUSDT           33.3    3   6    9     9  ███  ❌ no edge
+  JTOUSDT           33.3    2   4    6     6  ███  ❌ no edge
+  PENDLEUSDT        33.3    3   6    9     9  ███  ❌ no edge
+  WLDUSDT           33.3    4   8   12    12  ███  ❌ no edge
+  ZECUSDT           33.3    1   2    3     3  ███  ❌ no edge
+  DOTUSDT           30.0    3   7   10    10  ███  ❌ no edge
+  OPUSDT            30.0    3   7   10    10  ███  ❌ no edge
+  RENDERUSDT        30.0    3   7   10    10  ███  ❌ no edge
+  SHIBUSDT          30.0    6  14   20    20  ███  ❌ no edge
+  XTZUSDT           30.0    6  14   20    20  ███  ❌ no edge
+  AVAXUSDT          28.6    6  15   21    21  ██  ❌ no edge
+  GALAUSDT          28.6    4  10   14    14  ██  ❌ no edge
+  ADAUSDT           27.3    3   8   11    11  ██  ❌ no edge
+  LUNCUSDT          27.3    3   8   11    11  ██  ❌ no edge
+  SFPUSDT           27.3    3   8   11    11  ██  ❌ no edge
+  TWTUSDT           26.7    4  11   15    15  ██  ❌ no edge
+  ALGOUSDT          25.0    2   6    8     8  ██  ❌ no edge
+  EIGENUSDT         25.0    2   6    8     8  ██  ❌ no edge
+  LPTUSDT           25.0    2   6    8     8  ██  ❌ no edge
+  PEPEUSDT          25.0    1   3    4     4  ██  ❌ no edge
+  RAYUSDT           25.0    2   6    8     8  ██  ❌ no edge
+  LDOUSDT           23.5    4  13   17    17  ██  ❌ no edge
+  HBARUSDT          23.1    3  10   13    13  ██  ❌ no edge
+  GNOUSDT           22.2    2   7    9     9  ██  ❌ no edge
+  IOTAUSDT          22.2    2   7    9     9  ██  ❌ no edge
+  MANAUSDT          22.2    4  14   18    18  ██  ❌ no edge
+  TIAUSDT           22.2    2   7    9     9  ██  ❌ no edge
+  ZROUSDT           22.2    2   7    9     9  ██  ❌ no edge
+  SEIUSDT           21.4    3  11   14    14  ██  ❌ no edge
+  ONDOUSDT          21.1    4  15   19    19  ██  ❌ no edge
+  AAVEUSDT          20.0    2   8   10    10  ██  ❌ no edge
+  ASTERUSDT         20.0    1   4    5     5  ██  ❌ no edge
+  RUNEUSDT          18.2    2   9   11    11  █  ❌ no edge
+  GRTUSDT           17.4    4  19   23    23  █  ❌ no edge
+  SKYUSDT           16.7    2  10   12    12  █  ❌ no edge
+  ICPUSDT           15.4    2  11   13    13  █  ❌ no edge
+  COWUSDT           14.3    1   6    7     7  █  ❌ no edge
+  UNIUSDT           14.3    2  12   14    14  █  ❌ no edge
+  QNTUSDT           13.6    3  19   22    22  █  ❌ no edge
+  APTUSDT           12.5    1   7    8     8  █  ❌ no edge
+  BCHUSDT           12.5    2  14   16    16  █  ❌ no edge
+  SOLUSDT           12.5    1   7    8     8  █  ❌ no edge
+  SYRUPUSDT         12.5    1   7    8     8  █  ❌ no edge
+  AMPUSDT           11.1    1   8    9     9  █  ❌ no edge
+  LTCUSDT           10.0    1   9   10    10  █  ❌ no edge
+  VETUSDT           10.0    1   9   10    10  █  ❌ no edge
+  LINKUSDT           6.7    1  14   15    15    ❌ no edge
+  POLUSDT            5.9    1  16   17    17    ❌ no edge
+  ARBUSDT            0.0    0   3    3     3    ❌ no edge
+  BARDUSDT           0.0    0   8    8     8    ❌ no edge
+  CRVUSDT            0.0    0   8    8     8    ❌ no edge
+  ETHFIUSDT          0.0    0   6    6     6    ❌ no edge
+  IMXUSDT            0.0    0  10   10    10    ❌ no edge
+  PUMPUSDT           0.0    0   2    2     2    ⚠  few trades
+  TAOUSDT            0.0    0   4    4     4    ❌ no edge
+  XPLUSDT            0.0    0   2    2     2    ⚠  few trades
+-----------------------------------------------------------------
+
+RECOMMENDATIONS
+-----------------------------------------------------------------
+  ZONES   A (30.5%) and B (31.3%) comparable — keep both
+  ATR     Best band: 0.00-0.20% — consider tightening ATR_MAX_PCT
+  KEEP    High-WR symbols: DOGEUSDT, VIRTUALUSDT, STXUSDT, BTCUSDT, DASHUSDT, WIFUSDT
+  REMOVE  Low-WR symbols : ATOMUSDT, AXSUSDT, BNBUSDT, CHZUSDT, JTOUSDT, PENDLEUSDT, WLDUSDT, ZECUSDT, DOTUSDT, OPUSDT, RENDERUSDT, SHIBUSDT, XTZUSDT, AVAXUSDT, GALAUSDT, ADAUSDT, LUNCUSDT, SFPUSDT, TWTUSDT, ALGOUSDT, EIGENUSDT, LPTUSDT, PEPEUSDT, RAYUSDT, LDOUSDT, HBARUSDT, GNOUSDT, IOTAUSDT, MANAUSDT, TIAUSDT, ZROUSDT, SEIUSDT, ONDOUSDT, AAVEUSDT, ASTERUSDT, RUNEUSDT, GRTUSDT, SKYUSDT, ICPUSDT, COWUSDT, UNIUSDT, QNTUSDT, APTUSDT, BCHUSDT, SOLUSDT, SYRUPUSDT, AMPUSDT, LTCUSDT, VETUSDT, LINKUSDT, POLUSDT, ARBUSDT, BARDUSDT, CRVUSDT, ETHFIUSDT, IMXUSDT, TAOUSDT
+  SLOPE   Best band: moderate
+=================================================================
+Saved to: winrate_report.txt
+

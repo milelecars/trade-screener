@@ -1,0 +1,4571 @@
+================================================================================
+BTC/USDT -- BACKTEST REPORT  (EMA 9/26 Cross Strategy)
+15-minute candles  |  Binance  |  Both directions
+Generated : 2026-03-13 06:34:28 UTC
+SL: 0.5%  |  TP: 1.5%  |  R/R 1:3
+Time limit: NONE — trades run until SL or TP is hit
+
+STRATEGY:
+  Fast EMA : 9
+  Slow EMA : 26
+
+SIGNAL LOGIC:
+  LONG  : EMA9 crosses above EMA26
+          → same or next candle closes bullish AND close > EMA9 AND close > EMA26
+          → entry at close of qualifying candle
+  SHORT : EMA9 crosses below EMA26
+          → same or next candle closes bearish AND close < EMA9 AND close < EMA26
+          → entry at close of qualifying candle
+  RULE  : one trade per crossover event; if neither candle qualifies → skip
+================================================================================
+
+################################################################################
+  PERIOD 1  --  Period 1 -- BTC/USDT  |  01 Sep 2025 -> 28 Feb 2026
+  01 Sep 2025 -> 28 Feb 2026  (180 days)
+################################################################################
+
+  SUMMARY
+--------------------------------------------------------------------------------
+  Total signals   : 644  (Long: 324  Short: 320)
+  Entry candle    : same=580  next=64
+  Wins            : 164
+  Losses          : 480
+  Ongoing (open)  : 0  ← still running at 2026-03-13 06:34:28 UTC
+  Unknown         : 0
+
+  Win rate        : 25.5%  (164/644 closed)
+  Expectancy      : +0.009% per trade
+  Total PnL       : +6.00%  (equal-size, closed trades only)
+  Verdict         : WEAK       (25-40%)
+
+  LONG  breakdown : 324 signals  W:80 L:244  WR:24.7%
+  SHORT breakdown : 320 signals  W:84 L:236  WR:26.2%
+--------------------------------------------------------------------------------
+
+  SIGNALS
+--------------------------------------------------------------------------------
+
+  Signal #1    [LOSS]  LONG    Entry: 2025-09-01 07:15 UTC  [same candle]
+  Crossover     : 2025-09-01 07:15 UTC
+  Candle        : open=108001.00  close=108436.12  EMA9=108013.12  EMA26=107958.37
+  Entry         : $108436.12
+  Stop Loss     : $107893.94  (-0.5%)
+  Take Profit   : $110062.66  (+1.5%)
+
+  Signal #2    [LOSS]  LONG    Entry: 2025-09-01 16:00 UTC  [same candle]
+  Crossover     : 2025-09-01 16:00 UTC
+  Candle        : open=108784.33  close=109018.46  EMA9=108941.42  EMA26=108936.98
+  Entry         : $109018.46
+  Stop Loss     : $108473.37  (-0.5%)
+  Take Profit   : $110653.74  (+1.5%)
+
+  Signal #3    [LOSS]  SHORT   Entry: 2025-09-01 16:30 UTC  [same candle]
+  Crossover     : 2025-09-01 16:30 UTC
+  Candle        : open=108944.00  close=108895.10  EMA9=108932.56  EMA26=108934.36
+  Entry         : $108895.10
+  Stop Loss     : $109439.58  (+0.5%)
+  Take Profit   : $107261.67  (-1.5%)
+
+  Signal #4    [LOSS]  LONG    Entry: 2025-09-01 18:15 UTC  [same candle]
+  Crossover     : 2025-09-01 18:15 UTC
+  Candle        : open=109073.42  close=109173.88  EMA9=108936.22  EMA26=108913.07
+  Entry         : $109173.88
+  Stop Loss     : $108628.01  (-0.5%)
+  Take Profit   : $110811.49  (+1.5%)
+
+  Signal #5    [LOSS]  SHORT   Entry: 2025-09-01 21:00 UTC  [next candle]
+  Crossover     : 2025-09-01 20:45 UTC
+  Candle        : open=108877.39  close=108433.54  EMA9=108862.58  EMA26=108941.98
+  Entry         : $108433.54
+  Stop Loss     : $108975.71  (+0.5%)
+  Take Profit   : $106807.04  (-1.5%)
+
+  Signal #6    [LOSS]  LONG    Entry: 2025-09-01 23:45 UTC  [same candle]
+  Crossover     : 2025-09-01 23:45 UTC
+  Candle        : open=109120.00  close=109237.42  EMA9=108704.59  EMA26=108674.24
+  Entry         : $109237.42
+  Stop Loss     : $108691.23  (-0.5%)
+  Take Profit   : $110875.98  (+1.5%)
+
+  Signal #7    [LOSS]  SHORT   Entry: 2025-09-02 11:45 UTC  [next candle]
+  Crossover     : 2025-09-02 11:30 UTC
+  Candle        : open=109912.29  close=109733.34  EMA9=110057.95  EMA26=110132.95
+  Entry         : $109733.34
+  Stop Loss     : $110282.01  (+0.5%)
+  Take Profit   : $108087.34  (-1.5%)
+
+  Signal #8    [LOSS]  LONG    Entry: 2025-09-02 14:15 UTC  [next candle]
+  Crossover     : 2025-09-02 14:00 UTC
+  Candle        : open=111027.90  close=111483.87  EMA9=110407.35  EMA26=110112.70
+  Entry         : $111483.87
+  Stop Loss     : $110926.45  (-0.5%)
+  Take Profit   : $113156.13  (+1.5%)
+
+  Signal #9    [LOSS]  SHORT   Entry: 2025-09-03 03:30 UTC  [same candle]
+  Crossover     : 2025-09-03 03:30 UTC
+  Candle        : open=111059.27  close=110950.01  EMA9=111143.85  EMA26=111147.69
+  Entry         : $110950.01
+  Stop Loss     : $111504.76  (+0.5%)
+  Take Profit   : $109285.76  (-1.5%)
+
+  Signal #10   [WIN ]  SHORT   Entry: 2025-09-03 23:00 UTC  [same candle]
+  Crossover     : 2025-09-03 23:00 UTC
+  Candle        : open=111947.47  close=111864.67  EMA9=111972.38  EMA26=111986.80
+  Entry         : $111864.67
+  Stop Loss     : $112423.99  (+0.5%)
+  Take Profit   : $110186.70  (-1.5%)
+
+  Signal #11   [LOSS]  LONG    Entry: 2025-09-04 12:00 UTC  [same candle]
+  Crossover     : 2025-09-04 12:00 UTC
+  Candle        : open=110810.00  close=111017.80  EMA9=110891.59  EMA26=110879.57
+  Entry         : $111017.80
+  Stop Loss     : $110462.71  (-0.5%)
+  Take Profit   : $112683.07  (+1.5%)
+
+  Signal #12   [LOSS]  SHORT   Entry: 2025-09-04 12:30 UTC  [same candle]
+  Crossover     : 2025-09-04 12:30 UTC
+  Candle        : open=110899.99  close=110621.64  EMA9=110838.95  EMA26=110861.87
+  Entry         : $110621.64
+  Stop Loss     : $111174.75  (+0.5%)
+  Take Profit   : $108962.32  (-1.5%)
+
+  Signal #13   [WIN ]  LONG    Entry: 2025-09-04 20:15 UTC  [same candle]
+  Crossover     : 2025-09-04 20:15 UTC
+  Candle        : open=110170.52  close=110358.12  EMA9=110034.02  EMA26=110015.74
+  Entry         : $110358.12
+  Stop Loss     : $109806.33  (-0.5%)
+  Take Profit   : $112013.49  (+1.5%)
+
+  Signal #14   [LOSS]  SHORT   Entry: 2025-09-05 14:30 UTC  [same candle]
+  Crossover     : 2025-09-05 14:30 UTC
+  Candle        : open=110996.00  close=110899.99  EMA9=112085.41  EMA26=112265.97
+  Entry         : $110899.99
+  Stop Loss     : $111454.49  (+0.5%)
+  Take Profit   : $109236.49  (-1.5%)
+
+  Signal #15   [LOSS]  LONG    Entry: 2025-09-05 20:30 UTC  [next candle]
+  Crossover     : 2025-09-05 20:15 UTC
+  Candle        : open=111379.88  close=111547.78  EMA9=111341.09  EMA26=111306.37
+  Entry         : $111547.78
+  Stop Loss     : $110990.04  (-0.5%)
+  Take Profit   : $113221.00  (+1.5%)
+
+  Signal #16   [LOSS]  SHORT   Entry: 2025-09-05 21:15 UTC  [same candle]
+  Crossover     : 2025-09-05 21:15 UTC
+  Candle        : open=111318.84  close=110965.16  EMA9=111299.36  EMA26=111302.52
+  Entry         : $110965.16
+  Stop Loss     : $111519.99  (+0.5%)
+  Take Profit   : $109300.68  (-1.5%)
+
+  Signal #17   [LOSS]  LONG    Entry: 2025-09-06 03:15 UTC  [next candle]
+  Crossover     : 2025-09-06 03:00 UTC
+  Candle        : open=111120.25  close=111250.01  EMA9=111003.89  EMA26=110951.98
+  Entry         : $111250.01
+  Stop Loss     : $110693.76  (-0.5%)
+  Take Profit   : $112918.76  (+1.5%)
+
+  Signal #18   [LOSS]  LONG    Entry: 2025-09-06 13:00 UTC  [same candle]
+  Crossover     : 2025-09-06 13:00 UTC
+  Candle        : open=110832.59  close=110897.98  EMA9=110815.48  EMA26=110803.33
+  Entry         : $110897.98
+  Stop Loss     : $110343.49  (-0.5%)
+  Take Profit   : $112561.45  (+1.5%)
+
+  Signal #19   [LOSS]  SHORT   Entry: 2025-09-06 15:30 UTC  [next candle]
+  Crossover     : 2025-09-06 15:15 UTC
+  Candle        : open=110756.34  close=110609.07  EMA9=110773.91  EMA26=110805.49
+  Entry         : $110609.07
+  Stop Loss     : $111162.12  (+0.5%)
+  Take Profit   : $108949.93  (-1.5%)
+
+  Signal #20   [WIN ]  LONG    Entry: 2025-09-07 00:45 UTC  [same candle]
+  Crossover     : 2025-09-07 00:45 UTC
+  Candle        : open=110292.19  close=110356.75  EMA9=110254.10  EMA26=110242.10
+  Entry         : $110356.75
+  Stop Loss     : $109804.97  (-0.5%)
+  Take Profit   : $112012.10  (+1.5%)
+
+  Signal #21   [LOSS]  SHORT   Entry: 2025-09-07 17:45 UTC  [same candle]
+  Crossover     : 2025-09-07 17:45 UTC
+  Candle        : open=111105.52  close=110962.83  EMA9=111108.86  EMA26=111131.17
+  Entry         : $110962.83
+  Stop Loss     : $111517.64  (+0.5%)
+  Take Profit   : $109298.39  (-1.5%)
+
+  Signal #22   [LOSS]  LONG    Entry: 2025-09-07 19:45 UTC  [same candle]
+  Crossover     : 2025-09-07 19:45 UTC
+  Candle        : open=111236.00  close=111259.99  EMA9=111128.45  EMA26=111115.50
+  Entry         : $111259.99
+  Stop Loss     : $110703.69  (-0.5%)
+  Take Profit   : $112928.89  (+1.5%)
+
+  Signal #23   [LOSS]  SHORT   Entry: 2025-09-08 00:45 UTC  [same candle]
+  Crossover     : 2025-09-08 00:45 UTC
+  Candle        : open=111184.07  close=110837.96  EMA9=111147.66  EMA26=111176.51
+  Entry         : $110837.96
+  Stop Loss     : $111392.15  (+0.5%)
+  Take Profit   : $109175.39  (-1.5%)
+
+  Signal #24   [WIN ]  LONG    Entry: 2025-09-08 03:30 UTC  [same candle]
+  Crossover     : 2025-09-08 03:30 UTC
+  Candle        : open=111143.00  close=111160.01  EMA9=111106.82  EMA26=111103.64
+  Entry         : $111160.01
+  Stop Loss     : $110604.21  (-0.5%)
+  Take Profit   : $112827.41  (+1.5%)
+
+  Signal #25   [LOSS]  SHORT   Entry: 2025-09-08 03:45 UTC  [same candle]
+  Crossover     : 2025-09-08 03:45 UTC
+  Candle        : open=111160.01  close=111052.11  EMA9=111095.87  EMA26=111099.82
+  Entry         : $111052.11
+  Stop Loss     : $111607.37  (+0.5%)
+  Take Profit   : $109386.33  (-1.5%)
+
+  Signal #26   [WIN ]  LONG    Entry: 2025-09-08 07:00 UTC  [next candle]
+  Crossover     : 2025-09-08 06:45 UTC
+  Candle        : open=111113.26  close=111266.10  EMA9=111104.95  EMA26=111079.38
+  Entry         : $111266.10
+  Stop Loss     : $110709.77  (-0.5%)
+  Take Profit   : $112935.09  (+1.5%)
+
+  Signal #27   [LOSS]  SHORT   Entry: 2025-09-08 19:30 UTC  [same candle]
+  Crossover     : 2025-09-08 19:30 UTC
+  Candle        : open=112201.18  close=112114.95  EMA9=112281.31  EMA26=112283.62
+  Entry         : $112114.95
+  Stop Loss     : $112675.52  (+0.5%)
+  Take Profit   : $110433.23  (-1.5%)
+
+  Signal #28   [LOSS]  LONG    Entry: 2025-09-08 22:00 UTC  [same candle]
+  Crossover     : 2025-09-08 22:00 UTC
+  Candle        : open=112326.45  close=112443.98  EMA9=112224.84  EMA26=112218.16
+  Entry         : $112443.98
+  Stop Loss     : $111881.76  (-0.5%)
+  Take Profit   : $114130.64  (+1.5%)
+
+  Signal #29   [LOSS]  SHORT   Entry: 2025-09-08 23:30 UTC  [same candle]
+  Crossover     : 2025-09-08 23:30 UTC
+  Candle        : open=112131.04  close=112037.00  EMA9=112191.08  EMA26=112213.64
+  Entry         : $112037.00
+  Stop Loss     : $112597.18  (+0.5%)
+  Take Profit   : $110356.44  (-1.5%)
+
+  Signal #30   [LOSS]  LONG    Entry: 2025-09-09 04:45 UTC  [same candle]
+  Crossover     : 2025-09-09 04:45 UTC
+  Candle        : open=111928.90  close=112024.01  EMA9=111773.13  EMA26=111764.76
+  Entry         : $112024.01
+  Stop Loss     : $111463.89  (-0.5%)
+  Take Profit   : $113704.37  (+1.5%)
+
+  Signal #31   [LOSS]  SHORT   Entry: 2025-09-09 14:15 UTC  [same candle]
+  Crossover     : 2025-09-09 14:15 UTC
+  Candle        : open=112433.69  close=112320.24  EMA9=112618.49  EMA26=112658.75
+  Entry         : $112320.24
+  Stop Loss     : $112881.84  (+0.5%)
+  Take Profit   : $110635.44  (-1.5%)
+
+  Signal #32   [LOSS]  LONG    Entry: 2025-09-09 22:45 UTC  [same candle]
+  Crossover     : 2025-09-09 22:45 UTC
+  Candle        : open=111519.51  close=111556.16  EMA9=111446.12  EMA26=111430.86
+  Entry         : $111556.16
+  Stop Loss     : $110998.38  (-0.5%)
+  Take Profit   : $113229.50  (+1.5%)
+
+  Signal #33   [LOSS]  SHORT   Entry: 2025-09-10 00:15 UTC  [same candle]
+  Crossover     : 2025-09-10 00:15 UTC
+  Candle        : open=111414.00  close=111194.01  EMA9=111413.55  EMA26=111427.94
+  Entry         : $111194.01
+  Stop Loss     : $111749.98  (+0.5%)
+  Take Profit   : $109526.10  (-1.5%)
+
+  Signal #34   [WIN ]  LONG    Entry: 2025-09-10 03:00 UTC  [same candle]
+  Crossover     : 2025-09-10 03:00 UTC
+  Candle        : open=111411.13  close=111479.24  EMA9=111334.65  EMA26=111331.56
+  Entry         : $111479.24
+  Stop Loss     : $110921.84  (-0.5%)
+  Take Profit   : $113151.43  (+1.5%)
+
+  Signal #35   [LOSS]  SHORT   Entry: 2025-09-11 09:00 UTC  [same candle]
+  Crossover     : 2025-09-11 09:00 UTC
+  Candle        : open=114049.39  close=113903.18  EMA9=114088.01  EMA26=114097.49
+  Entry         : $113903.18
+  Stop Loss     : $114472.70  (+0.5%)
+  Take Profit   : $112194.63  (-1.5%)
+
+  Signal #36   [LOSS]  LONG    Entry: 2025-09-11 12:00 UTC  [same candle]
+  Crossover     : 2025-09-11 12:00 UTC
+  Candle        : open=113999.99  close=114261.59  EMA9=114051.32  EMA26=114048.99
+  Entry         : $114261.59
+  Stop Loss     : $113690.28  (-0.5%)
+  Take Profit   : $115975.51  (+1.5%)
+
+  Signal #37   [LOSS]  SHORT   Entry: 2025-09-11 13:00 UTC  [next candle]
+  Crossover     : 2025-09-11 12:45 UTC
+  Candle        : open=113975.99  close=113489.08  EMA9=113936.54  EMA26=114010.25
+  Entry         : $113489.08
+  Stop Loss     : $114056.53  (+0.5%)
+  Take Profit   : $111786.74  (-1.5%)
+
+  Signal #38   [LOSS]  LONG    Entry: 2025-09-11 13:45 UTC  [same candle]
+  Crossover     : 2025-09-11 13:45 UTC
+  Candle        : open=113926.90  close=114628.08  EMA9=114045.50  EMA26=114031.82
+  Entry         : $114628.08
+  Stop Loss     : $114054.94  (-0.5%)
+  Take Profit   : $116347.50  (+1.5%)
+
+  Signal #39   [LOSS]  SHORT   Entry: 2025-09-12 07:30 UTC  [same candle]
+  Crossover     : 2025-09-12 07:30 UTC
+  Candle        : open=115216.90  close=115172.10  EMA9=115301.47  EMA26=115315.20
+  Entry         : $115172.10
+  Stop Loss     : $115747.96  (+0.5%)
+  Take Profit   : $113444.52  (-1.5%)
+
+  Signal #40   [LOSS]  LONG    Entry: 2025-09-12 14:15 UTC  [same candle]
+  Crossover     : 2025-09-12 14:15 UTC
+  Candle        : open=115120.92  close=115221.23  EMA9=115079.49  EMA26=115074.88
+  Entry         : $115221.23
+  Stop Loss     : $114645.12  (-0.5%)
+  Take Profit   : $116949.55  (+1.5%)
+
+  Signal #41   [LOSS]  SHORT   Entry: 2025-09-12 14:30 UTC  [same candle]
+  Crossover     : 2025-09-12 14:30 UTC
+  Candle        : open=115221.23  close=114865.31  EMA9=115036.65  EMA26=115059.36
+  Entry         : $114865.31
+  Stop Loss     : $115439.64  (+0.5%)
+  Take Profit   : $113142.33  (-1.5%)
+
+  Signal #42   [LOSS]  LONG    Entry: 2025-09-12 14:45 UTC  [same candle]
+  Crossover     : 2025-09-12 14:45 UTC
+  Candle        : open=114865.31  close=115260.00  EMA9=115081.32  EMA26=115074.22
+  Entry         : $115260.00
+  Stop Loss     : $114683.70  (-0.5%)
+  Take Profit   : $116988.90  (+1.5%)
+
+  Signal #43   [LOSS]  SHORT   Entry: 2025-09-12 15:00 UTC  [same candle]
+  Crossover     : 2025-09-12 15:00 UTC
+  Candle        : open=115260.00  close=115017.99  EMA9=115068.65  EMA26=115070.05
+  Entry         : $115017.99
+  Stop Loss     : $115593.08  (+0.5%)
+  Take Profit   : $113292.72  (-1.5%)
+
+  Signal #44   [LOSS]  LONG    Entry: 2025-09-12 15:30 UTC  [same candle]
+  Crossover     : 2025-09-12 15:30 UTC
+  Candle        : open=115000.71  close=115127.53  EMA9=115069.56  EMA26=115069.56
+  Entry         : $115127.53
+  Stop Loss     : $114551.89  (-0.5%)
+  Take Profit   : $116854.44  (+1.5%)
+
+  Signal #45   [LOSS]  SHORT   Entry: 2025-09-13 01:45 UTC  [same candle]
+  Crossover     : 2025-09-13 01:45 UTC
+  Candle        : open=115849.84  close=115764.30  EMA9=115987.55  EMA26=115995.40
+  Entry         : $115764.30
+  Stop Loss     : $116343.12  (+0.5%)
+  Take Profit   : $114027.84  (-1.5%)
+
+  Signal #46   [LOSS]  LONG    Entry: 2025-09-13 08:30 UTC  [same candle]
+  Crossover     : 2025-09-13 08:30 UTC
+  Candle        : open=115858.51  close=115986.56  EMA9=115836.14  EMA26=115835.64
+  Entry         : $115986.56
+  Stop Loss     : $115406.63  (-0.5%)
+  Take Profit   : $117726.36  (+1.5%)
+
+  Signal #47   [LOSS]  SHORT   Entry: 2025-09-13 13:45 UTC  [same candle]
+  Crossover     : 2025-09-13 13:45 UTC
+  Candle        : open=115842.33  close=115761.05  EMA9=115899.06  EMA26=115913.20
+  Entry         : $115761.05
+  Stop Loss     : $116339.86  (+0.5%)
+  Take Profit   : $114024.63  (-1.5%)
+
+  Signal #48   [LOSS]  LONG    Entry: 2025-09-13 20:00 UTC  [same candle]
+  Crossover     : 2025-09-13 20:00 UTC
+  Candle        : open=115797.12  close=115940.61  EMA9=115711.46  EMA26=115688.94
+  Entry         : $115940.61
+  Stop Loss     : $115360.91  (-0.5%)
+  Take Profit   : $117679.72  (+1.5%)
+
+  Signal #49   [LOSS]  SHORT   Entry: 2025-09-14 03:30 UTC  [next candle]
+  Crossover     : 2025-09-14 03:15 UTC
+  Candle        : open=115740.13  close=115731.06  EMA9=115823.98  EMA26=115851.99
+  Entry         : $115731.06
+  Stop Loss     : $116309.72  (+0.5%)
+  Take Profit   : $113995.09  (-1.5%)
+
+  Signal #50   [LOSS]  LONG    Entry: 2025-09-14 08:15 UTC  [same candle]
+  Crossover     : 2025-09-14 08:15 UTC
+  Candle        : open=115793.99  close=115874.95  EMA9=115802.54  EMA26=115801.09
+  Entry         : $115874.95
+  Stop Loss     : $115295.58  (-0.5%)
+  Take Profit   : $117613.07  (+1.5%)
+
+  Signal #51   [LOSS]  SHORT   Entry: 2025-09-14 12:00 UTC  [same candle]
+  Crossover     : 2025-09-14 12:00 UTC
+  Candle        : open=115794.92  close=115786.32  EMA9=115880.35  EMA26=115890.37
+  Entry         : $115786.32
+  Stop Loss     : $116365.25  (+0.5%)
+  Take Profit   : $114049.53  (-1.5%)
+
+  Signal #52   [LOSS]  LONG    Entry: 2025-09-14 20:00 UTC  [same candle]
+  Crossover     : 2025-09-14 20:00 UTC
+  Candle        : open=115634.99  close=115758.93  EMA9=115574.54  EMA26=115548.91
+  Entry         : $115758.93
+  Stop Loss     : $115180.14  (-0.5%)
+  Take Profit   : $117495.31  (+1.5%)
+
+  Signal #53   [LOSS]  SHORT   Entry: 2025-09-14 23:30 UTC  [same candle]
+  Crossover     : 2025-09-14 23:30 UTC
+  Candle        : open=115387.23  close=115244.19  EMA9=115662.41  EMA26=115691.02
+  Entry         : $115244.19
+  Stop Loss     : $115820.41  (+0.5%)
+  Take Profit   : $113515.53  (-1.5%)
+
+  Signal #54   [LOSS]  LONG    Entry: 2025-09-15 04:15 UTC  [same candle]
+  Crossover     : 2025-09-15 04:15 UTC
+  Candle        : open=115498.00  close=115962.44  EMA9=115524.25  EMA26=115461.65
+  Entry         : $115962.44
+  Stop Loss     : $115382.63  (-0.5%)
+  Take Profit   : $117701.88  (+1.5%)
+
+  Signal #55   [LOSS]  SHORT   Entry: 2025-09-15 08:30 UTC  [same candle]
+  Crossover     : 2025-09-15 08:30 UTC
+  Candle        : open=115651.04  close=115255.68  EMA9=115759.42  EMA26=115831.61
+  Entry         : $115255.68
+  Stop Loss     : $115831.96  (+0.5%)
+  Take Profit   : $113526.84  (-1.5%)
+
+  Signal #56   [WIN ]  LONG    Entry: 2025-09-15 18:30 UTC  [next candle]
+  Crossover     : 2025-09-15 18:15 UTC
+  Candle        : open=114942.34  close=114954.50  EMA9=114903.62  EMA26=114892.01
+  Entry         : $114954.50
+  Stop Loss     : $114379.73  (-0.5%)
+  Take Profit   : $116678.82  (+1.5%)
+
+  Signal #57   [LOSS]  SHORT   Entry: 2025-09-16 00:45 UTC  [same candle]
+  Crossover     : 2025-09-16 00:45 UTC
+  Candle        : open=115136.89  close=115088.66  EMA9=115214.11  EMA26=115229.63
+  Entry         : $115088.66
+  Stop Loss     : $115664.10  (+0.5%)
+  Take Profit   : $113362.33  (-1.5%)
+
+  Signal #58   [LOSS]  LONG    Entry: 2025-09-16 01:15 UTC  [same candle]
+  Crossover     : 2025-09-16 01:15 UTC
+  Candle        : open=115251.62  close=115424.16  EMA9=115262.12  EMA26=115245.55
+  Entry         : $115424.16
+  Stop Loss     : $114847.04  (-0.5%)
+  Take Profit   : $117155.52  (+1.5%)
+
+  Signal #59   [LOSS]  SHORT   Entry: 2025-09-16 01:45 UTC  [same candle]
+  Crossover     : 2025-09-16 01:45 UTC
+  Candle        : open=115174.60  close=115024.24  EMA9=115200.54  EMA26=115224.29
+  Entry         : $115024.24
+  Stop Loss     : $115599.36  (+0.5%)
+  Take Profit   : $113298.88  (-1.5%)
+
+  Signal #60   [LOSS]  SHORT   Entry: 2025-09-16 04:00 UTC  [same candle]
+  Crossover     : 2025-09-16 04:00 UTC
+  Candle        : open=115307.26  close=115110.21  EMA9=115199.72  EMA26=115204.57
+  Entry         : $115110.21
+  Stop Loss     : $115685.76  (+0.5%)
+  Take Profit   : $113383.56  (-1.5%)
+
+  Signal #61   [WIN ]  LONG    Entry: 2025-09-16 04:15 UTC  [same candle]
+  Crossover     : 2025-09-16 04:15 UTC
+  Candle        : open=115110.21  close=115309.99  EMA9=115221.77  EMA26=115212.38
+  Entry         : $115309.99
+  Stop Loss     : $114733.44  (-0.5%)
+  Take Profit   : $117039.64  (+1.5%)
+
+  Signal #62   [LOSS]  SHORT   Entry: 2025-09-16 10:00 UTC  [same candle]
+  Crossover     : 2025-09-16 10:00 UTC
+  Candle        : open=115477.28  close=115446.00  EMA9=115588.89  EMA26=115597.97
+  Entry         : $115446.00
+  Stop Loss     : $116023.23  (+0.5%)
+  Take Profit   : $113714.31  (-1.5%)
+
+  Signal #63   [LOSS]  LONG    Entry: 2025-09-16 16:15 UTC  [next candle]
+  Crossover     : 2025-09-16 16:00 UTC
+  Candle        : open=115760.40  close=115858.01  EMA9=115508.34  EMA26=115411.02
+  Entry         : $115858.01
+  Stop Loss     : $115278.72  (-0.5%)
+  Take Profit   : $117595.88  (+1.5%)
+
+  Signal #64   [LOSS]  SHORT   Entry: 2025-09-17 03:45 UTC  [same candle]
+  Crossover     : 2025-09-17 03:45 UTC
+  Candle        : open=116478.63  close=116372.04  EMA9=116584.76  EMA26=116616.11
+  Entry         : $116372.04
+  Stop Loss     : $116953.90  (+0.5%)
+  Take Profit   : $114626.46  (-1.5%)
+
+  Signal #65   [LOSS]  LONG    Entry: 2025-09-17 05:45 UTC  [same candle]
+  Crossover     : 2025-09-17 05:45 UTC
+  Candle        : open=116688.34  close=117108.30  EMA9=116635.16  EMA26=116593.37
+  Entry         : $117108.30
+  Stop Loss     : $116522.76  (-0.5%)
+  Take Profit   : $118864.92  (+1.5%)
+
+  Signal #66   [WIN ]  SHORT   Entry: 2025-09-17 09:45 UTC  [same candle]
+  Crossover     : 2025-09-17 09:45 UTC
+  Candle        : open=116700.99  close=116550.01  EMA9=116782.13  EMA26=116811.37
+  Entry         : $116550.01
+  Stop Loss     : $117132.76  (+0.5%)
+  Take Profit   : $114801.76  (-1.5%)
+
+  Signal #67   [WIN ]  LONG    Entry: 2025-09-17 21:30 UTC  [same candle]
+  Crossover     : 2025-09-17 21:30 UTC
+  Candle        : open=115802.16  close=115951.11  EMA9=115772.19  EMA26=115770.15
+  Entry         : $115951.11
+  Stop Loss     : $115371.35  (-0.5%)
+  Take Profit   : $117690.38  (+1.5%)
+
+  Signal #68   [LOSS]  LONG    Entry: 2025-09-18 20:30 UTC  [same candle]
+  Crossover     : 2025-09-18 20:30 UTC
+  Candle        : open=117501.44  close=117652.83  EMA9=117555.74  EMA26=117541.82
+  Entry         : $117652.83
+  Stop Loss     : $117064.57  (-0.5%)
+  Take Profit   : $119417.62  (+1.5%)
+
+  Signal #69   [WIN ]  SHORT   Entry: 2025-09-18 21:00 UTC  [same candle]
+  Crossover     : 2025-09-18 21:00 UTC
+  Candle        : open=117521.14  close=117330.02  EMA9=117505.06  EMA26=117524.71
+  Entry         : $117330.02
+  Stop Loss     : $117916.67  (+0.5%)
+  Take Profit   : $115570.07  (-1.5%)
+
+  Signal #70   [LOSS]  LONG    Entry: 2025-09-20 00:30 UTC  [same candle]
+  Crossover     : 2025-09-20 00:30 UTC
+  Candle        : open=115557.06  close=115703.98  EMA9=115584.46  EMA26=115582.30
+  Entry         : $115703.98
+  Stop Loss     : $115125.46  (-0.5%)
+  Take Profit   : $117439.54  (+1.5%)
+
+  Signal #71   [LOSS]  LONG    Entry: 2025-09-20 05:30 UTC  [same candle]
+  Crossover     : 2025-09-20 05:30 UTC
+  Candle        : open=115606.74  close=115639.99  EMA9=115568.27  EMA26=115564.85
+  Entry         : $115639.99
+  Stop Loss     : $115061.79  (-0.5%)
+  Take Profit   : $117374.59  (+1.5%)
+
+  Signal #72   [WIN ]  SHORT   Entry: 2025-09-20 18:00 UTC  [same candle]
+  Crossover     : 2025-09-20 18:00 UTC
+  Candle        : open=115821.73  close=115733.02  EMA9=115878.21  EMA26=115894.47
+  Entry         : $115733.02
+  Stop Loss     : $116311.69  (+0.5%)
+  Take Profit   : $113997.02  (-1.5%)
+
+  Signal #73   [WIN ]  SHORT   Entry: 2025-09-21 09:00 UTC  [next candle]
+  Crossover     : 2025-09-21 08:45 UTC
+  Candle        : open=115629.60  close=115580.10  EMA9=115634.57  EMA26=115645.43
+  Entry         : $115580.10
+  Stop Loss     : $116158.00  (+0.5%)
+  Take Profit   : $113846.40  (-1.5%)
+
+  Signal #74   [LOSS]  LONG    Entry: 2025-09-21 11:30 UTC  [same candle]
+  Crossover     : 2025-09-21 11:30 UTC
+  Candle        : open=115655.44  close=115687.39  EMA9=115631.10  EMA26=115629.14
+  Entry         : $115687.39
+  Stop Loss     : $115108.95  (-0.5%)
+  Take Profit   : $117422.70  (+1.5%)
+
+  Signal #75   [WIN ]  SHORT   Entry: 2025-09-21 11:45 UTC  [same candle]
+  Crossover     : 2025-09-21 11:45 UTC
+  Candle        : open=115687.39  close=115603.45  EMA9=115625.57  EMA26=115627.23
+  Entry         : $115603.45
+  Stop Loss     : $116181.47  (+0.5%)
+  Take Profit   : $113869.40  (-1.5%)
+
+  Signal #76   [LOSS]  LONG    Entry: 2025-09-21 12:00 UTC  [same candle]
+  Crossover     : 2025-09-21 12:00 UTC
+  Candle        : open=115603.45  close=115687.23  EMA9=115637.90  EMA26=115631.68
+  Entry         : $115687.23
+  Stop Loss     : $115108.79  (-0.5%)
+  Take Profit   : $117422.54  (+1.5%)
+
+  Signal #77   [WIN ]  SHORT   Entry: 2025-09-21 14:45 UTC  [same candle]
+  Crossover     : 2025-09-21 14:45 UTC
+  Candle        : open=115666.14  close=115500.01  EMA9=115625.40  EMA26=115641.30
+  Entry         : $115500.01
+  Stop Loss     : $116077.51  (+0.5%)
+  Take Profit   : $113767.51  (-1.5%)
+
+  Signal #78   [LOSS]  LONG    Entry: 2025-09-22 14:15 UTC  [same candle]
+  Crossover     : 2025-09-22 14:15 UTC
+  Candle        : open=113158.64  close=113382.53  EMA9=112983.93  EMA26=112942.37
+  Entry         : $113382.53
+  Stop Loss     : $112815.62  (-0.5%)
+  Take Profit   : $115083.27  (+1.5%)
+
+  Signal #79   [LOSS]  SHORT   Entry: 2025-09-22 15:15 UTC  [same candle]
+  Crossover     : 2025-09-22 15:15 UTC
+  Candle        : open=112871.27  close=112666.69  EMA9=112896.26  EMA26=112919.10
+  Entry         : $112666.69
+  Stop Loss     : $113230.02  (+0.5%)
+  Take Profit   : $110976.69  (-1.5%)
+
+  Signal #80   [LOSS]  LONG    Entry: 2025-09-22 21:30 UTC  [same candle]
+  Crossover     : 2025-09-22 21:30 UTC
+  Candle        : open=112699.75  close=112881.32  EMA9=112617.75  EMA26=112601.14
+  Entry         : $112881.32
+  Stop Loss     : $112316.91  (-0.5%)
+  Take Profit   : $114574.54  (+1.5%)
+
+  Signal #81   [LOSS]  SHORT   Entry: 2025-09-23 00:45 UTC  [same candle]
+  Crossover     : 2025-09-23 00:45 UTC
+  Candle        : open=112577.45  close=112395.32  EMA9=112594.64  EMA26=112621.92
+  Entry         : $112395.32
+  Stop Loss     : $112957.30  (+0.5%)
+  Take Profit   : $110709.39  (-1.5%)
+
+  Signal #82   [LOSS]  LONG    Entry: 2025-09-23 05:15 UTC  [same candle]
+  Crossover     : 2025-09-23 05:15 UTC
+  Candle        : open=112633.72  close=112777.75  EMA9=112403.80  EMA26=112373.40
+  Entry         : $112777.75
+  Stop Loss     : $112213.86  (-0.5%)
+  Take Profit   : $114469.42  (+1.5%)
+
+  Signal #83   [LOSS]  SHORT   Entry: 2025-09-23 14:45 UTC  [same candle]
+  Crossover     : 2025-09-23 14:45 UTC
+  Candle        : open=112814.24  close=112652.91  EMA9=112848.09  EMA26=112877.19
+  Entry         : $112652.91
+  Stop Loss     : $113216.17  (+0.5%)
+  Take Profit   : $110963.12  (-1.5%)
+
+  Signal #84   [LOSS]  LONG    Entry: 2025-09-24 00:45 UTC  [same candle]
+  Crossover     : 2025-09-24 00:45 UTC
+  Candle        : open=112217.26  close=112230.72  EMA9=112140.73  EMA26=112132.85
+  Entry         : $112230.72
+  Stop Loss     : $111669.57  (-0.5%)
+  Take Profit   : $113914.18  (+1.5%)
+
+  Signal #85   [LOSS]  SHORT   Entry: 2025-09-24 03:15 UTC  [same candle]
+  Crossover     : 2025-09-24 03:15 UTC
+  Candle        : open=112194.76  close=111785.25  EMA9=112134.08  EMA26=112166.63
+  Entry         : $111785.25
+  Stop Loss     : $112344.18  (+0.5%)
+  Take Profit   : $110108.47  (-1.5%)
+
+  Signal #86   [LOSS]  LONG    Entry: 2025-09-24 05:15 UTC  [same candle]
+  Crossover     : 2025-09-24 05:15 UTC
+  Candle        : open=112237.77  close=112343.62  EMA9=112118.37  EMA26=112108.97
+  Entry         : $112343.62
+  Stop Loss     : $111781.90  (-0.5%)
+  Take Profit   : $114028.77  (+1.5%)
+
+  Signal #87   [WIN ]  SHORT   Entry: 2025-09-24 22:30 UTC  [same candle]
+  Crossover     : 2025-09-24 22:30 UTC
+  Candle        : open=113485.01  close=113368.23  EMA9=113476.07  EMA26=113476.87
+  Entry         : $113368.23
+  Stop Loss     : $113935.07  (+0.5%)
+  Take Profit   : $111667.71  (-1.5%)
+
+  Signal #88   [LOSS]  LONG    Entry: 2025-09-26 02:45 UTC  [same candle]
+  Crossover     : 2025-09-26 02:45 UTC
+  Candle        : open=109620.00  close=109621.70  EMA9=109560.53  EMA26=109555.83
+  Entry         : $109621.70
+  Stop Loss     : $109073.59  (-0.5%)
+  Take Profit   : $111266.03  (+1.5%)
+
+  Signal #89   [LOSS]  SHORT   Entry: 2025-09-26 03:15 UTC  [same candle]
+  Crossover     : 2025-09-26 03:15 UTC
+  Candle        : open=109528.97  close=109344.01  EMA9=109512.18  EMA26=109538.30
+  Entry         : $109344.01
+  Stop Loss     : $109890.73  (+0.5%)
+  Take Profit   : $107703.85  (-1.5%)
+
+  Signal #90   [LOSS]  LONG    Entry: 2025-09-26 09:00 UTC  [next candle]
+  Crossover     : 2025-09-26 08:45 UTC
+  Candle        : open=109567.20  close=109664.29  EMA9=109493.93  EMA26=109455.09
+  Entry         : $109664.29
+  Stop Loss     : $109115.97  (-0.5%)
+  Take Profit   : $111309.25  (+1.5%)
+
+  Signal #91   [LOSS]  SHORT   Entry: 2025-09-26 10:00 UTC  [same candle]
+  Crossover     : 2025-09-26 10:00 UTC
+  Candle        : open=109568.72  close=109185.09  EMA9=109449.75  EMA26=109451.65
+  Entry         : $109185.09
+  Stop Loss     : $109731.02  (+0.5%)
+  Take Profit   : $107547.31  (-1.5%)
+
+  Signal #92   [LOSS]  LONG    Entry: 2025-09-26 13:30 UTC  [same candle]
+  Crossover     : 2025-09-26 13:30 UTC
+  Candle        : open=109183.63  close=109600.71  EMA9=109262.61  EMA26=109254.92
+  Entry         : $109600.71
+  Stop Loss     : $109052.71  (-0.5%)
+  Take Profit   : $111244.72  (+1.5%)
+
+  Signal #93   [LOSS]  SHORT   Entry: 2025-09-26 14:30 UTC  [same candle]
+  Crossover     : 2025-09-26 14:30 UTC
+  Candle        : open=109083.45  close=108905.97  EMA9=109210.24  EMA26=109245.14
+  Entry         : $108905.97
+  Stop Loss     : $109450.50  (+0.5%)
+  Take Profit   : $107272.38  (-1.5%)
+
+  Signal #94   [WIN ]  LONG    Entry: 2025-09-26 16:15 UTC  [same candle]
+  Crossover     : 2025-09-26 16:15 UTC
+  Candle        : open=109278.30  close=109518.18  EMA9=109235.65  EMA26=109223.80
+  Entry         : $109518.18
+  Stop Loss     : $108970.59  (-0.5%)
+  Take Profit   : $111160.95  (+1.5%)
+
+  Signal #95   [WIN ]  LONG    Entry: 2025-09-26 22:30 UTC  [next candle]
+  Crossover     : 2025-09-26 22:15 UTC
+  Candle        : open=109500.12  close=109536.62  EMA9=109453.27  EMA26=109434.76
+  Entry         : $109536.62
+  Stop Loss     : $108988.94  (-0.5%)
+  Take Profit   : $111179.67  (+1.5%)
+
+  Signal #96   [LOSS]  LONG    Entry: 2025-09-27 03:30 UTC  [same candle]
+  Crossover     : 2025-09-27 03:30 UTC
+  Candle        : open=109542.05  close=109635.98  EMA9=109496.36  EMA26=109484.13
+  Entry         : $109635.98
+  Stop Loss     : $109087.80  (-0.5%)
+  Take Profit   : $111280.52  (+1.5%)
+
+  Signal #97   [LOSS]  SHORT   Entry: 2025-09-27 07:30 UTC  [same candle]
+  Crossover     : 2025-09-27 07:30 UTC
+  Candle        : open=109494.19  close=109385.52  EMA9=109517.49  EMA26=109534.07
+  Entry         : $109385.52
+  Stop Loss     : $109932.45  (+0.5%)
+  Take Profit   : $107744.74  (-1.5%)
+
+  Signal #98   [WIN ]  LONG    Entry: 2025-09-27 16:45 UTC  [next candle]
+  Crossover     : 2025-09-27 16:30 UTC
+  Candle        : open=109370.73  close=109389.04  EMA9=109352.63  EMA26=109343.65
+  Entry         : $109389.04
+  Stop Loss     : $108842.09  (-0.5%)
+  Take Profit   : $111029.88  (+1.5%)
+
+  Signal #99   [LOSS]  SHORT   Entry: 2025-09-27 17:15 UTC  [same candle]
+  Crossover     : 2025-09-27 17:15 UTC
+  Candle        : open=109325.22  close=109307.61  EMA9=109339.24  EMA26=109339.71
+  Entry         : $109307.61
+  Stop Loss     : $109854.15  (+0.5%)
+  Take Profit   : $107668.00  (-1.5%)
+
+  Signal #100  [WIN ]  LONG    Entry: 2025-09-27 17:45 UTC  [same candle]
+  Crossover     : 2025-09-27 17:45 UTC
+  Candle        : open=109333.33  close=109382.47  EMA9=109346.94  EMA26=109342.44
+  Entry         : $109382.47
+  Stop Loss     : $108835.56  (-0.5%)
+  Take Profit   : $111023.21  (+1.5%)
+
+  Signal #101  [LOSS]  SHORT   Entry: 2025-09-28 01:45 UTC  [same candle]
+  Crossover     : 2025-09-28 01:45 UTC
+  Candle        : open=109427.58  close=109353.67  EMA9=109507.00  EMA26=109509.34
+  Entry         : $109353.67
+  Stop Loss     : $109900.44  (+0.5%)
+  Take Profit   : $107713.36  (-1.5%)
+
+  Signal #102  [WIN ]  LONG    Entry: 2025-09-28 07:45 UTC  [same candle]
+  Crossover     : 2025-09-28 07:45 UTC
+  Candle        : open=109461.60  close=109513.06  EMA9=109430.93  EMA26=109427.91
+  Entry         : $109513.06
+  Stop Loss     : $108965.49  (-0.5%)
+  Take Profit   : $111155.76  (+1.5%)
+
+  Signal #103  [LOSS]  SHORT   Entry: 2025-09-28 10:45 UTC  [same candle]
+  Crossover     : 2025-09-28 10:45 UTC
+  Candle        : open=109389.49  close=109368.44  EMA9=109437.98  EMA26=109445.83
+  Entry         : $109368.44
+  Stop Loss     : $109915.28  (+0.5%)
+  Take Profit   : $107727.91  (-1.5%)
+
+  Signal #104  [WIN ]  LONG    Entry: 2025-09-28 13:30 UTC  [same candle]
+  Crossover     : 2025-09-28 13:30 UTC
+  Candle        : open=109476.80  close=109595.59  EMA9=109427.90  EMA26=109416.43
+  Entry         : $109595.59
+  Stop Loss     : $109047.61  (-0.5%)
+  Take Profit   : $111239.52  (+1.5%)
+
+  Signal #105  [LOSS]  SHORT   Entry: 2025-09-29 07:15 UTC  [same candle]
+  Crossover     : 2025-09-29 07:15 UTC
+  Candle        : open=111635.45  close=111607.86  EMA9=111689.11  EMA26=111691.75
+  Entry         : $111607.86
+  Stop Loss     : $112165.90  (+0.5%)
+  Take Profit   : $109933.74  (-1.5%)
+
+  Signal #106  [WIN ]  LONG    Entry: 2025-09-29 07:30 UTC  [same candle]
+  Crossover     : 2025-09-29 07:30 UTC
+  Candle        : open=111607.85  close=111732.78  EMA9=111697.84  EMA26=111694.79
+  Entry         : $111732.78
+  Stop Loss     : $111174.12  (-0.5%)
+  Take Profit   : $113408.77  (+1.5%)
+
+  Signal #107  [LOSS]  SHORT   Entry: 2025-09-30 04:45 UTC  [same candle]
+  Crossover     : 2025-09-30 04:45 UTC
+  Candle        : open=114204.84  close=114091.63  EMA9=114275.49  EMA26=114292.17
+  Entry         : $114091.63
+  Stop Loss     : $114662.09  (+0.5%)
+  Take Profit   : $112380.26  (-1.5%)
+
+  Signal #108  [WIN ]  LONG    Entry: 2025-09-30 18:00 UTC  [same candle]
+  Crossover     : 2025-09-30 18:00 UTC
+  Candle        : open=113246.12  close=113513.52  EMA9=113229.50  EMA26=113208.59
+  Entry         : $113513.52
+  Stop Loss     : $112945.95  (-0.5%)
+  Take Profit   : $115216.22  (+1.5%)
+
+  Signal #109  [LOSS]  SHORT   Entry: 2025-10-03 01:15 UTC  [same candle]
+  Crossover     : 2025-10-03 01:15 UTC
+  Candle        : open=120225.26  close=120119.23  EMA9=120242.04  EMA26=120249.39
+  Entry         : $120119.23
+  Stop Loss     : $120719.83  (+0.5%)
+  Take Profit   : $118317.44  (-1.5%)
+
+  Signal #110  [LOSS]  LONG    Entry: 2025-10-03 04:00 UTC  [same candle]
+  Crossover     : 2025-10-03 04:00 UTC
+  Candle        : open=120225.88  close=120259.99  EMA9=120212.51  EMA26=120205.18
+  Entry         : $120259.99
+  Stop Loss     : $119658.69  (-0.5%)
+  Take Profit   : $122063.89  (+1.5%)
+
+  Signal #111  [LOSS]  SHORT   Entry: 2025-10-03 04:30 UTC  [same candle]
+  Crossover     : 2025-10-03 04:30 UTC
+  Candle        : open=120200.01  close=120027.23  EMA9=120173.46  EMA26=120191.64
+  Entry         : $120027.23
+  Stop Loss     : $120627.37  (+0.5%)
+  Take Profit   : $118226.82  (-1.5%)
+
+  Signal #112  [WIN ]  LONG    Entry: 2025-10-03 09:45 UTC  [next candle]
+  Crossover     : 2025-10-03 09:30 UTC
+  Candle        : open=120192.88  close=120300.00  EMA9=120059.92  EMA26=120006.34
+  Entry         : $120300.00
+  Stop Loss     : $119698.50  (-0.5%)
+  Take Profit   : $122104.50  (+1.5%)
+
+  Signal #113  [LOSS]  SHORT   Entry: 2025-10-04 00:30 UTC  [same candle]
+  Crossover     : 2025-10-04 00:30 UTC
+  Candle        : open=122168.45  close=122055.15  EMA9=122236.45  EMA26=122243.93
+  Entry         : $122055.15
+  Stop Loss     : $122665.43  (+0.5%)
+  Take Profit   : $120224.32  (-1.5%)
+
+  Signal #114  [LOSS]  LONG    Entry: 2025-10-04 04:15 UTC  [same candle]
+  Crossover     : 2025-10-04 04:15 UTC
+  Candle        : open=122281.78  close=122342.56  EMA9=122127.90  EMA26=122104.90
+  Entry         : $122342.56
+  Stop Loss     : $121730.85  (-0.5%)
+  Take Profit   : $124177.70  (+1.5%)
+
+  Signal #115  [LOSS]  SHORT   Entry: 2025-10-04 09:45 UTC  [same candle]
+  Crossover     : 2025-10-04 09:45 UTC
+  Candle        : open=122327.81  close=122208.78  EMA9=122329.03  EMA26=122331.06
+  Entry         : $122208.78
+  Stop Loss     : $122819.82  (+0.5%)
+  Take Profit   : $120375.65  (-1.5%)
+
+  Signal #116  [LOSS]  LONG    Entry: 2025-10-04 14:00 UTC  [next candle]
+  Crossover     : 2025-10-04 13:45 UTC
+  Candle        : open=122385.42  close=122425.17  EMA9=122288.85  EMA26=122248.68
+  Entry         : $122425.17
+  Stop Loss     : $121813.04  (-0.5%)
+  Take Profit   : $124261.55  (+1.5%)
+
+  Signal #117  [LOSS]  SHORT   Entry: 2025-10-04 14:45 UTC  [same candle]
+  Crossover     : 2025-10-04 14:45 UTC
+  Candle        : open=122245.17  close=122000.01  EMA9=122227.25  EMA26=122234.14
+  Entry         : $122000.01
+  Stop Loss     : $122610.01  (+0.5%)
+  Take Profit   : $120170.01  (-1.5%)
+
+  Signal #118  [LOSS]  SHORT   Entry: 2025-10-05 09:30 UTC  [same candle]
+  Crossover     : 2025-10-05 09:30 UTC
+  Candle        : open=124013.40  close=122988.76  EMA9=124225.47  EMA26=124262.33
+  Entry         : $122988.76
+  Stop Loss     : $123603.70  (+0.5%)
+  Take Profit   : $121143.93  (-1.5%)
+
+  Signal #119  [WIN ]  LONG    Entry: 2025-10-05 22:45 UTC  [same candle]
+  Crossover     : 2025-10-05 22:45 UTC
+  Candle        : open=123137.19  close=123237.40  EMA9=122968.77  EMA26=122944.72
+  Entry         : $123237.40
+  Stop Loss     : $122621.21  (-0.5%)
+  Take Profit   : $125085.96  (+1.5%)
+
+  Signal #120  [WIN ]  LONG    Entry: 2025-10-06 08:15 UTC  [same candle]
+  Crossover     : 2025-10-06 08:15 UTC
+  Candle        : open=123635.78  close=123760.00  EMA9=123694.85  EMA26=123689.40
+  Entry         : $123760.00
+  Stop Loss     : $123141.20  (-0.5%)
+  Take Profit   : $125616.40  (+1.5%)
+
+  Signal #121  [LOSS]  LONG    Entry: 2025-10-06 22:00 UTC  [same candle]
+  Crossover     : 2025-10-06 22:00 UTC
+  Candle        : open=125097.86  close=125161.12  EMA9=125136.55  EMA26=125135.15
+  Entry         : $125161.12
+  Stop Loss     : $124535.31  (-0.5%)
+  Take Profit   : $127038.54  (+1.5%)
+
+  Signal #122  [WIN ]  SHORT   Entry: 2025-10-06 22:30 UTC  [same candle]
+  Crossover     : 2025-10-06 22:30 UTC
+  Candle        : open=125175.54  close=124890.94  EMA9=125093.67  EMA26=125119.83
+  Entry         : $124890.94
+  Stop Loss     : $125515.39  (+0.5%)
+  Take Profit   : $123017.58  (-1.5%)
+
+  Signal #123  [WIN ]  SHORT   Entry: 2025-10-07 14:00 UTC  [same candle]
+  Crossover     : 2025-10-07 14:00 UTC
+  Candle        : open=123891.68  close=122831.93  EMA9=124028.60  EMA26=124195.74
+  Entry         : $122831.93
+  Stop Loss     : $123446.09  (+0.5%)
+  Take Profit   : $120989.45  (-1.5%)
+
+  Signal #124  [LOSS]  LONG    Entry: 2025-10-08 02:15 UTC  [same candle]
+  Crossover     : 2025-10-08 02:15 UTC
+  Candle        : open=121938.97  close=122186.01  EMA9=121899.85  EMA26=121863.51
+  Entry         : $122186.01
+  Stop Loss     : $121575.08  (-0.5%)
+  Take Profit   : $124018.80  (+1.5%)
+
+  Signal #125  [LOSS]  SHORT   Entry: 2025-10-08 03:15 UTC  [same candle]
+  Crossover     : 2025-10-08 03:15 UTC
+  Candle        : open=121723.54  close=121453.24  EMA9=121802.43  EMA26=121838.03
+  Entry         : $121453.24
+  Stop Loss     : $122060.51  (+0.5%)
+  Take Profit   : $119631.44  (-1.5%)
+
+  Signal #126  [WIN ]  LONG    Entry: 2025-10-08 08:15 UTC  [same candle]
+  Crossover     : 2025-10-08 08:15 UTC
+  Candle        : open=121563.03  close=121916.41  EMA9=121630.19  EMA26=121626.73
+  Entry         : $121916.41
+  Stop Loss     : $121306.83  (-0.5%)
+  Take Profit   : $123745.16  (+1.5%)
+
+  Signal #127  [LOSS]  SHORT   Entry: 2025-10-08 15:45 UTC  [same candle]
+  Crossover     : 2025-10-08 15:45 UTC
+  Candle        : open=122355.54  close=122189.72  EMA9=122417.12  EMA26=122450.07
+  Entry         : $122189.72
+  Stop Loss     : $122800.67  (+0.5%)
+  Take Profit   : $120356.87  (-1.5%)
+
+  Signal #128  [LOSS]  LONG    Entry: 2025-10-08 16:00 UTC  [same candle]
+  Crossover     : 2025-10-08 16:00 UTC
+  Candle        : open=122189.72  close=122726.51  EMA9=122479.00  EMA26=122470.54
+  Entry         : $122726.51
+  Stop Loss     : $122112.88  (-0.5%)
+  Take Profit   : $124567.41  (+1.5%)
+
+  Signal #129  [WIN ]  SHORT   Entry: 2025-10-09 00:15 UTC  [same candle]
+  Crossover     : 2025-10-09 00:15 UTC
+  Candle        : open=123118.57  close=123062.25  EMA9=123229.49  EMA26=123235.34
+  Entry         : $123062.25
+  Stop Loss     : $123677.56  (+0.5%)
+  Take Profit   : $121216.32  (-1.5%)
+
+  Signal #130  [LOSS]  LONG    Entry: 2025-10-09 11:00 UTC  [same candle]
+  Crossover     : 2025-10-09 11:00 UTC
+  Candle        : open=122170.26  close=122246.81  EMA9=121957.00  EMA26=121930.35
+  Entry         : $122246.81
+  Stop Loss     : $121635.58  (-0.5%)
+  Take Profit   : $124080.51  (+1.5%)
+
+  Signal #131  [LOSS]  SHORT   Entry: 2025-10-09 14:30 UTC  [same candle]
+  Crossover     : 2025-10-09 14:30 UTC
+  Candle        : open=121690.27  close=121270.44  EMA9=122322.84  EMA26=122394.19
+  Entry         : $121270.44
+  Stop Loss     : $121876.79  (+0.5%)
+  Take Profit   : $119451.38  (-1.5%)
+
+  Signal #132  [LOSS]  LONG    Entry: 2025-10-09 21:30 UTC  [same candle]
+  Crossover     : 2025-10-09 21:30 UTC
+  Candle        : open=121333.76  close=121444.82  EMA9=121152.74  EMA26=121139.52
+  Entry         : $121444.82
+  Stop Loss     : $120837.60  (-0.5%)
+  Take Profit   : $123266.49  (+1.5%)
+
+  Signal #133  [LOSS]  SHORT   Entry: 2025-10-10 02:45 UTC  [same candle]
+  Crossover     : 2025-10-10 02:45 UTC
+  Candle        : open=121220.96  close=121059.73  EMA9=121393.04  EMA26=121437.76
+  Entry         : $121059.73
+  Stop Loss     : $121665.03  (+0.5%)
+  Take Profit   : $119243.83  (-1.5%)
+
+  Signal #134  [LOSS]  SHORT   Entry: 2025-10-10 07:30 UTC  [same candle]
+  Crossover     : 2025-10-10 07:30 UTC
+  Candle        : open=121313.56  close=121119.39  EMA9=121342.48  EMA26=121372.45
+  Entry         : $121119.39
+  Stop Loss     : $121724.99  (+0.5%)
+  Take Profit   : $119302.60  (-1.5%)
+
+  Signal #135  [LOSS]  LONG    Entry: 2025-10-10 09:15 UTC  [next candle]
+  Crossover     : 2025-10-10 09:00 UTC
+  Candle        : open=121515.80  close=121754.33  EMA9=121444.40  EMA26=121385.17
+  Entry         : $121754.33
+  Stop Loss     : $121145.56  (-0.5%)
+  Take Profit   : $123580.64  (+1.5%)
+
+  Signal #136  [WIN ]  SHORT   Entry: 2025-10-10 14:45 UTC  [same candle]
+  Crossover     : 2025-10-10 14:45 UTC
+  Candle        : open=121348.69  close=120493.17  EMA9=121360.78  EMA26=121466.47
+  Entry         : $120493.17
+  Stop Loss     : $121095.64  (+0.5%)
+  Take Profit   : $118685.77  (-1.5%)
+
+  Signal #137  [LOSS]  LONG    Entry: 2025-10-11 11:15 UTC  [next candle]
+  Crossover     : 2025-10-11 11:00 UTC
+  Candle        : open=112033.99  close=112350.00  EMA9=111966.60  EMA26=111899.53
+  Entry         : $112350.00
+  Stop Loss     : $111788.25  (-0.5%)
+  Take Profit   : $114035.25  (+1.5%)
+
+  Signal #138  [WIN ]  SHORT   Entry: 2025-10-11 15:45 UTC  [same candle]
+  Crossover     : 2025-10-11 15:45 UTC
+  Candle        : open=111939.85  close=111793.20  EMA9=112064.49  EMA26=112090.28
+  Entry         : $111793.20
+  Stop Loss     : $112352.17  (+0.5%)
+  Take Profit   : $110116.30  (-1.5%)
+
+  Signal #139  [WIN ]  LONG    Entry: 2025-10-12 04:00 UTC  [same candle]
+  Crossover     : 2025-10-12 04:00 UTC
+  Candle        : open=110676.00  close=111075.16  EMA9=110659.51  EMA26=110605.88
+  Entry         : $111075.16
+  Stop Loss     : $110519.78  (-0.5%)
+  Take Profit   : $112741.29  (+1.5%)
+
+  Signal #140  [LOSS]  SHORT   Entry: 2025-10-12 14:30 UTC  [next candle]
+  Crossover     : 2025-10-12 14:15 UTC
+  Candle        : open=111481.26  close=111399.68  EMA9=111579.03  EMA26=111619.75
+  Entry         : $111399.68
+  Stop Loss     : $111956.68  (+0.5%)
+  Take Profit   : $109728.68  (-1.5%)
+
+  Signal #141  [WIN ]  LONG    Entry: 2025-10-12 14:45 UTC  [same candle]
+  Crossover     : 2025-10-12 14:45 UTC
+  Candle        : open=111399.67  close=112338.10  EMA9=111730.84  EMA26=111672.97
+  Entry         : $112338.10
+  Stop Loss     : $111776.41  (-0.5%)
+  Take Profit   : $114023.17  (+1.5%)
+
+  Signal #142  [LOSS]  SHORT   Entry: 2025-10-13 04:15 UTC  [same candle]
+  Crossover     : 2025-10-13 04:15 UTC
+  Candle        : open=114728.10  close=114651.46  EMA9=114983.57  EMA26=115009.30
+  Entry         : $114651.46
+  Stop Loss     : $115224.72  (+0.5%)
+  Take Profit   : $112931.69  (-1.5%)
+
+  Signal #143  [LOSS]  LONG    Entry: 2025-10-13 06:45 UTC  [same candle]
+  Crossover     : 2025-10-13 06:45 UTC
+  Candle        : open=115002.71  close=115221.22  EMA9=114928.02  EMA26=114921.61
+  Entry         : $115221.22
+  Stop Loss     : $114645.11  (-0.5%)
+  Take Profit   : $116949.54  (+1.5%)
+
+  Signal #144  [LOSS]  SHORT   Entry: 2025-10-13 10:15 UTC  [same candle]
+  Crossover     : 2025-10-13 10:15 UTC
+  Candle        : open=114986.56  close=114884.69  EMA9=115050.08  EMA26=115063.16
+  Entry         : $114884.69
+  Stop Loss     : $115459.11  (+0.5%)
+  Take Profit   : $113161.42  (-1.5%)
+
+  Signal #145  [LOSS]  SHORT   Entry: 2025-10-13 14:15 UTC  [same candle]
+  Crossover     : 2025-10-13 14:15 UTC
+  Candle        : open=114965.27  close=114318.48  EMA9=114654.78  EMA26=114701.34
+  Entry         : $114318.48
+  Stop Loss     : $114890.07  (+0.5%)
+  Take Profit   : $112603.70  (-1.5%)
+
+  Signal #146  [LOSS]  LONG    Entry: 2025-10-13 17:45 UTC  [same candle]
+  Crossover     : 2025-10-13 17:45 UTC
+  Candle        : open=114458.36  close=115040.55  EMA9=114616.25  EMA26=114589.92
+  Entry         : $115040.55
+  Stop Loss     : $114465.35  (-0.5%)
+  Take Profit   : $116766.16  (+1.5%)
+
+  Signal #147  [WIN ]  SHORT   Entry: 2025-10-14 00:30 UTC  [same candle]
+  Crossover     : 2025-10-14 00:30 UTC
+  Candle        : open=115209.21  close=115165.99  EMA9=115293.30  EMA26=115300.93
+  Entry         : $115165.99
+  Stop Loss     : $115741.82  (+0.5%)
+  Take Profit   : $113438.50  (-1.5%)
+
+  Signal #148  [LOSS]  LONG    Entry: 2025-10-14 15:30 UTC  [same candle]
+  Crossover     : 2025-10-14 15:30 UTC
+  Candle        : open=111507.29  close=112137.51  EMA9=111519.99  EMA26=111487.16
+  Entry         : $112137.51
+  Stop Loss     : $111576.82  (-0.5%)
+  Take Profit   : $113819.57  (+1.5%)
+
+  Signal #149  [LOSS]  SHORT   Entry: 2025-10-15 01:15 UTC  [same candle]
+  Crossover     : 2025-10-15 01:15 UTC
+  Candle        : open=112726.97  close=112482.06  EMA9=112864.87  EMA26=112876.31
+  Entry         : $112482.06
+  Stop Loss     : $113044.47  (+0.5%)
+  Take Profit   : $110794.83  (-1.5%)
+
+  Signal #150  [LOSS]  LONG    Entry: 2025-10-15 02:15 UTC  [same candle]
+  Crossover     : 2025-10-15 02:15 UTC
+  Candle        : open=112955.47  close=113568.96  EMA9=112967.78  EMA26=112902.82
+  Entry         : $113568.96
+  Stop Loss     : $113001.12  (-0.5%)
+  Take Profit   : $115272.49  (+1.5%)
+
+  Signal #151  [LOSS]  SHORT   Entry: 2025-10-15 03:00 UTC  [same candle]
+  Crossover     : 2025-10-15 03:00 UTC
+  Candle        : open=112809.94  close=112486.44  EMA9=112854.30  EMA26=112873.72
+  Entry         : $112486.44
+  Stop Loss     : $113048.87  (+0.5%)
+  Take Profit   : $110799.14  (-1.5%)
+
+  Signal #152  [LOSS]  LONG    Entry: 2025-10-15 08:00 UTC  [same candle]
+  Crossover     : 2025-10-15 08:00 UTC
+  Candle        : open=112584.49  close=112921.42  EMA9=112514.85  EMA26=112499.16
+  Entry         : $112921.42
+  Stop Loss     : $112356.81  (-0.5%)
+  Take Profit   : $114615.24  (+1.5%)
+
+  Signal #153  [WIN ]  SHORT   Entry: 2025-10-15 10:30 UTC  [same candle]
+  Crossover     : 2025-10-15 10:30 UTC
+  Candle        : open=112398.00  close=112332.16  EMA9=112563.01  EMA26=112589.66
+  Entry         : $112332.16
+  Stop Loss     : $112893.82  (+0.5%)
+  Take Profit   : $110647.18  (-1.5%)
+
+  Signal #154  [LOSS]  LONG    Entry: 2025-10-16 02:00 UTC  [same candle]
+  Crossover     : 2025-10-16 02:00 UTC
+  Candle        : open=111300.00  close=111345.82  EMA9=111004.04  EMA26=110981.19
+  Entry         : $111345.82
+  Stop Loss     : $110789.09  (-0.5%)
+  Take Profit   : $113016.01  (+1.5%)
+
+  Signal #155  [LOSS]  SHORT   Entry: 2025-10-16 05:45 UTC  [same candle]
+  Crossover     : 2025-10-16 05:45 UTC
+  Candle        : open=111360.01  close=110951.14  EMA9=111182.44  EMA26=111184.19
+  Entry         : $110951.14
+  Stop Loss     : $111505.90  (+0.5%)
+  Take Profit   : $109286.87  (-1.5%)
+
+  Signal #156  [LOSS]  LONG    Entry: 2025-10-16 06:30 UTC  [same candle]
+  Crossover     : 2025-10-16 06:30 UTC
+  Candle        : open=111316.45  close=111348.56  EMA9=111205.88  EMA26=111189.83
+  Entry         : $111348.56
+  Stop Loss     : $110791.82  (-0.5%)
+  Take Profit   : $113018.79  (+1.5%)
+
+  Signal #157  [LOSS]  SHORT   Entry: 2025-10-16 07:45 UTC  [next candle]
+  Crossover     : 2025-10-16 07:30 UTC
+  Candle        : open=110910.32  close=110584.20  EMA9=111036.53  EMA26=111137.70
+  Entry         : $110584.20
+  Stop Loss     : $111137.12  (+0.5%)
+  Take Profit   : $108925.44  (-1.5%)
+
+  Signal #158  [LOSS]  LONG    Entry: 2025-10-16 10:30 UTC  [next candle]
+  Crossover     : 2025-10-16 10:15 UTC
+  Candle        : open=111353.56  close=111437.22  EMA9=111163.33  EMA26=111089.65
+  Entry         : $111437.22
+  Stop Loss     : $110880.03  (-0.5%)
+  Take Profit   : $113108.78  (+1.5%)
+
+  Signal #159  [LOSS]  SHORT   Entry: 2025-10-16 14:00 UTC  [same candle]
+  Crossover     : 2025-10-16 14:00 UTC
+  Candle        : open=110860.00  close=110227.08  EMA9=111034.42  EMA26=111147.95
+  Entry         : $110227.08
+  Stop Loss     : $110778.22  (+0.5%)
+  Take Profit   : $108573.67  (-1.5%)
+
+  Signal #160  [LOSS]  LONG    Entry: 2025-10-17 01:00 UTC  [same candle]
+  Crossover     : 2025-10-17 01:00 UTC
+  Candle        : open=108799.99  close=108980.45  EMA9=108511.84  EMA26=108439.28
+  Entry         : $108980.45
+  Stop Loss     : $108435.55  (-0.5%)
+  Take Profit   : $110615.16  (+1.5%)
+
+  Signal #161  [WIN ]  SHORT   Entry: 2025-10-17 06:00 UTC  [same candle]
+  Crossover     : 2025-10-17 06:00 UTC
+  Candle        : open=108381.75  close=108329.53  EMA9=108647.15  EMA26=108689.18
+  Entry         : $108329.53
+  Stop Loss     : $108871.18  (+0.5%)
+  Take Profit   : $106704.59  (-1.5%)
+
+  Signal #162  [LOSS]  LONG    Entry: 2025-10-17 15:45 UTC  [same candle]
+  Crossover     : 2025-10-17 15:45 UTC
+  Candle        : open=106114.83  close=106803.53  EMA9=105856.96  EMA26=105741.16
+  Entry         : $106803.53
+  Stop Loss     : $106269.51  (-0.5%)
+  Take Profit   : $108405.58  (+1.5%)
+
+  Signal #163  [LOSS]  SHORT   Entry: 2025-10-18 00:00 UTC  [same candle]
+  Crossover     : 2025-10-18 00:00 UTC
+  Candle        : open=106431.68  close=106362.15  EMA9=106693.89  EMA26=106722.79
+  Entry         : $106362.15
+  Stop Loss     : $106893.96  (+0.5%)
+  Take Profit   : $104766.72  (-1.5%)
+
+  Signal #164  [LOSS]  LONG    Entry: 2025-10-18 00:45 UTC  [same candle]
+  Crossover     : 2025-10-18 00:45 UTC
+  Candle        : open=106779.75  close=106845.52  EMA9=106744.37  EMA26=106737.14
+  Entry         : $106845.52
+  Stop Loss     : $106311.29  (-0.5%)
+  Take Profit   : $108448.20  (+1.5%)
+
+  Signal #165  [LOSS]  SHORT   Entry: 2025-10-18 04:30 UTC  [next candle]
+  Crossover     : 2025-10-18 04:15 UTC
+  Candle        : open=106660.48  close=106451.00  EMA9=106742.71  EMA26=106798.49
+  Entry         : $106451.00
+  Stop Loss     : $106983.25  (+0.5%)
+  Take Profit   : $104854.24  (-1.5%)
+
+  Signal #166  [LOSS]  LONG    Entry: 2025-10-18 06:45 UTC  [same candle]
+  Crossover     : 2025-10-18 06:45 UTC
+  Candle        : open=106754.17  close=106839.96  EMA9=106773.61  EMA26=106771.84
+  Entry         : $106839.96
+  Stop Loss     : $106305.76  (-0.5%)
+  Take Profit   : $108442.56  (+1.5%)
+
+  Signal #167  [LOSS]  LONG    Entry: 2025-10-18 09:45 UTC  [same candle]
+  Crossover     : 2025-10-18 09:45 UTC
+  Candle        : open=106824.44  close=106884.41  EMA9=106826.45  EMA26=106822.65
+  Entry         : $106884.41
+  Stop Loss     : $106349.99  (-0.5%)
+  Take Profit   : $108487.68  (+1.5%)
+
+  Signal #168  [LOSS]  SHORT   Entry: 2025-10-18 16:15 UTC  [same candle]
+  Crossover     : 2025-10-18 16:15 UTC
+  Candle        : open=106930.10  close=106815.68  EMA9=106927.27  EMA26=106942.13
+  Entry         : $106815.68
+  Stop Loss     : $107349.76  (+0.5%)
+  Take Profit   : $105213.44  (-1.5%)
+
+  Signal #169  [LOSS]  LONG    Entry: 2025-10-18 19:30 UTC  [same candle]
+  Crossover     : 2025-10-18 19:30 UTC
+  Candle        : open=106984.35  close=106993.91  EMA9=106889.48  EMA26=106881.06
+  Entry         : $106993.91
+  Stop Loss     : $106458.94  (-0.5%)
+  Take Profit   : $108598.82  (+1.5%)
+
+  Signal #170  [LOSS]  SHORT   Entry: 2025-10-19 01:00 UTC  [next candle]
+  Crossover     : 2025-10-19 00:45 UTC
+  Candle        : open=106898.03  close=106817.61  EMA9=106980.68  EMA26=107014.72
+  Entry         : $106817.61
+  Stop Loss     : $107351.70  (+0.5%)
+  Take Profit   : $105215.35  (-1.5%)
+
+  Signal #171  [LOSS]  LONG    Entry: 2025-10-19 03:30 UTC  [same candle]
+  Crossover     : 2025-10-19 03:30 UTC
+  Candle        : open=107137.82  close=107254.98  EMA9=107008.29  EMA26=106993.60
+  Entry         : $107254.98
+  Stop Loss     : $106718.71  (-0.5%)
+  Take Profit   : $108863.80  (+1.5%)
+
+  Signal #172  [LOSS]  SHORT   Entry: 2025-10-19 05:45 UTC  [same candle]
+  Crossover     : 2025-10-19 05:45 UTC
+  Candle        : open=106978.21  close=106888.59  EMA9=107003.22  EMA26=107012.86
+  Entry         : $106888.59
+  Stop Loss     : $107423.03  (+0.5%)
+  Take Profit   : $105285.26  (-1.5%)
+
+  Signal #173  [WIN ]  LONG    Entry: 2025-10-19 10:00 UTC  [same candle]
+  Crossover     : 2025-10-19 10:00 UTC
+  Candle        : open=107401.47  close=107422.24  EMA9=106895.81  EMA26=106853.24
+  Entry         : $107422.24
+  Stop Loss     : $106885.13  (-0.5%)
+  Take Profit   : $109033.57  (+1.5%)
+
+  Signal #174  [LOSS]  SHORT   Entry: 2025-10-20 00:00 UTC  [same candle]
+  Crossover     : 2025-10-20 00:00 UTC
+  Candle        : open=108642.77  close=108066.78  EMA9=108671.60  EMA26=108756.79
+  Entry         : $108066.78
+  Stop Loss     : $108607.11  (+0.5%)
+  Take Profit   : $106445.78  (-1.5%)
+
+  Signal #175  [WIN ]  LONG    Entry: 2025-10-20 03:15 UTC  [same candle]
+  Crossover     : 2025-10-20 03:15 UTC
+  Candle        : open=108700.00  close=108771.67  EMA9=108520.94  EMA26=108501.52
+  Entry         : $108771.67
+  Stop Loss     : $108227.81  (-0.5%)
+  Take Profit   : $110403.25  (+1.5%)
+
+  Signal #176  [LOSS]  SHORT   Entry: 2025-10-20 17:00 UTC  [next candle]
+  Crossover     : 2025-10-20 16:45 UTC
+  Candle        : open=110683.20  close=110563.99  EMA9=110848.37  EMA26=110906.59
+  Entry         : $110563.99
+  Stop Loss     : $111116.81  (+0.5%)
+  Take Profit   : $108905.53  (-1.5%)
+
+  Signal #177  [LOSS]  LONG    Entry: 2025-10-20 20:00 UTC  [same candle]
+  Crossover     : 2025-10-20 20:00 UTC
+  Candle        : open=110803.22  close=111007.88  EMA9=110799.72  EMA26=110780.74
+  Entry         : $111007.88
+  Stop Loss     : $110452.84  (-0.5%)
+  Take Profit   : $112673.00  (+1.5%)
+
+  Signal #178  [WIN ]  SHORT   Entry: 2025-10-20 21:45 UTC  [same candle]
+  Crossover     : 2025-10-20 21:45 UTC
+  Candle        : open=110683.43  close=110563.20  EMA9=110823.57  EMA26=110823.71
+  Entry         : $110563.20
+  Stop Loss     : $111116.02  (+0.5%)
+  Take Profit   : $108904.75  (-1.5%)
+
+  Signal #179  [LOSS]  LONG    Entry: 2025-10-21 11:45 UTC  [same candle]
+  Crossover     : 2025-10-21 11:45 UTC
+  Candle        : open=108415.95  close=108580.01  EMA9=108234.99  EMA26=108198.61
+  Entry         : $108580.01
+  Stop Loss     : $108037.11  (-0.5%)
+  Take Profit   : $110208.71  (+1.5%)
+
+  Signal #180  [WIN ]  SHORT   Entry: 2025-10-21 20:45 UTC  [same candle]
+  Crossover     : 2025-10-21 20:45 UTC
+  Candle        : open=110923.58  close=110787.56  EMA9=111343.43  EMA26=111394.04
+  Entry         : $110787.56
+  Stop Loss     : $111341.50  (+0.5%)
+  Take Profit   : $109125.75  (-1.5%)
+
+  Signal #181  [LOSS]  LONG    Entry: 2025-10-22 13:45 UTC  [same candle]
+  Crossover     : 2025-10-22 13:45 UTC
+  Candle        : open=108081.64  close=108783.36  EMA9=108189.74  EMA26=108103.70
+  Entry         : $108783.36
+  Stop Loss     : $108239.44  (-0.5%)
+  Take Profit   : $110415.11  (+1.5%)
+
+  Signal #182  [LOSS]  SHORT   Entry: 2025-10-22 14:30 UTC  [same candle]
+  Crossover     : 2025-10-22 14:30 UTC
+  Candle        : open=107940.55  close=107805.55  EMA9=108071.52  EMA26=108075.14
+  Entry         : $107805.55
+  Stop Loss     : $108344.58  (+0.5%)
+  Take Profit   : $106188.47  (-1.5%)
+
+  Signal #183  [LOSS]  LONG    Entry: 2025-10-22 14:45 UTC  [same candle]
+  Crossover     : 2025-10-22 14:45 UTC
+  Candle        : open=107805.56  close=108947.50  EMA9=108246.71  EMA26=108139.76
+  Entry         : $108947.50
+  Stop Loss     : $108402.76  (-0.5%)
+  Take Profit   : $110581.71  (+1.5%)
+
+  Signal #184  [LOSS]  SHORT   Entry: 2025-10-22 17:30 UTC  [same candle]
+  Crossover     : 2025-10-22 17:30 UTC
+  Candle        : open=107942.35  close=107851.57  EMA9=108160.43  EMA26=108186.66
+  Entry         : $107851.57
+  Stop Loss     : $108390.83  (+0.5%)
+  Take Profit   : $106233.80  (-1.5%)
+
+  Signal #185  [WIN ]  LONG    Entry: 2025-10-23 01:00 UTC  [same candle]
+  Crossover     : 2025-10-23 01:00 UTC
+  Candle        : open=107845.30  close=108311.35  EMA9=107762.98  EMA26=107685.49
+  Entry         : $108311.35
+  Stop Loss     : $107769.79  (-0.5%)
+  Take Profit   : $109936.02  (+1.5%)
+
+  Signal #186  [LOSS]  SHORT   Entry: 2025-10-23 12:30 UTC  [same candle]
+  Crossover     : 2025-10-23 12:30 UTC
+  Candle        : open=109130.72  close=109070.69  EMA9=109223.88  EMA26=109241.59
+  Entry         : $109070.69
+  Stop Loss     : $109616.04  (+0.5%)
+  Take Profit   : $107434.63  (-1.5%)
+
+  Signal #187  [LOSS]  LONG    Entry: 2025-10-23 13:45 UTC  [same candle]
+  Crossover     : 2025-10-23 13:45 UTC
+  Candle        : open=109382.14  close=109500.62  EMA9=109273.87  EMA26=109250.06
+  Entry         : $109500.62
+  Stop Loss     : $108953.12  (-0.5%)
+  Take Profit   : $111143.13  (+1.5%)
+
+  Signal #188  [LOSS]  SHORT   Entry: 2025-10-23 14:00 UTC  [same candle]
+  Crossover     : 2025-10-23 14:00 UTC
+  Candle        : open=109500.62  close=108902.04  EMA9=109199.50  EMA26=109224.28
+  Entry         : $108902.04
+  Stop Loss     : $109446.55  (+0.5%)
+  Take Profit   : $107268.51  (-1.5%)
+
+  Signal #189  [WIN ]  LONG    Entry: 2025-10-23 14:30 UTC  [same candle]
+  Crossover     : 2025-10-23 14:30 UTC
+  Candle        : open=109296.68  close=109551.64  EMA9=109285.48  EMA26=109253.50
+  Entry         : $109551.64
+  Stop Loss     : $109003.88  (-0.5%)
+  Take Profit   : $111194.91  (+1.5%)
+
+  Signal #190  [LOSS]  SHORT   Entry: 2025-10-23 20:45 UTC  [same candle]
+  Crossover     : 2025-10-23 20:45 UTC
+  Candle        : open=109888.03  close=109524.81  EMA9=110033.65  EMA26=110038.81
+  Entry         : $109524.81
+  Stop Loss     : $110072.43  (+0.5%)
+  Take Profit   : $107881.94  (-1.5%)
+
+  Signal #191  [WIN ]  LONG    Entry: 2025-10-23 23:45 UTC  [next candle]
+  Crossover     : 2025-10-23 23:30 UTC
+  Candle        : open=110066.57  close=110078.18  EMA9=109985.54  EMA26=109961.71
+  Entry         : $110078.18
+  Stop Loss     : $109527.79  (-0.5%)
+  Take Profit   : $111729.35  (+1.5%)
+
+  Signal #192  [LOSS]  SHORT   Entry: 2025-10-24 14:00 UTC  [next candle]
+  Crossover     : 2025-10-24 13:45 UTC
+  Candle        : open=110937.94  close=110581.40  EMA9=110979.96  EMA26=111062.40
+  Entry         : $110581.40
+  Stop Loss     : $111134.31  (+0.5%)
+  Take Profit   : $108922.68  (-1.5%)
+
+  Signal #193  [WIN ]  LONG    Entry: 2025-10-24 19:15 UTC  [same candle]
+  Crossover     : 2025-10-24 19:15 UTC
+  Candle        : open=110722.04  close=110941.72  EMA9=110595.45  EMA26=110563.26
+  Entry         : $110941.72
+  Stop Loss     : $110387.01  (-0.5%)
+  Take Profit   : $112605.85  (+1.5%)
+
+  Signal #194  [WIN ]  LONG    Entry: 2025-10-25 18:45 UTC  [same candle]
+  Crossover     : 2025-10-25 18:45 UTC
+  Candle        : open=111670.23  close=111719.98  EMA9=111527.28  EMA26=111501.16
+  Entry         : $111719.98
+  Stop Loss     : $111161.38  (-0.5%)
+  Take Profit   : $113395.78  (+1.5%)
+
+  Signal #195  [LOSS]  SHORT   Entry: 2025-10-25 21:15 UTC  [next candle]
+  Crossover     : 2025-10-25 21:00 UTC
+  Candle        : open=111458.36  close=111401.94  EMA9=111494.81  EMA26=111512.85
+  Entry         : $111401.94
+  Stop Loss     : $111958.95  (+0.5%)
+  Take Profit   : $109730.91  (-1.5%)
+
+  Signal #196  [WIN ]  LONG    Entry: 2025-10-25 22:45 UTC  [same candle]
+  Crossover     : 2025-10-25 22:45 UTC
+  Candle        : open=111599.96  close=111621.69  EMA9=111519.26  EMA26=111510.61
+  Entry         : $111621.69
+  Stop Loss     : $111063.58  (-0.5%)
+  Take Profit   : $113296.02  (+1.5%)
+
+  Signal #197  [WIN ]  LONG    Entry: 2025-10-26 06:15 UTC  [next candle]
+  Crossover     : 2025-10-26 06:00 UTC
+  Candle        : open=111574.58  close=111630.49  EMA9=111547.78  EMA26=111534.54
+  Entry         : $111630.49
+  Stop Loss     : $111072.34  (-0.5%)
+  Take Profit   : $113304.95  (+1.5%)
+
+  Signal #198  [LOSS]  SHORT   Entry: 2025-10-26 21:15 UTC  [same candle]
+  Crossover     : 2025-10-26 21:15 UTC
+  Candle        : open=113403.00  close=113065.86  EMA9=113388.43  EMA26=113427.55
+  Entry         : $113065.86
+  Stop Loss     : $113631.19  (+0.5%)
+  Take Profit   : $111369.87  (-1.5%)
+
+  Signal #199  [WIN ]  LONG    Entry: 2025-10-26 22:00 UTC  [same candle]
+  Crossover     : 2025-10-26 22:00 UTC
+  Candle        : open=113497.06  close=114616.64  EMA9=113660.07  EMA26=113522.19
+  Entry         : $114616.64
+  Stop Loss     : $114043.56  (-0.5%)
+  Take Profit   : $116335.89  (+1.5%)
+
+  Signal #200  [LOSS]  SHORT   Entry: 2025-10-27 12:30 UTC  [same candle]
+  Crossover     : 2025-10-27 12:30 UTC
+  Candle        : open=115291.46  close=115087.99  EMA9=115290.10  EMA26=115312.56
+  Entry         : $115087.99
+  Stop Loss     : $115663.43  (+0.5%)
+  Take Profit   : $113361.67  (-1.5%)
+
+  Signal #201  [LOSS]  LONG    Entry: 2025-10-27 16:30 UTC  [same candle]
+  Crossover     : 2025-10-27 16:30 UTC
+  Candle        : open=115344.85  close=115443.94  EMA9=115178.58  EMA26=115162.10
+  Entry         : $115443.94
+  Stop Loss     : $114866.72  (-0.5%)
+  Take Profit   : $117175.60  (+1.5%)
+
+  Signal #202  [LOSS]  SHORT   Entry: 2025-10-27 19:30 UTC  [same candle]
+  Crossover     : 2025-10-27 19:30 UTC
+  Candle        : open=115001.41  close=114940.01  EMA9=115261.83  EMA26=115285.12
+  Entry         : $114940.01
+  Stop Loss     : $115514.71  (+0.5%)
+  Take Profit   : $113215.91  (-1.5%)
+
+  Signal #203  [WIN ]  SHORT   Entry: 2025-10-28 19:15 UTC  [same candle]
+  Crossover     : 2025-10-28 19:15 UTC
+  Candle        : open=114823.52  close=113717.01  EMA9=114776.78  EMA26=114905.53
+  Entry         : $113717.01
+  Stop Loss     : $114285.60  (+0.5%)
+  Take Profit   : $112011.25  (-1.5%)
+
+  Signal #204  [LOSS]  LONG    Entry: 2025-10-29 05:30 UTC  [same candle]
+  Crossover     : 2025-10-29 05:30 UTC
+  Candle        : open=112972.00  close=113200.19  EMA9=112848.78  EMA26=112840.76
+  Entry         : $113200.19
+  Stop Loss     : $112634.19  (-0.5%)
+  Take Profit   : $114898.19  (+1.5%)
+
+  Signal #205  [LOSS]  SHORT   Entry: 2025-10-29 10:00 UTC  [same candle]
+  Crossover     : 2025-10-29 10:00 UTC
+  Candle        : open=112974.44  close=112894.85  EMA9=113021.44  EMA26=113039.14
+  Entry         : $112894.85
+  Stop Loss     : $113459.32  (+0.5%)
+  Take Profit   : $111201.43  (-1.5%)
+
+  Signal #206  [LOSS]  LONG    Entry: 2025-10-29 11:45 UTC  [same candle]
+  Crossover     : 2025-10-29 11:45 UTC
+  Candle        : open=113023.86  close=113132.36  EMA9=113047.88  EMA26=113040.54
+  Entry         : $113132.36
+  Stop Loss     : $112566.70  (-0.5%)
+  Take Profit   : $114829.35  (+1.5%)
+
+  Signal #207  [WIN ]  SHORT   Entry: 2025-10-29 14:00 UTC  [same candle]
+  Crossover     : 2025-10-29 14:00 UTC
+  Candle        : open=112873.08  close=112703.23  EMA9=113042.77  EMA26=113069.77
+  Entry         : $112703.23
+  Stop Loss     : $113266.75  (+0.5%)
+  Take Profit   : $111012.68  (-1.5%)
+
+  Signal #208  [LOSS]  LONG    Entry: 2025-10-30 07:00 UTC  [same candle]
+  Crossover     : 2025-10-30 07:00 UTC
+  Candle        : open=110768.01  close=111220.02  EMA9=110411.33  EMA26=110307.49
+  Entry         : $111220.02
+  Stop Loss     : $110663.92  (-0.5%)
+  Take Profit   : $112888.32  (+1.5%)
+
+  Signal #209  [WIN ]  SHORT   Entry: 2025-10-30 09:45 UTC  [same candle]
+  Crossover     : 2025-10-30 09:45 UTC
+  Candle        : open=110193.38  close=110171.69  EMA9=110494.30  EMA26=110510.05
+  Entry         : $110171.69
+  Stop Loss     : $110722.55  (+0.5%)
+  Take Profit   : $108519.11  (-1.5%)
+
+  Signal #210  [WIN ]  LONG    Entry: 2025-10-30 22:45 UTC  [same candle]
+  Crossover     : 2025-10-30 22:45 UTC
+  Candle        : open=107657.25  close=107912.81  EMA9=107631.93  EMA26=107608.75
+  Entry         : $107912.81
+  Stop Loss     : $107373.25  (-0.5%)
+  Take Profit   : $109531.50  (+1.5%)
+
+  Signal #211  [LOSS]  SHORT   Entry: 2025-10-31 16:45 UTC  [same candle]
+  Crossover     : 2025-10-31 16:45 UTC
+  Candle        : open=109716.08  close=108845.40  EMA9=109871.66  EMA26=109953.14
+  Entry         : $108845.40
+  Stop Loss     : $109389.63  (+0.5%)
+  Take Profit   : $107212.72  (-1.5%)
+
+  Signal #212  [LOSS]  LONG    Entry: 2025-11-01 01:00 UTC  [same candle]
+  Crossover     : 2025-11-01 01:00 UTC
+  Candle        : open=109730.78  close=109772.81  EMA9=109642.75  EMA26=109628.23
+  Entry         : $109772.81
+  Stop Loss     : $109223.95  (-0.5%)
+  Take Profit   : $111419.40  (+1.5%)
+
+  Signal #213  [LOSS]  LONG    Entry: 2025-11-01 10:30 UTC  [same candle]
+  Crossover     : 2025-11-01 10:30 UTC
+  Candle        : open=110007.91  close=110080.00  EMA9=110059.74  EMA26=110057.77
+  Entry         : $110080.00
+  Stop Loss     : $109529.60  (-0.5%)
+  Take Profit   : $111731.20  (+1.5%)
+
+  Signal #214  [LOSS]  SHORT   Entry: 2025-11-01 13:00 UTC  [same candle]
+  Crossover     : 2025-11-01 13:00 UTC
+  Candle        : open=110017.26  close=109961.22  EMA9=110063.59  EMA26=110071.49
+  Entry         : $109961.22
+  Stop Loss     : $110511.03  (+0.5%)
+  Take Profit   : $108311.80  (-1.5%)
+
+  Signal #215  [LOSS]  LONG    Entry: 2025-11-01 15:45 UTC  [same candle]
+  Crossover     : 2025-11-01 15:45 UTC
+  Candle        : open=110076.83  close=110310.65  EMA9=110074.59  EMA26=110041.61
+  Entry         : $110310.65
+  Stop Loss     : $109759.10  (-0.5%)
+  Take Profit   : $111965.31  (+1.5%)
+
+  Signal #216  [LOSS]  SHORT   Entry: 2025-11-01 21:45 UTC  [same candle]
+  Crossover     : 2025-11-01 21:45 UTC
+  Candle        : open=110204.00  close=109862.85  EMA9=110218.21  EMA26=110234.05
+  Entry         : $109862.85
+  Stop Loss     : $110412.16  (+0.5%)
+  Take Profit   : $108214.91  (-1.5%)
+
+  Signal #217  [LOSS]  LONG    Entry: 2025-11-02 04:30 UTC  [same candle]
+  Crossover     : 2025-11-02 04:30 UTC
+  Candle        : open=110131.00  close=110435.01  EMA9=110134.16  EMA26=110092.96
+  Entry         : $110435.01
+  Stop Loss     : $109882.83  (-0.5%)
+  Take Profit   : $112091.54  (+1.5%)
+
+  Signal #218  [WIN ]  SHORT   Entry: 2025-11-02 13:30 UTC  [same candle]
+  Crossover     : 2025-11-02 13:30 UTC
+  Candle        : open=110407.24  close=110370.28  EMA9=110649.53  EMA26=110672.11
+  Entry         : $110370.28
+  Stop Loss     : $110922.13  (+0.5%)
+  Take Profit   : $108714.73  (-1.5%)
+
+  Signal #219  [LOSS]  LONG    Entry: 2025-11-02 23:30 UTC  [same candle]
+  Crossover     : 2025-11-02 23:30 UTC
+  Candle        : open=110187.76  close=110413.80  EMA9=110137.33  EMA26=110129.16
+  Entry         : $110413.80
+  Stop Loss     : $109861.73  (-0.5%)
+  Take Profit   : $112070.01  (+1.5%)
+
+  Signal #220  [WIN ]  SHORT   Entry: 2025-11-03 01:00 UTC  [same candle]
+  Crossover     : 2025-11-03 01:00 UTC
+  Candle        : open=109757.10  close=109714.24  EMA9=110101.37  EMA26=110145.44
+  Entry         : $109714.24
+  Stop Loss     : $110262.81  (+0.5%)
+  Take Profit   : $108068.53  (-1.5%)
+
+  Signal #221  [LOSS]  LONG    Entry: 2025-11-03 12:15 UTC  [same candle]
+  Crossover     : 2025-11-03 12:15 UTC
+  Candle        : open=108066.39  close=108254.88  EMA9=107771.50  EMA26=107735.66
+  Entry         : $108254.88
+  Stop Loss     : $107713.61  (-0.5%)
+  Take Profit   : $109878.70  (+1.5%)
+
+  Signal #222  [LOSS]  LONG    Entry: 2025-11-03 14:45 UTC  [same candle]
+  Crossover     : 2025-11-03 14:45 UTC
+  Candle        : open=107621.60  close=108059.99  EMA9=107797.94  EMA26=107764.75
+  Entry         : $108059.99
+  Stop Loss     : $107519.69  (-0.5%)
+  Take Profit   : $109680.89  (+1.5%)
+
+  Signal #223  [LOSS]  SHORT   Entry: 2025-11-03 15:15 UTC  [same candle]
+  Crossover     : 2025-11-03 15:15 UTC
+  Candle        : open=107648.43  close=105992.64  EMA9=107412.96  EMA26=107625.51
+  Entry         : $105992.64
+  Stop Loss     : $106522.60  (+0.5%)
+  Take Profit   : $104402.75  (-1.5%)
+
+  Signal #224  [WIN ]  SHORT   Entry: 2025-11-04 05:15 UTC  [same candle]
+  Crossover     : 2025-11-04 05:15 UTC
+  Candle        : open=106590.01  close=105668.09  EMA9=106611.47  EMA26=106733.94
+  Entry         : $105668.09
+  Stop Loss     : $106196.43  (+0.5%)
+  Take Profit   : $104083.07  (-1.5%)
+
+  Signal #225  [LOSS]  LONG    Entry: 2025-11-05 03:00 UTC  [next candle]
+  Crossover     : 2025-11-05 02:45 UTC
+  Candle        : open=101677.94  close=101729.85  EMA9=101167.02  EMA26=101039.90
+  Entry         : $101729.85
+  Stop Loss     : $101221.20  (-0.5%)
+  Take Profit   : $103255.80  (+1.5%)
+
+  Signal #226  [LOSS]  SHORT   Entry: 2025-11-05 10:45 UTC  [same candle]
+  Crossover     : 2025-11-05 10:45 UTC
+  Candle        : open=101699.20  close=101401.97  EMA9=101722.03  EMA26=101729.26
+  Entry         : $101401.97
+  Stop Loss     : $101908.98  (+0.5%)
+  Take Profit   : $99880.94  (-1.5%)
+
+  Signal #227  [WIN ]  LONG    Entry: 2025-11-05 11:45 UTC  [same candle]
+  Crossover     : 2025-11-05 11:45 UTC
+  Candle        : open=101747.60  close=102070.61  EMA9=101764.65  EMA26=101738.17
+  Entry         : $102070.61
+  Stop Loss     : $101560.26  (-0.5%)
+  Take Profit   : $103601.67  (+1.5%)
+
+  Signal #228  [LOSS]  LONG    Entry: 2025-11-05 23:00 UTC  [same candle]
+  Crossover     : 2025-11-05 23:00 UTC
+  Candle        : open=103706.55  close=103778.38  EMA9=103666.03  EMA26=103656.29
+  Entry         : $103778.38
+  Stop Loss     : $103259.49  (-0.5%)
+  Take Profit   : $105335.06  (+1.5%)
+
+  Signal #229  [LOSS]  SHORT   Entry: 2025-11-06 00:30 UTC  [same candle]
+  Crossover     : 2025-11-06 00:30 UTC
+  Candle        : open=103432.06  close=103416.32  EMA9=103667.60  EMA26=103682.28
+  Entry         : $103416.32
+  Stop Loss     : $103933.40  (+0.5%)
+  Take Profit   : $101865.08  (-1.5%)
+
+  Signal #230  [LOSS]  LONG    Entry: 2025-11-06 04:00 UTC  [same candle]
+  Crossover     : 2025-11-06 04:00 UTC
+  Candle        : open=103636.92  close=103810.20  EMA9=103539.32  EMA26=103511.21
+  Entry         : $103810.20
+  Stop Loss     : $103291.15  (-0.5%)
+  Take Profit   : $105367.35  (+1.5%)
+
+  Signal #231  [WIN ]  SHORT   Entry: 2025-11-06 05:45 UTC  [same candle]
+  Crossover     : 2025-11-06 05:45 UTC
+  Candle        : open=103260.26  close=103143.57  EMA9=103481.35  EMA26=103524.14
+  Entry         : $103143.57
+  Stop Loss     : $103659.29  (+0.5%)
+  Take Profit   : $101596.42  (-1.5%)
+
+  Signal #232  [LOSS]  LONG    Entry: 2025-11-07 01:15 UTC  [same candle]
+  Crossover     : 2025-11-07 01:15 UTC
+  Candle        : open=101315.19  close=101680.24  EMA9=101372.27  EMA26=101371.91
+  Entry         : $101680.24
+  Stop Loss     : $101171.84  (-0.5%)
+  Take Profit   : $103205.44  (+1.5%)
+
+  Signal #233  [LOSS]  SHORT   Entry: 2025-11-07 01:30 UTC  [same candle]
+  Crossover     : 2025-11-07 01:30 UTC
+  Candle        : open=101680.24  close=101086.07  EMA9=101315.03  EMA26=101350.74
+  Entry         : $101086.07
+  Stop Loss     : $101591.50  (+0.5%)
+  Take Profit   : $99569.78  (-1.5%)
+
+  Signal #234  [LOSS]  LONG    Entry: 2025-11-07 02:00 UTC  [same candle]
+  Crossover     : 2025-11-07 02:00 UTC
+  Candle        : open=101538.96  close=101577.45  EMA9=101403.34  EMA26=101380.44
+  Entry         : $101577.45
+  Stop Loss     : $101069.56  (-0.5%)
+  Take Profit   : $103101.11  (+1.5%)
+
+  Signal #235  [WIN ]  SHORT   Entry: 2025-11-07 08:30 UTC  [same candle]
+  Crossover     : 2025-11-07 08:30 UTC
+  Candle        : open=101813.04  close=101621.45  EMA9=101879.18  EMA26=101892.03
+  Entry         : $101621.45
+  Stop Loss     : $102129.56  (+0.5%)
+  Take Profit   : $100097.13  (-1.5%)
+
+  Signal #236  [WIN ]  LONG    Entry: 2025-11-07 15:45 UTC  [same candle]
+  Crossover     : 2025-11-07 15:45 UTC
+  Candle        : open=100669.91  close=100797.95  EMA9=100694.42  EMA26=100687.85
+  Entry         : $100797.95
+  Stop Loss     : $100293.96  (-0.5%)
+  Take Profit   : $102309.92  (+1.5%)
+
+  Signal #237  [LOSS]  SHORT   Entry: 2025-11-07 16:00 UTC  [same candle]
+  Crossover     : 2025-11-07 16:00 UTC
+  Candle        : open=100797.95  close=100566.65  EMA9=100668.87  EMA26=100678.87
+  Entry         : $100566.65
+  Stop Loss     : $101069.48  (+0.5%)
+  Take Profit   : $99058.15  (-1.5%)
+
+  Signal #238  [LOSS]  LONG    Entry: 2025-11-07 16:15 UTC  [same candle]
+  Crossover     : 2025-11-07 16:15 UTC
+  Candle        : open=100566.66  close=101532.87  EMA9=100841.67  EMA26=100742.13
+  Entry         : $101532.87
+  Stop Loss     : $101025.21  (-0.5%)
+  Take Profit   : $103055.86  (+1.5%)
+
+  Signal #239  [LOSS]  SHORT   Entry: 2025-11-08 03:30 UTC  [same candle]
+  Crossover     : 2025-11-08 03:30 UTC
+  Candle        : open=103095.41  close=102726.73  EMA9=103002.28  EMA26=103033.48
+  Entry         : $102726.73
+  Stop Loss     : $103240.36  (+0.5%)
+  Take Profit   : $101185.83  (-1.5%)
+
+  Signal #240  [LOSS]  LONG    Entry: 2025-11-08 18:45 UTC  [same candle]
+  Crossover     : 2025-11-08 18:45 UTC
+  Candle        : open=102042.17  close=102139.53  EMA9=101968.69  EMA26=101951.88
+  Entry         : $102139.53
+  Stop Loss     : $101628.83  (-0.5%)
+  Take Profit   : $103671.62  (+1.5%)
+
+  Signal #241  [LOSS]  SHORT   Entry: 2025-11-09 00:45 UTC  [same candle]
+  Crossover     : 2025-11-09 00:45 UTC
+  Candle        : open=102015.85  close=101797.74  EMA9=102070.47  EMA26=102111.36
+  Entry         : $101797.74
+  Stop Loss     : $102306.73  (+0.5%)
+  Take Profit   : $100270.77  (-1.5%)
+
+  Signal #242  [WIN ]  LONG    Entry: 2025-11-09 08:00 UTC  [same candle]
+  Crossover     : 2025-11-09 08:00 UTC
+  Candle        : open=101944.60  close=101973.15  EMA9=101882.82  EMA26=101882.48
+  Entry         : $101973.15
+  Stop Loss     : $101463.28  (-0.5%)
+  Take Profit   : $103502.75  (+1.5%)
+
+  Signal #243  [LOSS]  SHORT   Entry: 2025-11-09 09:45 UTC  [same candle]
+  Crossover     : 2025-11-09 09:45 UTC
+  Candle        : open=101905.83  close=101657.46  EMA9=101881.46  EMA26=101891.88
+  Entry         : $101657.46
+  Stop Loss     : $102165.75  (+0.5%)
+  Take Profit   : $100132.60  (-1.5%)
+
+  Signal #244  [WIN ]  LONG    Entry: 2025-11-09 11:00 UTC  [same candle]
+  Crossover     : 2025-11-09 11:00 UTC
+  Candle        : open=101876.36  close=102187.08  EMA9=101892.64  EMA26=101881.84
+  Entry         : $102187.08
+  Stop Loss     : $101676.14  (-0.5%)
+  Take Profit   : $103719.89  (+1.5%)
+
+  Signal #245  [LOSS]  SHORT   Entry: 2025-11-10 12:15 UTC  [same candle]
+  Crossover     : 2025-11-10 12:15 UTC
+  Candle        : open=105990.00  close=105919.23  EMA9=106098.43  EMA26=106108.90
+  Entry         : $105919.23
+  Stop Loss     : $106448.83  (+0.5%)
+  Take Profit   : $104330.44  (-1.5%)
+
+  Signal #246  [LOSS]  LONG    Entry: 2025-11-10 13:15 UTC  [same candle]
+  Crossover     : 2025-11-10 13:15 UTC
+  Candle        : open=106251.26  close=106303.78  EMA9=106128.39  EMA26=106112.93
+  Entry         : $106303.78
+  Stop Loss     : $105772.26  (-0.5%)
+  Take Profit   : $107898.34  (+1.5%)
+
+  Signal #247  [LOSS]  SHORT   Entry: 2025-11-10 14:30 UTC  [same candle]
+  Crossover     : 2025-11-10 14:30 UTC
+  Candle        : open=106189.68  close=105652.99  EMA9=106123.87  EMA26=106134.14
+  Entry         : $105652.99
+  Stop Loss     : $106181.25  (+0.5%)
+  Take Profit   : $104068.20  (-1.5%)
+
+  Signal #248  [WIN ]  LONG    Entry: 2025-11-10 19:30 UTC  [same candle]
+  Crossover     : 2025-11-10 19:30 UTC
+  Candle        : open=105726.17  close=105802.79  EMA9=105683.00  EMA26=105679.25
+  Entry         : $105802.79
+  Stop Loss     : $105273.78  (-0.5%)
+  Take Profit   : $107389.83  (+1.5%)
+
+  Signal #249  [LOSS]  SHORT   Entry: 2025-11-10 22:00 UTC  [next candle]
+  Crossover     : 2025-11-10 21:45 UTC
+  Candle        : open=105631.26  close=105454.36  EMA9=105674.23  EMA26=105722.73
+  Entry         : $105454.36
+  Stop Loss     : $105981.63  (+0.5%)
+  Take Profit   : $103872.54  (-1.5%)
+
+  Signal #250  [LOSS]  LONG    Entry: 2025-11-10 22:45 UTC  [same candle]
+  Crossover     : 2025-11-10 22:45 UTC
+  Candle        : open=105657.09  close=106062.80  EMA9=105742.00  EMA26=105736.76
+  Entry         : $106062.80
+  Stop Loss     : $105532.49  (-0.5%)
+  Take Profit   : $107653.74  (+1.5%)
+
+  Signal #251  [WIN ]  SHORT   Entry: 2025-11-11 04:45 UTC  [same candle]
+  Crossover     : 2025-11-11 04:45 UTC
+  Candle        : open=105846.90  close=105755.32  EMA9=106151.94  EMA26=106171.53
+  Entry         : $105755.32
+  Stop Loss     : $106284.10  (+0.5%)
+  Take Profit   : $104168.99  (-1.5%)
+
+  Signal #252  [WIN ]  LONG    Entry: 2025-11-12 02:00 UTC  [same candle]
+  Crossover     : 2025-11-12 02:00 UTC
+  Candle        : open=103254.63  close=103313.66  EMA9=103144.92  EMA26=103132.97
+  Entry         : $103313.66
+  Stop Loss     : $102797.09  (-0.5%)
+  Take Profit   : $104863.36  (+1.5%)
+
+  Signal #253  [WIN ]  SHORT   Entry: 2025-11-12 15:00 UTC  [same candle]
+  Crossover     : 2025-11-12 15:00 UTC
+  Candle        : open=103990.39  close=103732.00  EMA9=104503.99  EMA26=104533.07
+  Entry         : $103732.00
+  Stop Loss     : $104250.66  (+0.5%)
+  Take Profit   : $102176.02  (-1.5%)
+
+  Signal #254  [LOSS]  LONG    Entry: 2025-11-13 01:30 UTC  [same candle]
+  Crossover     : 2025-11-13 01:30 UTC
+  Candle        : open=101998.26  close=102428.99  EMA9=102002.65  EMA26=101935.92
+  Entry         : $102428.99
+  Stop Loss     : $101916.85  (-0.5%)
+  Take Profit   : $103965.42  (+1.5%)
+
+  Signal #255  [LOSS]  SHORT   Entry: 2025-11-13 03:00 UTC  [same candle]
+  Crossover     : 2025-11-13 03:00 UTC
+  Candle        : open=102064.41  close=101346.81  EMA9=101911.02  EMA26=101933.34
+  Entry         : $101346.81
+  Stop Loss     : $101853.54  (+0.5%)
+  Take Profit   : $99826.61  (-1.5%)
+
+  Signal #256  [WIN ]  LONG    Entry: 2025-11-13 03:15 UTC  [same candle]
+  Crossover     : 2025-11-13 03:15 UTC
+  Candle        : open=101346.80  close=102124.07  EMA9=101953.63  EMA26=101947.46
+  Entry         : $102124.07
+  Stop Loss     : $101613.45  (-0.5%)
+  Take Profit   : $103655.93  (+1.5%)
+
+  Signal #257  [LOSS]  LONG    Entry: 2025-11-13 12:30 UTC  [same candle]
+  Crossover     : 2025-11-13 12:30 UTC
+  Candle        : open=102952.91  close=103178.44  EMA9=103016.11  EMA26=102993.82
+  Entry         : $103178.44
+  Stop Loss     : $102662.55  (-0.5%)
+  Take Profit   : $104726.12  (+1.5%)
+
+  Signal #258  [LOSS]  SHORT   Entry: 2025-11-13 13:15 UTC  [same candle]
+  Crossover     : 2025-11-13 13:15 UTC
+  Candle        : open=102923.47  close=102554.62  EMA9=102925.29  EMA26=102965.97
+  Entry         : $102554.62
+  Stop Loss     : $103067.39  (+0.5%)
+  Take Profit   : $101016.30  (-1.5%)
+
+  Signal #259  [LOSS]  LONG    Entry: 2025-11-13 23:30 UTC  [same candle]
+  Crossover     : 2025-11-13 23:30 UTC
+  Candle        : open=100231.65  close=100420.40  EMA9=99760.10  EMA26=99698.66
+  Entry         : $100420.40
+  Stop Loss     : $99918.30  (-0.5%)
+  Take Profit   : $101926.71  (+1.5%)
+
+  Signal #260  [LOSS]  SHORT   Entry: 2025-11-14 00:00 UTC  [same candle]
+  Crossover     : 2025-11-14 00:00 UTC
+  Candle        : open=99692.03  close=99329.41  EMA9=99663.07  EMA26=99670.85
+  Entry         : $99329.41
+  Stop Loss     : $99826.06  (+0.5%)
+  Take Profit   : $97839.47  (-1.5%)
+
+  Signal #261  [LOSS]  LONG    Entry: 2025-11-14 16:15 UTC  [next candle]
+  Crossover     : 2025-11-14 16:00 UTC
+  Candle        : open=96513.33  close=96974.13  EMA9=96453.30  EMA26=96349.71
+  Entry         : $96974.13
+  Stop Loss     : $96489.26  (-0.5%)
+  Take Profit   : $98428.74  (+1.5%)
+
+  Signal #262  [WIN ]  SHORT   Entry: 2025-11-14 18:15 UTC  [same candle]
+  Crossover     : 2025-11-14 18:15 UTC
+  Candle        : open=96319.98  close=96050.90  EMA9=96376.40  EMA26=96409.62
+  Entry         : $96050.90
+  Stop Loss     : $96531.15  (+0.5%)
+  Take Profit   : $94610.14  (-1.5%)
+
+  Signal #263  [LOSS]  LONG    Entry: 2025-11-15 01:45 UTC  [same candle]
+  Crossover     : 2025-11-15 01:45 UTC
+  Candle        : open=95430.19  close=95650.17  EMA9=95224.01  EMA26=95223.92
+  Entry         : $95650.17
+  Stop Loss     : $95171.92  (-0.5%)
+  Take Profit   : $97084.92  (+1.5%)
+
+  Signal #264  [LOSS]  SHORT   Entry: 2025-11-15 09:45 UTC  [same candle]
+  Crossover     : 2025-11-15 09:45 UTC
+  Candle        : open=96026.95  close=95808.44  EMA9=95994.51  EMA26=96016.46
+  Entry         : $95808.44
+  Stop Loss     : $96287.48  (+0.5%)
+  Take Profit   : $94371.31  (-1.5%)
+
+  Signal #265  [LOSS]  LONG    Entry: 2025-11-15 13:45 UTC  [same candle]
+  Crossover     : 2025-11-15 13:45 UTC
+  Candle        : open=96083.03  close=96370.16  EMA9=96006.95  EMA26=95956.28
+  Entry         : $96370.16
+  Stop Loss     : $95888.31  (-0.5%)
+  Take Profit   : $97815.71  (+1.5%)
+
+  Signal #266  [LOSS]  SHORT   Entry: 2025-11-15 17:00 UTC  [same candle]
+  Crossover     : 2025-11-15 17:00 UTC
+  Candle        : open=96162.84  close=95893.04  EMA9=96054.77  EMA26=96056.88
+  Entry         : $95893.04
+  Stop Loss     : $96372.51  (+0.5%)
+  Take Profit   : $94454.64  (-1.5%)
+
+  Signal #267  [LOSS]  LONG    Entry: 2025-11-15 17:45 UTC  [same candle]
+  Crossover     : 2025-11-15 17:45 UTC
+  Candle        : open=96077.66  close=96238.50  EMA9=96089.93  EMA26=96069.01
+  Entry         : $96238.50
+  Stop Loss     : $95757.31  (-0.5%)
+  Take Profit   : $97682.08  (+1.5%)
+
+  Signal #268  [LOSS]  SHORT   Entry: 2025-11-15 19:30 UTC  [same candle]
+  Crossover     : 2025-11-15 19:30 UTC
+  Candle        : open=96059.97  close=95985.98  EMA9=96078.08  EMA26=96078.49
+  Entry         : $95985.98
+  Stop Loss     : $96465.91  (+0.5%)
+  Take Profit   : $94546.19  (-1.5%)
+
+  Signal #269  [LOSS]  LONG    Entry: 2025-11-16 02:45 UTC  [same candle]
+  Crossover     : 2025-11-16 02:45 UTC
+  Candle        : open=95731.63  close=95963.88  EMA9=95566.55  EMA26=95564.34
+  Entry         : $95963.88
+  Stop Loss     : $95484.06  (-0.5%)
+  Take Profit   : $97403.34  (+1.5%)
+
+  Signal #270  [WIN ]  SHORT   Entry: 2025-11-16 11:30 UTC  [same candle]
+  Crossover     : 2025-11-16 11:30 UTC
+  Candle        : open=95608.65  close=95579.64  EMA9=96020.20  EMA26=96024.15
+  Entry         : $95579.64
+  Stop Loss     : $96057.54  (+0.5%)
+  Take Profit   : $94145.95  (-1.5%)
+
+  Signal #271  [LOSS]  LONG    Entry: 2025-11-17 00:45 UTC  [next candle]
+  Crossover     : 2025-11-17 00:30 UTC
+  Candle        : open=94700.82  close=95290.01  EMA9=94504.51  EMA26=94333.47
+  Entry         : $95290.01
+  Stop Loss     : $94813.56  (-0.5%)
+  Take Profit   : $96719.36  (+1.5%)
+
+  Signal #272  [LOSS]  SHORT   Entry: 2025-11-17 13:00 UTC  [same candle]
+  Crossover     : 2025-11-17 13:00 UTC
+  Candle        : open=95312.24  close=94934.59  EMA9=95387.40  EMA26=95449.80
+  Entry         : $94934.59
+  Stop Loss     : $95409.26  (+0.5%)
+  Take Profit   : $93510.57  (-1.5%)
+
+  Signal #273  [WIN ]  SHORT   Entry: 2025-11-19 00:00 UTC  [same candle]
+  Crossover     : 2025-11-19 00:00 UTC
+  Candle        : open=92960.83  close=92512.33  EMA9=92867.82  EMA26=92886.81
+  Entry         : $92512.33
+  Stop Loss     : $92974.89  (+0.5%)
+  Take Profit   : $91124.65  (-1.5%)
+
+  Signal #274  [LOSS]  LONG    Entry: 2025-11-19 13:15 UTC  [next candle]
+  Crossover     : 2025-11-19 13:00 UTC
+  Candle        : open=91609.19  close=91789.75  EMA9=91590.34  EMA26=91549.91
+  Entry         : $91789.75
+  Stop Loss     : $91330.80  (-0.5%)
+  Take Profit   : $93166.60  (+1.5%)
+
+  Signal #275  [LOSS]  SHORT   Entry: 2025-11-19 14:15 UTC  [next candle]
+  Crossover     : 2025-11-19 14:00 UTC
+  Candle        : open=91485.90  close=91121.93  EMA9=91445.81  EMA26=91501.01
+  Entry         : $91121.93
+  Stop Loss     : $91577.54  (+0.5%)
+  Take Profit   : $89755.10  (-1.5%)
+
+  Signal #276  [LOSS]  LONG    Entry: 2025-11-19 15:00 UTC  [next candle]
+  Crossover     : 2025-11-19 14:45 UTC
+  Candle        : open=91713.45  close=92035.89  EMA9=91649.94  EMA26=91573.18
+  Entry         : $92035.89
+  Stop Loss     : $91575.71  (-0.5%)
+  Take Profit   : $93416.43  (+1.5%)
+
+  Signal #277  [WIN ]  SHORT   Entry: 2025-11-19 15:30 UTC  [same candle]
+  Crossover     : 2025-11-19 15:30 UTC
+  Candle        : open=91235.14  close=90696.85  EMA9=91392.95  EMA26=91485.08
+  Entry         : $90696.85
+  Stop Loss     : $91150.33  (+0.5%)
+  Take Profit   : $89336.40  (-1.5%)
+
+  Signal #278  [LOSS]  LONG    Entry: 2025-11-19 21:45 UTC  [same candle]
+  Crossover     : 2025-11-19 21:45 UTC
+  Candle        : open=90510.50  close=90600.68  EMA9=89861.10  EMA26=89844.43
+  Entry         : $90600.68
+  Stop Loss     : $90147.68  (-0.5%)
+  Take Profit   : $91959.69  (+1.5%)
+
+  Signal #279  [LOSS]  SHORT   Entry: 2025-11-20 09:15 UTC  [same candle]
+  Crossover     : 2025-11-20 09:15 UTC
+  Candle        : open=92076.04  close=91819.28  EMA9=92110.13  EMA26=92143.00
+  Entry         : $91819.28
+  Stop Loss     : $92278.38  (+0.5%)
+  Take Profit   : $90441.99  (-1.5%)
+
+  Signal #280  [LOSS]  LONG    Entry: 2025-11-21 14:30 UTC  [same candle]
+  Crossover     : 2025-11-21 14:30 UTC
+  Candle        : open=83689.69  close=84916.47  EMA9=83798.03  EMA26=83647.41
+  Entry         : $84916.47
+  Stop Loss     : $84491.89  (-0.5%)
+  Take Profit   : $86190.22  (+1.5%)
+
+  Signal #281  [LOSS]  SHORT   Entry: 2025-11-21 15:45 UTC  [same candle]
+  Crossover     : 2025-11-21 15:45 UTC
+  Candle        : open=83227.42  close=82932.47  EMA9=83635.89  EMA26=83660.53
+  Entry         : $82932.47
+  Stop Loss     : $83347.13  (+0.5%)
+  Take Profit   : $81688.48  (-1.5%)
+
+  Signal #282  [LOSS]  LONG    Entry: 2025-11-21 16:45 UTC  [same candle]
+  Crossover     : 2025-11-21 16:45 UTC
+  Candle        : open=83369.40  close=84919.59  EMA9=83732.41  EMA26=83666.82
+  Entry         : $84919.59
+  Stop Loss     : $84494.99  (-0.5%)
+  Take Profit   : $86193.38  (+1.5%)
+
+  Signal #283  [LOSS]  LONG    Entry: 2025-11-22 07:30 UTC  [same candle]
+  Crossover     : 2025-11-22 07:30 UTC
+  Candle        : open=84494.41  close=84587.59  EMA9=84462.99  EMA26=84453.39
+  Entry         : $84587.59
+  Stop Loss     : $84164.65  (-0.5%)
+  Take Profit   : $85856.40  (+1.5%)
+
+  Signal #284  [LOSS]  SHORT   Entry: 2025-11-22 08:15 UTC  [same candle]
+  Crossover     : 2025-11-22 08:15 UTC
+  Candle        : open=84530.79  close=84224.54  EMA9=84441.13  EMA26=84449.79
+  Entry         : $84224.54
+  Stop Loss     : $84645.66  (+0.5%)
+  Take Profit   : $82961.17  (-1.5%)
+
+  Signal #285  [LOSS]  LONG    Entry: 2025-11-22 14:15 UTC  [same candle]
+  Crossover     : 2025-11-22 14:15 UTC
+  Candle        : open=84454.06  close=84581.70  EMA9=84140.21  EMA26=84099.29
+  Entry         : $84581.70
+  Stop Loss     : $84158.79  (-0.5%)
+  Take Profit   : $85850.43  (+1.5%)
+
+  Signal #286  [WIN ]  LONG    Entry: 2025-11-22 22:15 UTC  [same candle]
+  Crossover     : 2025-11-22 22:15 UTC
+  Candle        : open=84595.61  close=84616.51  EMA9=84511.20  EMA26=84496.78
+  Entry         : $84616.51
+  Stop Loss     : $84193.43  (-0.5%)
+  Take Profit   : $85885.76  (+1.5%)
+
+  Signal #287  [LOSS]  SHORT   Entry: 2025-11-23 23:45 UTC  [same candle]
+  Crossover     : 2025-11-23 23:45 UTC
+  Candle        : open=86854.24  close=86830.00  EMA9=87291.47  EMA26=87302.06
+  Entry         : $86830.00
+  Stop Loss     : $87264.15  (+0.5%)
+  Take Profit   : $85527.55  (-1.5%)
+
+  Signal #288  [LOSS]  LONG    Entry: 2025-11-24 05:15 UTC  [same candle]
+  Crossover     : 2025-11-24 05:15 UTC
+  Candle        : open=87575.94  close=87630.50  EMA9=87250.22  EMA26=87215.47
+  Entry         : $87630.50
+  Stop Loss     : $87192.35  (-0.5%)
+  Take Profit   : $88944.96  (+1.5%)
+
+  Signal #289  [WIN ]  SHORT   Entry: 2025-11-24 06:30 UTC  [same candle]
+  Crossover     : 2025-11-24 06:30 UTC
+  Candle        : open=87161.43  close=87041.17  EMA9=87201.55  EMA26=87214.62
+  Entry         : $87041.17
+  Stop Loss     : $87476.38  (+0.5%)
+  Take Profit   : $85735.55  (-1.5%)
+
+  Signal #290  [WIN ]  LONG    Entry: 2025-11-24 16:00 UTC  [same candle]
+  Crossover     : 2025-11-24 16:00 UTC
+  Candle        : open=86616.44  close=86887.59  EMA9=86419.13  EMA26=86350.98
+  Entry         : $86887.59
+  Stop Loss     : $86453.15  (-0.5%)
+  Take Profit   : $88190.90  (+1.5%)
+
+  Signal #291  [WIN ]  SHORT   Entry: 2025-11-25 00:45 UTC  [same candle]
+  Crossover     : 2025-11-25 00:45 UTC
+  Candle        : open=88187.03  close=88100.00  EMA9=88278.06  EMA26=88301.77
+  Entry         : $88100.00
+  Stop Loss     : $88540.50  (+0.5%)
+  Take Profit   : $86778.50  (-1.5%)
+
+  Signal #292  [WIN ]  SHORT   Entry: 2025-11-25 05:15 UTC  [same candle]
+  Crossover     : 2025-11-25 05:15 UTC
+  Candle        : open=88184.61  close=88005.95  EMA9=88060.42  EMA26=88062.61
+  Entry         : $88005.95
+  Stop Loss     : $88445.98  (+0.5%)
+  Take Profit   : $86685.86  (-1.5%)
+
+  Signal #293  [LOSS]  LONG    Entry: 2025-11-25 05:30 UTC  [same candle]
+  Crossover     : 2025-11-25 05:30 UTC
+  Candle        : open=88005.96  close=88208.34  EMA9=88090.01  EMA26=88073.40
+  Entry         : $88208.34
+  Stop Loss     : $87767.30  (-0.5%)
+  Take Profit   : $89531.47  (+1.5%)
+
+  Signal #294  [WIN ]  SHORT   Entry: 2025-11-25 06:15 UTC  [same candle]
+  Crossover     : 2025-11-25 06:15 UTC
+  Candle        : open=88083.98  close=87944.06  EMA9=88063.80  EMA26=88067.56
+  Entry         : $87944.06
+  Stop Loss     : $88383.78  (+0.5%)
+  Take Profit   : $86624.90  (-1.5%)
+
+  Signal #295  [LOSS]  LONG    Entry: 2025-11-25 13:00 UTC  [same candle]
+  Crossover     : 2025-11-25 13:00 UTC
+  Candle        : open=87510.00  close=87594.30  EMA9=87516.31  EMA26=87511.48
+  Entry         : $87594.30
+  Stop Loss     : $87156.33  (-0.5%)
+  Take Profit   : $88908.21  (+1.5%)
+
+  Signal #296  [LOSS]  SHORT   Entry: 2025-11-25 13:30 UTC  [same candle]
+  Crossover     : 2025-11-25 13:30 UTC
+  Candle        : open=87625.77  close=87038.08  EMA9=87438.18  EMA26=87484.25
+  Entry         : $87038.08
+  Stop Loss     : $87473.27  (+0.5%)
+  Take Profit   : $85732.51  (-1.5%)
+
+  Signal #297  [LOSS]  LONG    Entry: 2025-11-25 17:30 UTC  [same candle]
+  Crossover     : 2025-11-25 17:30 UTC
+  Candle        : open=87493.44  close=87943.12  EMA9=87350.75  EMA26=87262.44
+  Entry         : $87943.12
+  Stop Loss     : $87503.40  (-0.5%)
+  Take Profit   : $89262.27  (+1.5%)
+
+  Signal #298  [LOSS]  SHORT   Entry: 2025-11-25 19:15 UTC  [same candle]
+  Crossover     : 2025-11-25 19:15 UTC
+  Candle        : open=86949.90  close=86296.82  EMA9=87134.41  EMA26=87238.65
+  Entry         : $86296.82
+  Stop Loss     : $86728.30  (+0.5%)
+  Take Profit   : $85002.37  (-1.5%)
+
+  Signal #299  [LOSS]  LONG    Entry: 2025-11-25 22:45 UTC  [same candle]
+  Crossover     : 2025-11-25 22:45 UTC
+  Candle        : open=87339.61  close=87642.41  EMA9=87223.27  EMA26=87186.74
+  Entry         : $87642.41
+  Stop Loss     : $87204.20  (-0.5%)
+  Take Profit   : $88957.05  (+1.5%)
+
+  Signal #300  [LOSS]  SHORT   Entry: 2025-11-26 04:00 UTC  [same candle]
+  Crossover     : 2025-11-26 04:00 UTC
+  Candle        : open=87119.93  close=86910.56  EMA9=87444.23  EMA26=87498.75
+  Entry         : $86910.56
+  Stop Loss     : $87345.11  (+0.5%)
+  Take Profit   : $85606.90  (-1.5%)
+
+  Signal #301  [LOSS]  LONG    Entry: 2025-11-26 06:00 UTC  [same candle]
+  Crossover     : 2025-11-26 06:00 UTC
+  Candle        : open=87519.54  close=87652.63  EMA9=87499.56  EMA26=87483.69
+  Entry         : $87652.63
+  Stop Loss     : $87214.37  (-0.5%)
+  Take Profit   : $88967.42  (+1.5%)
+
+  Signal #302  [LOSS]  SHORT   Entry: 2025-11-26 09:00 UTC  [same candle]
+  Crossover     : 2025-11-26 09:00 UTC
+  Candle        : open=87424.80  close=87362.01  EMA9=87561.48  EMA26=87572.12
+  Entry         : $87362.01
+  Stop Loss     : $87798.82  (+0.5%)
+  Take Profit   : $86051.58  (-1.5%)
+
+  Signal #303  [LOSS]  SHORT   Entry: 2025-11-26 14:45 UTC  [same candle]
+  Crossover     : 2025-11-26 14:45 UTC
+  Candle        : open=87300.39  close=86899.73  EMA9=87040.96  EMA26=87058.96
+  Entry         : $86899.73
+  Stop Loss     : $87334.23  (+0.5%)
+  Take Profit   : $85596.23  (-1.5%)
+
+  Signal #304  [LOSS]  LONG    Entry: 2025-11-26 15:15 UTC  [same candle]
+  Crossover     : 2025-11-26 15:15 UTC
+  Candle        : open=87025.58  close=87261.25  EMA9=87082.56  EMA26=87071.65
+  Entry         : $87261.25
+  Stop Loss     : $86824.94  (-0.5%)
+  Take Profit   : $88570.17  (+1.5%)
+
+  Signal #305  [LOSS]  SHORT   Entry: 2025-11-26 15:30 UTC  [same candle]
+  Crossover     : 2025-11-26 15:30 UTC
+  Candle        : open=87261.26  close=86884.16  EMA9=87042.88  EMA26=87057.76
+  Entry         : $86884.16
+  Stop Loss     : $87318.58  (+0.5%)
+  Take Profit   : $85580.90  (-1.5%)
+
+  Signal #306  [WIN ]  LONG    Entry: 2025-11-26 16:00 UTC  [same candle]
+  Crossover     : 2025-11-26 16:00 UTC
+  Candle        : open=86977.99  close=87564.07  EMA9=87136.74  EMA26=87089.80
+  Entry         : $87564.07
+  Stop Loss     : $87126.25  (-0.5%)
+  Take Profit   : $88877.53  (+1.5%)
+
+  Signal #307  [LOSS]  SHORT   Entry: 2025-11-27 12:30 UTC  [same candle]
+  Crossover     : 2025-11-27 12:30 UTC
+  Candle        : open=91277.33  close=91108.61  EMA9=91366.83  EMA26=91368.70
+  Entry         : $91108.61
+  Stop Loss     : $91564.15  (+0.5%)
+  Take Profit   : $89741.98  (-1.5%)
+
+  Signal #308  [LOSS]  LONG    Entry: 2025-11-27 16:45 UTC  [same candle]
+  Crossover     : 2025-11-27 16:45 UTC
+  Candle        : open=91300.00  close=91467.13  EMA9=91146.87  EMA26=91111.35
+  Entry         : $91467.13
+  Stop Loss     : $91009.79  (-0.5%)
+  Take Profit   : $92839.14  (+1.5%)
+
+  Signal #309  [LOSS]  SHORT   Entry: 2025-11-27 23:45 UTC  [same candle]
+  Crossover     : 2025-11-27 23:45 UTC
+  Candle        : open=91392.70  close=91333.95  EMA9=91404.04  EMA26=91412.72
+  Entry         : $91333.95
+  Stop Loss     : $91790.62  (+0.5%)
+  Take Profit   : $89963.94  (-1.5%)
+
+  Signal #310  [LOSS]  LONG    Entry: 2025-11-28 04:15 UTC  [same candle]
+  Crossover     : 2025-11-28 04:15 UTC
+  Candle        : open=91363.83  close=91411.87  EMA9=91196.43  EMA26=91185.33
+  Entry         : $91411.87
+  Stop Loss     : $90954.81  (-0.5%)
+  Take Profit   : $92783.05  (+1.5%)
+
+  Signal #311  [LOSS]  SHORT   Entry: 2025-11-28 07:45 UTC  [same candle]
+  Crossover     : 2025-11-28 07:45 UTC
+  Candle        : open=91066.90  close=90910.87  EMA9=91254.66  EMA26=91287.90
+  Entry         : $90910.87
+  Stop Loss     : $91365.42  (+0.5%)
+  Take Profit   : $89547.21  (-1.5%)
+
+  Signal #312  [LOSS]  LONG    Entry: 2025-11-28 08:45 UTC  [same candle]
+  Crossover     : 2025-11-28 08:45 UTC
+  Candle        : open=91131.42  close=91690.00  EMA9=91295.17  EMA26=91288.54
+  Entry         : $91690.00
+  Stop Loss     : $91231.55  (-0.5%)
+  Take Profit   : $93065.35  (+1.5%)
+
+  Signal #313  [LOSS]  SHORT   Entry: 2025-11-28 16:45 UTC  [same candle]
+  Crossover     : 2025-11-28 16:45 UTC
+  Candle        : open=91578.00  close=90936.23  EMA9=91731.69  EMA26=91799.77
+  Entry         : $90936.23
+  Stop Loss     : $91390.91  (+0.5%)
+  Take Profit   : $89572.19  (-1.5%)
+
+  Signal #314  [LOSS]  LONG    Entry: 2025-11-29 13:15 UTC  [same candle]
+  Crossover     : 2025-11-29 13:15 UTC
+  Candle        : open=90616.29  close=90765.73  EMA9=90639.65  EMA26=90633.55
+  Entry         : $90765.73
+  Stop Loss     : $90311.90  (-0.5%)
+  Take Profit   : $92127.22  (+1.5%)
+
+  Signal #315  [LOSS]  SHORT   Entry: 2025-11-29 17:45 UTC  [same candle]
+  Crossover     : 2025-11-29 17:45 UTC
+  Candle        : open=90572.92  close=90421.21  EMA9=90708.21  EMA26=90733.91
+  Entry         : $90421.21
+  Stop Loss     : $90873.32  (+0.5%)
+  Take Profit   : $89064.89  (-1.5%)
+
+  Signal #316  [LOSS]  LONG    Entry: 2025-11-29 20:45 UTC  [same candle]
+  Crossover     : 2025-11-29 20:45 UTC
+  Candle        : open=90808.05  close=90963.29  EMA9=90719.02  EMA26=90693.49
+  Entry         : $90963.29
+  Stop Loss     : $90508.47  (-0.5%)
+  Take Profit   : $92327.74  (+1.5%)
+
+  Signal #317  [LOSS]  SHORT   Entry: 2025-11-30 03:00 UTC  [same candle]
+  Crossover     : 2025-11-30 03:00 UTC
+  Candle        : open=90795.52  close=90615.48  EMA9=90833.68  EMA26=90836.80
+  Entry         : $90615.48
+  Stop Loss     : $91068.56  (+0.5%)
+  Take Profit   : $89256.25  (-1.5%)
+
+  Signal #318  [LOSS]  LONG    Entry: 2025-11-30 03:45 UTC  [same candle]
+  Crossover     : 2025-11-30 03:45 UTC
+  Candle        : open=90903.49  close=90909.35  EMA9=90841.24  EMA26=90837.25
+  Entry         : $90909.35
+  Stop Loss     : $90454.80  (-0.5%)
+  Take Profit   : $92272.99  (+1.5%)
+
+  Signal #319  [LOSS]  SHORT   Entry: 2025-11-30 05:15 UTC  [same candle]
+  Crossover     : 2025-11-30 05:15 UTC
+  Candle        : open=90780.54  close=90682.90  EMA9=90810.57  EMA26=90830.26
+  Entry         : $90682.90
+  Stop Loss     : $91136.31  (+0.5%)
+  Take Profit   : $89322.66  (-1.5%)
+
+  Signal #320  [LOSS]  LONG    Entry: 2025-11-30 06:30 UTC  [same candle]
+  Crossover     : 2025-11-30 06:30 UTC
+  Candle        : open=90908.94  close=90920.00  EMA9=90835.60  EMA26=90831.64
+  Entry         : $90920.00
+  Stop Loss     : $90465.40  (-0.5%)
+  Take Profit   : $92283.80  (+1.5%)
+
+  Signal #321  [WIN ]  SHORT   Entry: 2025-11-30 18:30 UTC  [same candle]
+  Crossover     : 2025-11-30 18:30 UTC
+  Candle        : open=91394.74  close=91387.61  EMA9=91446.85  EMA26=91450.30
+  Entry         : $91387.61
+  Stop Loss     : $91844.55  (+0.5%)
+  Take Profit   : $90016.80  (-1.5%)
+
+  Signal #322  [LOSS]  LONG    Entry: 2025-11-30 20:00 UTC  [same candle]
+  Crossover     : 2025-11-30 20:00 UTC
+  Candle        : open=91460.79  close=91563.00  EMA9=91463.94  EMA26=91453.97
+  Entry         : $91563.00
+  Stop Loss     : $91105.18  (-0.5%)
+  Take Profit   : $92936.44  (+1.5%)
+
+  Signal #323  [WIN ]  SHORT   Entry: 2025-11-30 20:15 UTC  [same candle]
+  Crossover     : 2025-11-30 20:15 UTC
+  Candle        : open=91562.99  close=91313.35  EMA9=91433.82  EMA26=91443.56
+  Entry         : $91313.35
+  Stop Loss     : $91769.92  (+0.5%)
+  Take Profit   : $89943.65  (-1.5%)
+
+  Signal #324  [WIN ]  LONG    Entry: 2025-12-01 21:00 UTC  [same candle]
+  Crossover     : 2025-12-01 21:00 UTC
+  Candle        : open=85518.01  close=85661.19  EMA9=85333.24  EMA26=85292.79
+  Entry         : $85661.19
+  Stop Loss     : $85232.88  (-0.5%)
+  Take Profit   : $86946.11  (+1.5%)
+
+  Signal #325  [LOSS]  SHORT   Entry: 2025-12-02 08:30 UTC  [same candle]
+  Crossover     : 2025-12-02 08:30 UTC
+  Candle        : open=86490.79  close=86469.99  EMA9=86775.64  EMA26=86778.42
+  Entry         : $86469.99
+  Stop Loss     : $86902.34  (+0.5%)
+  Take Profit   : $85172.94  (-1.5%)
+
+  Signal #326  [WIN ]  LONG    Entry: 2025-12-02 10:00 UTC  [same candle]
+  Crossover     : 2025-12-02 10:00 UTC
+  Candle        : open=86769.88  close=86906.51  EMA9=86766.00  EMA26=86763.06
+  Entry         : $86906.51
+  Stop Loss     : $86471.98  (-0.5%)
+  Take Profit   : $88210.11  (+1.5%)
+
+  Signal #327  [LOSS]  SHORT   Entry: 2025-12-03 12:15 UTC  [same candle]
+  Crossover     : 2025-12-03 12:15 UTC
+  Candle        : open=92882.91  close=92730.70  EMA9=92908.50  EMA26=92933.08
+  Entry         : $92730.70
+  Stop Loss     : $93194.35  (+0.5%)
+  Take Profit   : $91339.74  (-1.5%)
+
+  Signal #328  [LOSS]  LONG    Entry: 2025-12-03 13:30 UTC  [same candle]
+  Crossover     : 2025-12-03 13:30 UTC
+  Candle        : open=93015.54  close=93209.38  EMA9=92988.81  EMA26=92955.96
+  Entry         : $93209.38
+  Stop Loss     : $92743.33  (-0.5%)
+  Take Profit   : $94607.52  (+1.5%)
+
+  Signal #329  [LOSS]  SHORT   Entry: 2025-12-03 14:00 UTC  [same candle]
+  Crossover     : 2025-12-03 14:00 UTC
+  Candle        : open=93130.89  close=92030.58  EMA9=92819.90  EMA26=92899.41
+  Entry         : $92030.58
+  Stop Loss     : $92490.73  (+0.5%)
+  Take Profit   : $90650.12  (-1.5%)
+
+  Signal #330  [LOSS]  LONG    Entry: 2025-12-03 18:00 UTC  [same candle]
+  Crossover     : 2025-12-03 18:00 UTC
+  Candle        : open=92956.22  close=93421.05  EMA9=92774.29  EMA26=92707.94
+  Entry         : $93421.05
+  Stop Loss     : $92953.94  (-0.5%)
+  Take Profit   : $94822.37  (+1.5%)
+
+  Signal #331  [WIN ]  SHORT   Entry: 2025-12-04 05:15 UTC  [same candle]
+  Crossover     : 2025-12-04 05:15 UTC
+  Candle        : open=93203.68  close=93203.40  EMA9=93381.06  EMA26=93408.65
+  Entry         : $93203.40
+  Stop Loss     : $93669.42  (+0.5%)
+  Take Profit   : $91805.35  (-1.5%)
+
+  Signal #332  [LOSS]  LONG    Entry: 2025-12-04 09:15 UTC  [same candle]
+  Crossover     : 2025-12-04 09:15 UTC
+  Candle        : open=93366.89  close=93367.72  EMA9=93275.40  EMA26=93272.98
+  Entry         : $93367.72
+  Stop Loss     : $92900.88  (-0.5%)
+  Take Profit   : $94768.24  (+1.5%)
+
+  Signal #333  [WIN ]  SHORT   Entry: 2025-12-04 11:15 UTC  [same candle]
+  Crossover     : 2025-12-04 11:15 UTC
+  Candle        : open=93233.52  close=93006.71  EMA9=93245.38  EMA26=93277.75
+  Entry         : $93006.71
+  Stop Loss     : $93471.74  (+0.5%)
+  Take Profit   : $91611.61  (-1.5%)
+
+  Signal #334  [LOSS]  LONG    Entry: 2025-12-05 01:00 UTC  [same candle]
+  Crossover     : 2025-12-05 01:00 UTC
+  Candle        : open=92299.09  close=92358.03  EMA9=92279.89  EMA26=92274.39
+  Entry         : $92358.03
+  Stop Loss     : $91896.24  (-0.5%)
+  Take Profit   : $93743.40  (+1.5%)
+
+  Signal #335  [WIN ]  SHORT   Entry: 2025-12-05 04:15 UTC  [same candle]
+  Crossover     : 2025-12-05 04:15 UTC
+  Candle        : open=92316.94  close=92190.16  EMA9=92333.39  EMA26=92348.63
+  Entry         : $92190.16
+  Stop Loss     : $92651.11  (+0.5%)
+  Take Profit   : $90807.31  (-1.5%)
+
+  Signal #336  [WIN ]  SHORT   Entry: 2025-12-05 08:00 UTC  [same candle]
+  Crossover     : 2025-12-05 08:00 UTC
+  Candle        : open=92258.64  close=92102.73  EMA9=92213.03  EMA26=92221.34
+  Entry         : $92102.73
+  Stop Loss     : $92563.24  (+0.5%)
+  Take Profit   : $90721.19  (-1.5%)
+
+  Signal #337  [LOSS]  LONG    Entry: 2025-12-06 03:00 UTC  [same candle]
+  Crossover     : 2025-12-06 03:00 UTC
+  Candle        : open=89390.90  close=89764.18  EMA9=89404.36  EMA26=89382.27
+  Entry         : $89764.18
+  Stop Loss     : $89315.36  (-0.5%)
+  Take Profit   : $91110.64  (+1.5%)
+
+  Signal #338  [LOSS]  SHORT   Entry: 2025-12-06 08:15 UTC  [same candle]
+  Crossover     : 2025-12-06 08:15 UTC
+  Candle        : open=89543.56  close=89288.38  EMA9=89549.62  EMA26=89555.63
+  Entry         : $89288.38
+  Stop Loss     : $89734.82  (+0.5%)
+  Take Profit   : $87949.05  (-1.5%)
+
+  Signal #339  [LOSS]  LONG    Entry: 2025-12-06 10:00 UTC  [next candle]
+  Crossover     : 2025-12-06 09:45 UTC
+  Candle        : open=89574.12  close=89575.01  EMA9=89548.02  EMA26=89543.46
+  Entry         : $89575.01
+  Stop Loss     : $89127.13  (-0.5%)
+  Take Profit   : $90918.64  (+1.5%)
+
+  Signal #340  [LOSS]  SHORT   Entry: 2025-12-06 10:45 UTC  [same candle]
+  Crossover     : 2025-12-06 10:45 UTC
+  Candle        : open=89574.49  close=89506.00  EMA9=89542.18  EMA26=89542.28
+  Entry         : $89506.00
+  Stop Loss     : $89953.53  (+0.5%)
+  Take Profit   : $88163.41  (-1.5%)
+
+  Signal #341  [LOSS]  LONG    Entry: 2025-12-06 11:15 UTC  [same candle]
+  Crossover     : 2025-12-06 11:15 UTC
+  Candle        : open=89500.01  close=89579.25  EMA9=89542.84  EMA26=89542.12
+  Entry         : $89579.25
+  Stop Loss     : $89131.35  (-0.5%)
+  Take Profit   : $90922.94  (+1.5%)
+
+  Signal #342  [WIN ]  SHORT   Entry: 2025-12-06 19:00 UTC  [next candle]
+  Crossover     : 2025-12-06 18:45 UTC
+  Candle        : open=89646.70  close=89487.20  EMA9=89672.83  EMA26=89712.00
+  Entry         : $89487.20
+  Stop Loss     : $89934.64  (+0.5%)
+  Take Profit   : $88144.89  (-1.5%)
+
+  Signal #343  [LOSS]  LONG    Entry: 2025-12-07 02:45 UTC  [same candle]
+  Crossover     : 2025-12-07 02:45 UTC
+  Candle        : open=89450.17  close=89621.96  EMA9=89440.67  EMA26=89422.76
+  Entry         : $89621.96
+  Stop Loss     : $89173.85  (-0.5%)
+  Take Profit   : $90966.29  (+1.5%)
+
+  Signal #344  [WIN ]  SHORT   Entry: 2025-12-07 07:30 UTC  [same candle]
+  Crossover     : 2025-12-07 07:30 UTC
+  Candle        : open=89401.89  close=89256.14  EMA9=89488.98  EMA26=89512.45
+  Entry         : $89256.14
+  Stop Loss     : $89702.42  (+0.5%)
+  Take Profit   : $87917.30  (-1.5%)
+
+  Signal #345  [WIN ]  LONG    Entry: 2025-12-07 16:30 UTC  [same candle]
+  Crossover     : 2025-12-07 16:30 UTC
+  Candle        : open=89337.63  close=89465.37  EMA9=89124.55  EMA26=89078.59
+  Entry         : $89465.37
+  Stop Loss     : $89018.04  (-0.5%)
+  Take Profit   : $90807.35  (+1.5%)
+
+  Signal #346  [LOSS]  LONG    Entry: 2025-12-08 01:15 UTC  [same candle]
+  Crossover     : 2025-12-08 01:15 UTC
+  Candle        : open=90680.57  close=91142.58  EMA9=90473.81  EMA26=90389.76
+  Entry         : $91142.58
+  Stop Loss     : $90686.87  (-0.5%)
+  Take Profit   : $92509.72  (+1.5%)
+
+  Signal #347  [WIN ]  SHORT   Entry: 2025-12-08 13:45 UTC  [same candle]
+  Crossover     : 2025-12-08 13:45 UTC
+  Candle        : open=91651.51  close=91467.82  EMA9=91723.87  EMA26=91742.36
+  Entry         : $91467.82
+  Stop Loss     : $91925.16  (+0.5%)
+  Take Profit   : $90095.80  (-1.5%)
+
+  Signal #348  [LOSS]  LONG    Entry: 2025-12-08 21:15 UTC  [same candle]
+  Crossover     : 2025-12-08 21:15 UTC
+  Candle        : open=90765.23  close=91032.59  EMA9=90591.12  EMA26=90532.79
+  Entry         : $91032.59
+  Stop Loss     : $90577.43  (-0.5%)
+  Take Profit   : $92398.08  (+1.5%)
+
+  Signal #349  [LOSS]  SHORT   Entry: 2025-12-09 00:30 UTC  [same candle]
+  Crossover     : 2025-12-09 00:30 UTC
+  Candle        : open=90690.79  close=90440.49  EMA9=90679.49  EMA26=90681.61
+  Entry         : $90440.49
+  Stop Loss     : $90892.69  (+0.5%)
+  Take Profit   : $89083.88  (-1.5%)
+
+  Signal #350  [LOSS]  LONG    Entry: 2025-12-09 07:45 UTC  [same candle]
+  Crossover     : 2025-12-09 07:45 UTC
+  Candle        : open=90476.50  close=90496.80  EMA9=90240.04  EMA26=90213.24
+  Entry         : $90496.80
+  Stop Loss     : $90044.32  (-0.5%)
+  Take Profit   : $91854.25  (+1.5%)
+
+  Signal #351  [LOSS]  SHORT   Entry: 2025-12-09 10:30 UTC  [next candle]
+  Crossover     : 2025-12-09 10:15 UTC
+  Candle        : open=90192.37  close=90098.00  EMA9=90228.47  EMA26=90255.54
+  Entry         : $90098.00
+  Stop Loss     : $90548.49  (+0.5%)
+  Take Profit   : $88746.53  (-1.5%)
+
+  Signal #352  [WIN ]  LONG    Entry: 2025-12-09 11:45 UTC  [same candle]
+  Crossover     : 2025-12-09 11:45 UTC
+  Candle        : open=90273.82  close=90384.55  EMA9=90282.51  EMA26=90270.40
+  Entry         : $90384.55
+  Stop Loss     : $89932.63  (-0.5%)
+  Take Profit   : $91740.32  (+1.5%)
+
+  Signal #353  [LOSS]  SHORT   Entry: 2025-12-09 14:30 UTC  [same candle]
+  Crossover     : 2025-12-09 14:30 UTC
+  Candle        : open=90267.16  close=90090.00  EMA9=90338.63  EMA26=90345.12
+  Entry         : $90090.00
+  Stop Loss     : $90540.45  (+0.5%)
+  Take Profit   : $88738.65  (-1.5%)
+
+  Signal #354  [WIN ]  LONG    Entry: 2025-12-09 15:00 UTC  [same candle]
+  Crossover     : 2025-12-09 15:00 UTC
+  Candle        : open=90357.60  close=90599.99  EMA9=90393.94  EMA26=90364.85
+  Entry         : $90599.99
+  Stop Loss     : $90146.99  (-0.5%)
+  Take Profit   : $91958.99  (+1.5%)
+
+  Signal #355  [LOSS]  SHORT   Entry: 2025-12-09 22:15 UTC  [same candle]
+  Crossover     : 2025-12-09 22:15 UTC
+  Candle        : open=92651.69  close=92506.67  EMA9=92891.01  EMA26=92923.53
+  Entry         : $92506.67
+  Stop Loss     : $92969.20  (+0.5%)
+  Take Profit   : $91119.07  (-1.5%)
+
+  Signal #356  [LOSS]  LONG    Entry: 2025-12-10 06:00 UTC  [same candle]
+  Crossover     : 2025-12-10 06:00 UTC
+  Candle        : open=92556.28  close=92572.43  EMA9=92550.88  EMA26=92549.79
+  Entry         : $92572.43
+  Stop Loss     : $92109.57  (-0.5%)
+  Take Profit   : $93961.02  (+1.5%)
+
+  Signal #357  [LOSS]  SHORT   Entry: 2025-12-10 10:30 UTC  [same candle]
+  Crossover     : 2025-12-10 10:30 UTC
+  Candle        : open=92450.16  close=92225.02  EMA9=92585.02  EMA26=92604.53
+  Entry         : $92225.02
+  Stop Loss     : $92686.15  (+0.5%)
+  Take Profit   : $90841.64  (-1.5%)
+
+  Signal #358  [LOSS]  LONG    Entry: 2025-12-10 17:00 UTC  [same candle]
+  Crossover     : 2025-12-10 17:00 UTC
+  Candle        : open=92174.11  close=92237.58  EMA9=92186.52  EMA26=92181.58
+  Entry         : $92237.58
+  Stop Loss     : $91776.39  (-0.5%)
+  Take Profit   : $93621.14  (+1.5%)
+
+  Signal #359  [LOSS]  SHORT   Entry: 2025-12-10 22:00 UTC  [same candle]
+  Crossover     : 2025-12-10 22:00 UTC
+  Candle        : open=92356.39  close=92190.80  EMA9=92559.81  EMA26=92570.14
+  Entry         : $92190.80
+  Stop Loss     : $92651.75  (+0.5%)
+  Take Profit   : $90807.94  (-1.5%)
+
+  Signal #360  [WIN ]  LONG    Entry: 2025-12-11 18:15 UTC  [same candle]
+  Crossover     : 2025-12-11 18:15 UTC
+  Candle        : open=90325.53  close=90351.83  EMA9=90075.52  EMA26=90049.17
+  Entry         : $90351.83
+  Stop Loss     : $89900.07  (-0.5%)
+  Take Profit   : $91707.11  (+1.5%)
+
+  Signal #361  [LOSS]  SHORT   Entry: 2025-12-12 09:15 UTC  [same candle]
+  Crossover     : 2025-12-12 09:15 UTC
+  Candle        : open=92345.32  close=92113.56  EMA9=92309.19  EMA26=92320.06
+  Entry         : $92113.56
+  Stop Loss     : $92574.13  (+0.5%)
+  Take Profit   : $90731.86  (-1.5%)
+
+  Signal #362  [LOSS]  LONG    Entry: 2025-12-12 09:45 UTC  [same candle]
+  Crossover     : 2025-12-12 09:45 UTC
+  Candle        : open=92178.82  close=92520.56  EMA9=92330.60  EMA26=92325.23
+  Entry         : $92520.56
+  Stop Loss     : $92057.96  (-0.5%)
+  Take Profit   : $93908.37  (+1.5%)
+
+  Signal #363  [LOSS]  SHORT   Entry: 2025-12-12 12:15 UTC  [same candle]
+  Crossover     : 2025-12-12 12:15 UTC
+  Candle        : open=92250.01  close=92182.65  EMA9=92333.78  EMA26=92350.35
+  Entry         : $92182.65
+  Stop Loss     : $92643.56  (+0.5%)
+  Take Profit   : $90799.91  (-1.5%)
+
+  Signal #364  [LOSS]  LONG    Entry: 2025-12-13 05:00 UTC  [next candle]
+  Crossover     : 2025-12-13 04:45 UTC
+  Candle        : open=90371.81  close=90376.38  EMA9=90347.26  EMA26=90340.73
+  Entry         : $90376.38
+  Stop Loss     : $89924.50  (-0.5%)
+  Take Profit   : $91732.03  (+1.5%)
+
+  Signal #365  [WIN ]  SHORT   Entry: 2025-12-13 05:30 UTC  [same candle]
+  Crossover     : 2025-12-13 05:30 UTC
+  Candle        : open=90351.07  close=90274.69  EMA9=90333.36  EMA26=90336.55
+  Entry         : $90274.69
+  Stop Loss     : $90726.06  (+0.5%)
+  Take Profit   : $88920.57  (-1.5%)
+
+  Signal #366  [LOSS]  LONG    Entry: 2025-12-13 07:15 UTC  [same candle]
+  Crossover     : 2025-12-13 07:15 UTC
+  Candle        : open=90338.01  close=90381.94  EMA9=90340.63  EMA26=90336.59
+  Entry         : $90381.94
+  Stop Loss     : $89930.03  (-0.5%)
+  Take Profit   : $91737.67  (+1.5%)
+
+  Signal #367  [WIN ]  SHORT   Entry: 2025-12-13 12:15 UTC  [same candle]
+  Crossover     : 2025-12-13 12:15 UTC
+  Candle        : open=90427.89  close=90325.42  EMA9=90417.13  EMA26=90418.44
+  Entry         : $90325.42
+  Stop Loss     : $90777.05  (+0.5%)
+  Take Profit   : $88970.54  (-1.5%)
+
+  Signal #368  [LOSS]  LONG    Entry: 2025-12-13 23:15 UTC  [same candle]
+  Crossover     : 2025-12-13 23:15 UTC
+  Candle        : open=90183.00  close=90198.88  EMA9=90139.42  EMA26=90135.04
+  Entry         : $90198.88
+  Stop Loss     : $89747.89  (-0.5%)
+  Take Profit   : $91551.86  (+1.5%)
+
+  Signal #369  [WIN ]  SHORT   Entry: 2025-12-14 05:00 UTC  [next candle]
+  Crossover     : 2025-12-14 04:45 UTC
+  Candle        : open=90201.50  close=90156.55  EMA9=90234.02  EMA26=90247.99
+  Entry         : $90156.55
+  Stop Loss     : $90607.33  (+0.5%)
+  Take Profit   : $88804.20  (-1.5%)
+
+  Signal #370  [LOSS]  LONG    Entry: 2025-12-15 01:30 UTC  [same candle]
+  Crossover     : 2025-12-15 01:30 UTC
+  Candle        : open=88706.33  close=89078.19  EMA9=88568.34  EMA26=88546.37
+  Entry         : $89078.19
+  Stop Loss     : $88632.80  (-0.5%)
+  Take Profit   : $90414.36  (+1.5%)
+
+  Signal #371  [WIN ]  SHORT   Entry: 2025-12-15 13:15 UTC  [same candle]
+  Crossover     : 2025-12-15 13:15 UTC
+  Candle        : open=89564.88  close=89449.39  EMA9=89618.56  EMA26=89644.07
+  Entry         : $89449.39
+  Stop Loss     : $89896.64  (+0.5%)
+  Take Profit   : $88107.65  (-1.5%)
+
+  Signal #372  [LOSS]  LONG    Entry: 2025-12-16 06:15 UTC  [same candle]
+  Crossover     : 2025-12-16 06:15 UTC
+  Candle        : open=86225.66  close=86416.50  EMA9=86068.90  EMA26=86031.60
+  Entry         : $86416.50
+  Stop Loss     : $85984.42  (-0.5%)
+  Take Profit   : $87712.75  (+1.5%)
+
+  Signal #373  [LOSS]  SHORT   Entry: 2025-12-17 02:00 UTC  [same candle]
+  Crossover     : 2025-12-17 02:00 UTC
+  Candle        : open=87552.30  close=87282.17  EMA9=87545.95  EMA26=87584.02
+  Entry         : $87282.17
+  Stop Loss     : $87718.58  (+0.5%)
+  Take Profit   : $85972.94  (-1.5%)
+
+  Signal #374  [WIN ]  LONG    Entry: 2025-12-17 12:00 UTC  [same candle]
+  Crossover     : 2025-12-17 12:00 UTC
+  Candle        : open=86983.26  close=87147.88  EMA9=86846.97  EMA26=86799.77
+  Entry         : $87147.88
+  Stop Loss     : $86712.14  (-0.5%)
+  Take Profit   : $88455.10  (+1.5%)
+
+  Signal #375  [LOSS]  SHORT   Entry: 2025-12-17 17:00 UTC  [next candle]
+  Crossover     : 2025-12-17 16:45 UTC
+  Candle        : open=86986.50  close=86660.06  EMA9=87258.29  EMA26=87395.25
+  Entry         : $86660.06
+  Stop Loss     : $87093.36  (+0.5%)
+  Take Profit   : $85360.16  (-1.5%)
+
+  Signal #376  [WIN ]  LONG    Entry: 2025-12-18 02:30 UTC  [next candle]
+  Crossover     : 2025-12-18 02:15 UTC
+  Candle        : open=86416.18  close=86698.02  EMA9=86325.04  EMA26=86256.35
+  Entry         : $86698.02
+  Stop Loss     : $86264.53  (-0.5%)
+  Take Profit   : $87998.49  (+1.5%)
+
+  Signal #377  [LOSS]  SHORT   Entry: 2025-12-18 17:15 UTC  [same candle]
+  Crossover     : 2025-12-18 17:15 UTC
+  Candle        : open=86381.18  close=85902.98  EMA9=87477.56  EMA26=87686.86
+  Entry         : $85902.98
+  Stop Loss     : $86332.49  (+0.5%)
+  Take Profit   : $84614.44  (-1.5%)
+
+  Signal #378  [WIN ]  LONG    Entry: 2025-12-19 03:00 UTC  [same candle]
+  Crossover     : 2025-12-19 03:00 UTC
+  Candle        : open=85643.44  close=86361.99  EMA9=85649.59  EMA26=85627.55
+  Entry         : $86361.99
+  Stop Loss     : $85930.18  (-0.5%)
+  Take Profit   : $87657.42  (+1.5%)
+
+  Signal #379  [LOSS]  SHORT   Entry: 2025-12-19 17:30 UTC  [same candle]
+  Crossover     : 2025-12-19 17:30 UTC
+  Candle        : open=87609.86  close=87117.72  EMA9=87894.37  EMA26=88006.98
+  Entry         : $87117.72
+  Stop Loss     : $87553.31  (+0.5%)
+  Take Profit   : $85810.95  (-1.5%)
+
+  Signal #380  [LOSS]  LONG    Entry: 2025-12-19 20:30 UTC  [same candle]
+  Crossover     : 2025-12-19 20:30 UTC
+  Candle        : open=88036.42  close=88054.88  EMA9=87782.99  EMA26=87773.49
+  Entry         : $88054.88
+  Stop Loss     : $87614.61  (-0.5%)
+  Take Profit   : $89375.70  (+1.5%)
+
+  Signal #381  [LOSS]  SHORT   Entry: 2025-12-20 10:15 UTC  [same candle]
+  Crossover     : 2025-12-20 10:15 UTC
+  Candle        : open=88258.17  close=88158.66  EMA9=88251.92  EMA26=88260.49
+  Entry         : $88158.66
+  Stop Loss     : $88599.45  (+0.5%)
+  Take Profit   : $86836.28  (-1.5%)
+
+  Signal #382  [LOSS]  LONG    Entry: 2025-12-20 18:45 UTC  [same candle]
+  Crossover     : 2025-12-20 18:45 UTC
+  Candle        : open=88191.20  close=88313.21  EMA9=88211.54  EMA26=88198.52
+  Entry         : $88313.21
+  Stop Loss     : $87871.64  (-0.5%)
+  Take Profit   : $89637.91  (+1.5%)
+
+  Signal #383  [LOSS]  SHORT   Entry: 2025-12-21 01:45 UTC  [same candle]
+  Crossover     : 2025-12-21 01:45 UTC
+  Candle        : open=88092.15  close=88011.83  EMA9=88223.90  EMA26=88255.76
+  Entry         : $88011.83
+  Stop Loss     : $88451.89  (+0.5%)
+  Take Profit   : $86691.65  (-1.5%)
+
+  Signal #384  [LOSS]  LONG    Entry: 2025-12-21 08:15 UTC  [same candle]
+  Crossover     : 2025-12-21 08:15 UTC
+  Candle        : open=88157.50  close=88259.00  EMA9=88153.23  EMA26=88137.94
+  Entry         : $88259.00
+  Stop Loss     : $87817.71  (-0.5%)
+  Take Profit   : $89582.88  (+1.5%)
+
+  Signal #385  [LOSS]  SHORT   Entry: 2025-12-21 13:30 UTC  [same candle]
+  Crossover     : 2025-12-21 13:30 UTC
+  Candle        : open=88212.34  close=87934.72  EMA9=88407.07  EMA26=88469.35
+  Entry         : $87934.72
+  Stop Loss     : $88374.39  (+0.5%)
+  Take Profit   : $86615.70  (-1.5%)
+
+  Signal #386  [LOSS]  LONG    Entry: 2025-12-21 17:30 UTC  [same candle]
+  Crossover     : 2025-12-21 17:30 UTC
+  Candle        : open=88307.64  close=88391.96  EMA9=88257.93  EMA26=88246.20
+  Entry         : $88391.96
+  Stop Loss     : $87950.00  (-0.5%)
+  Take Profit   : $89717.84  (+1.5%)
+
+  Signal #387  [LOSS]  SHORT   Entry: 2025-12-21 18:00 UTC  [same candle]
+  Crossover     : 2025-12-21 18:00 UTC
+  Candle        : open=88324.14  close=87986.61  EMA9=88214.26  EMA26=88232.32
+  Entry         : $87986.61
+  Stop Loss     : $88426.54  (+0.5%)
+  Take Profit   : $86666.81  (-1.5%)
+
+  Signal #388  [LOSS]  LONG    Entry: 2025-12-21 18:45 UTC  [same candle]
+  Crossover     : 2025-12-21 18:45 UTC
+  Candle        : open=88278.53  close=88445.09  EMA9=88259.44  EMA26=88244.51
+  Entry         : $88445.09
+  Stop Loss     : $88002.86  (-0.5%)
+  Take Profit   : $89771.77  (+1.5%)
+
+  Signal #389  [LOSS]  SHORT   Entry: 2025-12-21 21:45 UTC  [same candle]
+  Crossover     : 2025-12-21 21:45 UTC
+  Candle        : open=88235.27  close=88162.86  EMA9=88267.33  EMA26=88276.42
+  Entry         : $88162.86
+  Stop Loss     : $88603.67  (+0.5%)
+  Take Profit   : $86840.42  (-1.5%)
+
+  Signal #390  [LOSS]  LONG    Entry: 2025-12-21 22:00 UTC  [same candle]
+  Crossover     : 2025-12-21 22:00 UTC
+  Candle        : open=88162.86  close=88370.59  EMA9=88287.98  EMA26=88283.40
+  Entry         : $88370.59
+  Stop Loss     : $87928.74  (-0.5%)
+  Take Profit   : $89696.15  (+1.5%)
+
+  Signal #391  [WIN ]  LONG    Entry: 2025-12-22 03:15 UTC  [same candle]
+  Crossover     : 2025-12-22 03:15 UTC
+  Candle        : open=88583.77  close=88771.60  EMA9=88606.17  EMA26=88581.14
+  Entry         : $88771.60
+  Stop Loss     : $88327.74  (-0.5%)
+  Take Profit   : $90103.17  (+1.5%)
+
+  Signal #392  [WIN ]  SHORT   Entry: 2025-12-22 16:45 UTC  [same candle]
+  Crossover     : 2025-12-22 16:45 UTC
+  Candle        : open=89604.46  close=89550.00  EMA9=89738.23  EMA26=89751.49
+  Entry         : $89550.00
+  Stop Loss     : $89997.75  (+0.5%)
+  Take Profit   : $88206.75  (-1.5%)
+
+  Signal #393  [LOSS]  SHORT   Entry: 2025-12-23 12:15 UTC  [same candle]
+  Crossover     : 2025-12-23 12:15 UTC
+  Candle        : open=87819.76  close=87654.97  EMA9=87712.28  EMA26=87719.22
+  Entry         : $87654.97
+  Stop Loss     : $88093.24  (+0.5%)
+  Take Profit   : $86340.15  (-1.5%)
+
+  Signal #394  [LOSS]  LONG    Entry: 2025-12-23 12:30 UTC  [same candle]
+  Crossover     : 2025-12-23 12:30 UTC
+  Candle        : open=87654.97  close=87888.07  EMA9=87747.44  EMA26=87731.73
+  Entry         : $87888.07
+  Stop Loss     : $87448.63  (-0.5%)
+  Take Profit   : $89206.39  (+1.5%)
+
+  Signal #395  [LOSS]  SHORT   Entry: 2025-12-23 13:45 UTC  [same candle]
+  Crossover     : 2025-12-23 13:45 UTC
+  Candle        : open=87721.77  close=87616.67  EMA9=87733.79  EMA26=87734.31
+  Entry         : $87616.67
+  Stop Loss     : $88054.75  (+0.5%)
+  Take Profit   : $86302.42  (-1.5%)
+
+  Signal #396  [LOSS]  LONG    Entry: 2025-12-23 14:00 UTC  [same candle]
+  Crossover     : 2025-12-23 14:00 UTC
+  Candle        : open=87616.66  close=87754.77  EMA9=87737.99  EMA26=87735.83
+  Entry         : $87754.77
+  Stop Loss     : $87316.00  (-0.5%)
+  Take Profit   : $89071.09  (+1.5%)
+
+  Signal #397  [LOSS]  SHORT   Entry: 2025-12-23 14:15 UTC  [same candle]
+  Crossover     : 2025-12-23 14:15 UTC
+  Candle        : open=87754.77  close=87646.60  EMA9=87719.71  EMA26=87729.22
+  Entry         : $87646.60
+  Stop Loss     : $88084.83  (+0.5%)
+  Take Profit   : $86331.90  (-1.5%)
+
+  Signal #398  [LOSS]  LONG    Entry: 2025-12-23 16:45 UTC  [same candle]
+  Crossover     : 2025-12-23 16:45 UTC
+  Candle        : open=87838.89  close=88003.63  EMA9=87684.18  EMA26=87636.45
+  Entry         : $88003.63
+  Stop Loss     : $87563.61  (-0.5%)
+  Take Profit   : $89323.68  (+1.5%)
+
+  Signal #399  [LOSS]  SHORT   Entry: 2025-12-23 17:45 UTC  [same candle]
+  Crossover     : 2025-12-23 17:45 UTC
+  Candle        : open=87814.42  close=87180.01  EMA9=87629.43  EMA26=87634.69
+  Entry         : $87180.01
+  Stop Loss     : $87615.91  (+0.5%)
+  Take Profit   : $85872.31  (-1.5%)
+
+  Signal #400  [LOSS]  LONG    Entry: 2025-12-23 18:15 UTC  [same candle]
+  Crossover     : 2025-12-23 18:15 UTC
+  Candle        : open=87579.18  close=87829.50  EMA9=87661.40  EMA26=87645.32
+  Entry         : $87829.50
+  Stop Loss     : $87390.35  (-0.5%)
+  Take Profit   : $89146.94  (+1.5%)
+
+  Signal #401  [LOSS]  SHORT   Entry: 2025-12-23 22:00 UTC  [same candle]
+  Crossover     : 2025-12-23 22:00 UTC
+  Candle        : open=87722.90  close=87483.37  EMA9=87712.88  EMA26=87729.74
+  Entry         : $87483.37
+  Stop Loss     : $87920.79  (+0.5%)
+  Take Profit   : $86171.12  (-1.5%)
+
+  Signal #402  [LOSS]  LONG    Entry: 2025-12-24 11:30 UTC  [next candle]
+  Crossover     : 2025-12-24 11:15 UTC
+  Candle        : open=87228.39  close=87246.24  EMA9=87120.69  EMA26=87082.49
+  Entry         : $87246.24
+  Stop Loss     : $86810.01  (-0.5%)
+  Take Profit   : $88554.93  (+1.5%)
+
+  Signal #403  [LOSS]  SHORT   Entry: 2025-12-24 15:00 UTC  [same candle]
+  Crossover     : 2025-12-24 15:00 UTC
+  Candle        : open=86994.70  close=86904.93  EMA9=87125.22  EMA26=87158.01
+  Entry         : $86904.93
+  Stop Loss     : $87339.45  (+0.5%)
+  Take Profit   : $85601.36  (-1.5%)
+
+  Signal #404  [LOSS]  LONG    Entry: 2025-12-24 16:30 UTC  [same candle]
+  Crossover     : 2025-12-24 16:30 UTC
+  Candle        : open=86970.00  close=87510.98  EMA9=87146.48  EMA26=87142.04
+  Entry         : $87510.98
+  Stop Loss     : $87073.43  (-0.5%)
+  Take Profit   : $88823.64  (+1.5%)
+
+  Signal #405  [LOSS]  SHORT   Entry: 2025-12-25 08:15 UTC  [same candle]
+  Crossover     : 2025-12-25 08:15 UTC
+  Candle        : open=87793.32  close=87446.54  EMA9=87722.20  EMA26=87739.55
+  Entry         : $87446.54
+  Stop Loss     : $87883.77  (+0.5%)
+  Take Profit   : $86134.84  (-1.5%)
+
+  Signal #406  [LOSS]  LONG    Entry: 2025-12-25 14:00 UTC  [same candle]
+  Crossover     : 2025-12-25 14:00 UTC
+  Candle        : open=87638.25  close=87706.13  EMA9=87589.94  EMA26=87575.89
+  Entry         : $87706.13
+  Stop Loss     : $87267.60  (-0.5%)
+  Take Profit   : $89021.72  (+1.5%)
+
+  Signal #407  [LOSS]  LONG    Entry: 2025-12-26 02:15 UTC  [same candle]
+  Crossover     : 2025-12-26 02:15 UTC
+  Candle        : open=88195.67  close=89020.13  EMA9=87807.82  EMA26=87690.35
+  Entry         : $89020.13
+  Stop Loss     : $88575.03  (-0.5%)
+  Take Profit   : $90355.43  (+1.5%)
+
+  Signal #408  [LOSS]  SHORT   Entry: 2025-12-26 11:15 UTC  [same candle]
+  Crossover     : 2025-12-26 11:15 UTC
+  Candle        : open=88674.61  close=88603.55  EMA9=88730.02  EMA26=88738.45
+  Entry         : $88603.55
+  Stop Loss     : $89046.57  (+0.5%)
+  Take Profit   : $87274.50  (-1.5%)
+
+  Signal #409  [LOSS]  LONG    Entry: 2025-12-26 13:30 UTC  [next candle]
+  Crossover     : 2025-12-26 13:15 UTC
+  Candle        : open=88770.66  close=88918.10  EMA9=88766.16  EMA26=88737.86
+  Entry         : $88918.10
+  Stop Loss     : $88473.51  (-0.5%)
+  Take Profit   : $90251.87  (+1.5%)
+
+  Signal #410  [LOSS]  SHORT   Entry: 2025-12-26 14:45 UTC  [same candle]
+  Crossover     : 2025-12-26 14:45 UTC
+  Candle        : open=88405.93  close=87380.43  EMA9=88494.77  EMA26=88655.61
+  Entry         : $87380.43
+  Stop Loss     : $87817.33  (+0.5%)
+  Take Profit   : $86069.72  (-1.5%)
+
+  Signal #411  [LOSS]  SHORT   Entry: 2025-12-27 11:15 UTC  [same candle]
+  Crossover     : 2025-12-27 11:15 UTC
+  Candle        : open=87532.89  close=87492.66  EMA9=87528.44  EMA26=87530.77
+  Entry         : $87492.66
+  Stop Loss     : $87930.12  (+0.5%)
+  Take Profit   : $86180.27  (-1.5%)
+
+  Signal #412  [WIN ]  LONG    Entry: 2025-12-27 15:30 UTC  [next candle]
+  Crossover     : 2025-12-27 15:15 UTC
+  Candle        : open=87535.20  close=87588.00  EMA9=87519.64  EMA26=87505.08
+  Entry         : $87588.00
+  Stop Loss     : $87150.06  (-0.5%)
+  Take Profit   : $88901.82  (+1.5%)
+
+  Signal #413  [LOSS]  SHORT   Entry: 2025-12-28 05:15 UTC  [same candle]
+  Crossover     : 2025-12-28 05:15 UTC
+  Candle        : open=87695.05  close=87625.52  EMA9=87728.70  EMA26=87737.86
+  Entry         : $87625.52
+  Stop Loss     : $88063.65  (+0.5%)
+  Take Profit   : $86311.14  (-1.5%)
+
+  Signal #414  [WIN ]  LONG    Entry: 2025-12-28 08:00 UTC  [same candle]
+  Crossover     : 2025-12-28 08:00 UTC
+  Candle        : open=87730.86  close=87796.91  EMA9=87730.26  EMA26=87728.84
+  Entry         : $87796.91
+  Stop Loss     : $87357.93  (-0.5%)
+  Take Profit   : $89113.86  (+1.5%)
+
+  Signal #415  [WIN ]  LONG    Entry: 2025-12-28 23:30 UTC  [same candle]
+  Crossover     : 2025-12-28 23:30 UTC
+  Candle        : open=87711.33  close=87821.23  EMA9=87702.12  EMA26=87684.17
+  Entry         : $87821.23
+  Stop Loss     : $87382.12  (-0.5%)
+  Take Profit   : $89138.55  (+1.5%)
+
+  Signal #416  [WIN ]  SHORT   Entry: 2025-12-29 09:30 UTC  [same candle]
+  Crossover     : 2025-12-29 09:30 UTC
+  Candle        : open=89326.00  close=88232.85  EMA9=89318.74  EMA26=89437.20
+  Entry         : $88232.85
+  Stop Loss     : $88674.01  (+0.5%)
+  Take Profit   : $86909.36  (-1.5%)
+
+  Signal #417  [WIN ]  LONG    Entry: 2025-12-30 04:15 UTC  [same candle]
+  Crossover     : 2025-12-30 04:15 UTC
+  Candle        : open=87322.42  close=87459.98  EMA9=87292.81  EMA26=87289.76
+  Entry         : $87459.98
+  Stop Loss     : $87022.68  (-0.5%)
+  Take Profit   : $88771.88  (+1.5%)
+
+  Signal #418  [WIN ]  LONG    Entry: 2025-12-30 06:00 UTC  [same candle]
+  Crossover     : 2025-12-30 06:00 UTC
+  Candle        : open=87255.98  close=87340.75  EMA9=87302.52  EMA26=87299.30
+  Entry         : $87340.75
+  Stop Loss     : $86904.05  (-0.5%)
+  Take Profit   : $88650.86  (+1.5%)
+
+  Signal #419  [LOSS]  SHORT   Entry: 2025-12-30 19:00 UTC  [same candle]
+  Crossover     : 2025-12-30 19:00 UTC
+  Candle        : open=88304.01  close=88067.86  EMA9=88374.34  EMA26=88374.61
+  Entry         : $88067.86
+  Stop Loss     : $88508.20  (+0.5%)
+  Take Profit   : $86746.84  (-1.5%)
+
+  Signal #420  [LOSS]  SHORT   Entry: 2025-12-31 04:45 UTC  [same candle]
+  Crossover     : 2025-12-31 04:45 UTC
+  Candle        : open=88391.16  close=88325.06  EMA9=88458.01  EMA26=88468.78
+  Entry         : $88325.06
+  Stop Loss     : $88766.69  (+0.5%)
+  Take Profit   : $87000.18  (-1.5%)
+
+  Signal #421  [LOSS]  LONG    Entry: 2025-12-31 06:00 UTC  [same candle]
+  Crossover     : 2025-12-31 06:00 UTC
+  Candle        : open=88463.10  close=88531.05  EMA9=88479.06  EMA26=88473.35
+  Entry         : $88531.05
+  Stop Loss     : $88088.39  (-0.5%)
+  Take Profit   : $89859.02  (+1.5%)
+
+  Signal #422  [LOSS]  SHORT   Entry: 2025-12-31 15:00 UTC  [same candle]
+  Crossover     : 2025-12-31 15:00 UTC
+  Candle        : open=88479.99  close=88199.40  EMA9=88674.56  EMA26=88735.65
+  Entry         : $88199.40
+  Stop Loss     : $88640.40  (+0.5%)
+  Take Profit   : $86876.41  (-1.5%)
+
+  Signal #423  [LOSS]  LONG    Entry: 2026-01-01 01:00 UTC  [same candle]
+  Crossover     : 2026-01-01 01:00 UTC
+  Candle        : open=87809.24  close=88000.00  EMA9=87796.36  EMA26=87795.34
+  Entry         : $88000.00
+  Stop Loss     : $87560.00  (-0.5%)
+  Take Profit   : $89320.00  (+1.5%)
+
+  Signal #424  [LOSS]  SHORT   Entry: 2026-01-01 04:15 UTC  [same candle]
+  Crossover     : 2026-01-01 04:15 UTC
+  Candle        : open=87650.01  close=87632.26  EMA9=87813.77  EMA26=87838.76
+  Entry         : $87632.26
+  Stop Loss     : $88070.42  (+0.5%)
+  Take Profit   : $86317.78  (-1.5%)
+
+  Signal #425  [WIN ]  LONG    Entry: 2026-01-01 09:00 UTC  [same candle]
+  Crossover     : 2026-01-01 09:00 UTC
+  Candle        : open=87770.89  close=87849.26  EMA9=87733.20  EMA26=87729.97
+  Entry         : $87849.26
+  Stop Loss     : $87410.01  (-0.5%)
+  Take Profit   : $89167.00  (+1.5%)
+
+  Signal #426  [LOSS]  SHORT   Entry: 2026-01-02 14:15 UTC  [same candle]
+  Crossover     : 2026-01-02 14:15 UTC
+  Candle        : open=89133.35  close=88900.01  EMA9=89291.32  EMA26=89298.44
+  Entry         : $88900.01
+  Stop Loss     : $89344.51  (+0.5%)
+  Take Profit   : $87566.51  (-1.5%)
+
+  Signal #427  [LOSS]  LONG    Entry: 2026-01-02 14:30 UTC  [same candle]
+  Crossover     : 2026-01-02 14:30 UTC
+  Candle        : open=88900.00  close=89387.65  EMA9=89310.59  EMA26=89305.05
+  Entry         : $89387.65
+  Stop Loss     : $88940.71  (-0.5%)
+  Take Profit   : $90728.46  (+1.5%)
+
+  Signal #428  [LOSS]  SHORT   Entry: 2026-01-02 15:15 UTC  [same candle]
+  Crossover     : 2026-01-02 15:15 UTC
+  Candle        : open=89170.14  close=89128.64  EMA9=89286.21  EMA26=89300.19
+  Entry         : $89128.64
+  Stop Loss     : $89574.28  (+0.5%)
+  Take Profit   : $87791.71  (-1.5%)
+
+  Signal #429  [LOSS]  LONG    Entry: 2026-01-02 15:30 UTC  [same candle]
+  Crossover     : 2026-01-02 15:30 UTC
+  Candle        : open=89128.63  close=89757.89  EMA9=89380.55  EMA26=89334.10
+  Entry         : $89757.89
+  Stop Loss     : $89309.10  (-0.5%)
+  Take Profit   : $91104.26  (+1.5%)
+
+  Signal #430  [LOSS]  SHORT   Entry: 2026-01-03 05:15 UTC  [same candle]
+  Crossover     : 2026-01-03 05:15 UTC
+  Candle        : open=90053.54  close=90015.74  EMA9=90143.96  EMA26=90145.08
+  Entry         : $90015.74
+  Stop Loss     : $90465.82  (+0.5%)
+  Take Profit   : $88665.50  (-1.5%)
+
+  Signal #431  [WIN ]  LONG    Entry: 2026-01-03 13:15 UTC  [next candle]
+  Crossover     : 2026-01-03 13:00 UTC
+  Candle        : open=89922.26  close=89967.14  EMA9=89862.52  EMA26=89835.33
+  Entry         : $89967.14
+  Stop Loss     : $89517.30  (-0.5%)
+  Take Profit   : $91316.65  (+1.5%)
+
+  Signal #432  [LOSS]  SHORT   Entry: 2026-01-04 12:30 UTC  [same candle]
+  Crossover     : 2026-01-04 12:30 UTC
+  Candle        : open=91341.12  close=91096.28  EMA9=91315.56  EMA26=91347.14
+  Entry         : $91096.28
+  Stop Loss     : $91551.76  (+0.5%)
+  Take Profit   : $89729.84  (-1.5%)
+
+  Signal #433  [LOSS]  LONG    Entry: 2026-01-04 17:00 UTC  [same candle]
+  Crossover     : 2026-01-04 17:00 UTC
+  Candle        : open=91321.00  close=91349.89  EMA9=91307.78  EMA26=91301.82
+  Entry         : $91349.89
+  Stop Loss     : $90893.14  (-0.5%)
+  Take Profit   : $92720.14  (+1.5%)
+
+  Signal #434  [LOSS]  SHORT   Entry: 2026-01-04 18:15 UTC  [same candle]
+  Crossover     : 2026-01-04 18:15 UTC
+  Candle        : open=91236.53  close=91179.65  EMA9=91286.77  EMA26=91298.67
+  Entry         : $91179.65
+  Stop Loss     : $91635.55  (+0.5%)
+  Take Profit   : $89811.96  (-1.5%)
+
+  Signal #435  [WIN ]  LONG    Entry: 2026-01-04 21:00 UTC  [same candle]
+  Crossover     : 2026-01-04 21:00 UTC
+  Candle        : open=91313.93  close=91360.01  EMA9=91270.13  EMA26=91260.93
+  Entry         : $91360.01
+  Stop Loss     : $90903.21  (-0.5%)
+  Take Profit   : $92730.41  (+1.5%)
+
+  Signal #436  [LOSS]  SHORT   Entry: 2026-01-04 22:00 UTC  [same candle]
+  Crossover     : 2026-01-04 22:00 UTC
+  Candle        : open=91279.99  close=91191.59  EMA9=91252.85  EMA26=91257.00
+  Entry         : $91191.59
+  Stop Loss     : $91647.55  (+0.5%)
+  Take Profit   : $89823.72  (-1.5%)
+
+  Signal #437  [WIN ]  LONG    Entry: 2026-01-04 22:15 UTC  [same candle]
+  Crossover     : 2026-01-04 22:15 UTC
+  Candle        : open=91191.59  close=91285.37  EMA9=91259.35  EMA26=91259.10
+  Entry         : $91285.37
+  Stop Loss     : $90828.94  (-0.5%)
+  Take Profit   : $92654.65  (+1.5%)
+
+  Signal #438  [LOSS]  SHORT   Entry: 2026-01-04 22:30 UTC  [same candle]
+  Crossover     : 2026-01-04 22:30 UTC
+  Candle        : open=91285.37  close=91203.74  EMA9=91248.23  EMA26=91255.00
+  Entry         : $91203.74
+  Stop Loss     : $91659.76  (+0.5%)
+  Take Profit   : $89835.68  (-1.5%)
+
+  Signal #439  [WIN ]  LONG    Entry: 2026-01-04 23:00 UTC  [same candle]
+  Crossover     : 2026-01-04 23:00 UTC
+  Candle        : open=91220.00  close=91333.33  EMA9=91260.73  EMA26=91258.40
+  Entry         : $91333.33
+  Stop Loss     : $90876.66  (-0.5%)
+  Take Profit   : $92703.33  (+1.5%)
+
+  Signal #440  [LOSS]  SHORT   Entry: 2026-01-06 00:00 UTC  [same candle]
+  Crossover     : 2026-01-06 00:00 UTC
+  Candle        : open=93859.71  close=93725.93  EMA9=93975.66  EMA26=93991.97
+  Entry         : $93725.93
+  Stop Loss     : $94194.56  (+0.5%)
+  Take Profit   : $92320.04  (-1.5%)
+
+  Signal #441  [LOSS]  LONG    Entry: 2026-01-06 11:15 UTC  [same candle]
+  Crossover     : 2026-01-06 11:15 UTC
+  Candle        : open=93787.56  close=93833.57  EMA9=93623.41  EMA26=93590.59
+  Entry         : $93833.57
+  Stop Loss     : $93364.40  (-0.5%)
+  Take Profit   : $95241.07  (+1.5%)
+
+  Signal #442  [WIN ]  SHORT   Entry: 2026-01-06 16:00 UTC  [same candle]
+  Crossover     : 2026-01-06 16:00 UTC
+  Candle        : open=93649.00  close=93481.30  EMA9=93747.18  EMA26=93763.91
+  Entry         : $93481.30
+  Stop Loss     : $93948.71  (+0.5%)
+  Take Profit   : $92079.08  (-1.5%)
+
+  Signal #443  [LOSS]  LONG    Entry: 2026-01-06 21:30 UTC  [same candle]
+  Crossover     : 2026-01-06 21:30 UTC
+  Candle        : open=93520.42  close=93620.97  EMA9=92879.32  EMA26=92786.16
+  Entry         : $93620.97
+  Stop Loss     : $93152.87  (-0.5%)
+  Take Profit   : $95025.28  (+1.5%)
+
+  Signal #444  [LOSS]  SHORT   Entry: 2026-01-07 01:15 UTC  [same candle]
+  Crossover     : 2026-01-07 01:15 UTC
+  Candle        : open=92794.77  close=92543.27  EMA9=93026.50  EMA26=93050.78
+  Entry         : $92543.27
+  Stop Loss     : $93005.99  (+0.5%)
+  Take Profit   : $91155.12  (-1.5%)
+
+  Signal #445  [LOSS]  LONG    Entry: 2026-01-07 08:00 UTC  [same candle]
+  Crossover     : 2026-01-07 08:00 UTC
+  Candle        : open=92879.14  close=92933.42  EMA9=92808.80  EMA26=92808.32
+  Entry         : $92933.42
+  Stop Loss     : $92468.75  (-0.5%)
+  Take Profit   : $94327.42  (+1.5%)
+
+  Signal #446  [WIN ]  SHORT   Entry: 2026-01-07 08:45 UTC  [same candle]
+  Crossover     : 2026-01-07 08:45 UTC
+  Candle        : open=92768.61  close=92718.90  EMA9=92790.95  EMA26=92802.25
+  Entry         : $92718.90
+  Stop Loss     : $93182.49  (+0.5%)
+  Take Profit   : $91328.12  (-1.5%)
+
+  Signal #447  [LOSS]  LONG    Entry: 2026-01-08 00:45 UTC  [same candle]
+  Crossover     : 2026-01-08 00:45 UTC
+  Candle        : open=91231.90  close=91394.71  EMA9=91238.79  EMA26=91233.23
+  Entry         : $91394.71
+  Stop Loss     : $90937.74  (-0.5%)
+  Take Profit   : $92765.63  (+1.5%)
+
+  Signal #448  [WIN ]  SHORT   Entry: 2026-01-08 02:30 UTC  [same candle]
+  Crossover     : 2026-01-08 02:30 UTC
+  Candle        : open=91222.24  close=90893.62  EMA9=91248.85  EMA26=91261.55
+  Entry         : $90893.62
+  Stop Loss     : $91348.09  (+0.5%)
+  Take Profit   : $89530.22  (-1.5%)
+
+  Signal #449  [LOSS]  LONG    Entry: 2026-01-08 15:45 UTC  [next candle]
+  Crossover     : 2026-01-08 15:30 UTC
+  Candle        : open=90460.74  close=90781.57  EMA9=90283.10  EMA26=90198.68
+  Entry         : $90781.57
+  Stop Loss     : $90327.66  (-0.5%)
+  Take Profit   : $92143.29  (+1.5%)
+
+  Signal #450  [LOSS]  SHORT   Entry: 2026-01-09 04:30 UTC  [same candle]
+  Crossover     : 2026-01-09 04:30 UTC
+  Candle        : open=91127.16  close=91020.48  EMA9=91120.31  EMA26=91130.01
+  Entry         : $91020.48
+  Stop Loss     : $91475.58  (+0.5%)
+  Take Profit   : $89655.17  (-1.5%)
+
+  Signal #451  [LOSS]  LONG    Entry: 2026-01-09 15:15 UTC  [same candle]
+  Crossover     : 2026-01-09 15:15 UTC
+  Candle        : open=90259.03  close=91680.59  EMA9=90617.62  EMA26=90571.62
+  Entry         : $91680.59
+  Stop Loss     : $91222.19  (-0.5%)
+  Take Profit   : $93055.80  (+1.5%)
+
+  Signal #452  [LOSS]  SHORT   Entry: 2026-01-09 19:00 UTC  [same candle]
+  Crossover     : 2026-01-09 19:00 UTC
+  Candle        : open=90820.30  close=90552.00  EMA9=90928.36  EMA26=90932.93
+  Entry         : $90552.00
+  Stop Loss     : $91004.76  (+0.5%)
+  Take Profit   : $89193.72  (-1.5%)
+
+  Signal #453  [LOSS]  LONG    Entry: 2026-01-10 01:30 UTC  [same candle]
+  Crossover     : 2026-01-10 01:30 UTC
+  Candle        : open=90666.43  close=90724.55  EMA9=90646.48  EMA26=90635.99
+  Entry         : $90724.55
+  Stop Loss     : $90270.93  (-0.5%)
+  Take Profit   : $92085.42  (+1.5%)
+
+  Signal #454  [LOSS]  SHORT   Entry: 2026-01-10 03:30 UTC  [same candle]
+  Crossover     : 2026-01-10 03:30 UTC
+  Candle        : open=90631.56  close=90594.00  EMA9=90642.05  EMA26=90645.24
+  Entry         : $90594.00
+  Stop Loss     : $91046.97  (+0.5%)
+  Take Profit   : $89235.09  (-1.5%)
+
+  Signal #455  [WIN ]  LONG    Entry: 2026-01-10 07:45 UTC  [same candle]
+  Crossover     : 2026-01-10 07:45 UTC
+  Candle        : open=90612.25  close=90678.50  EMA9=90598.29  EMA26=90594.70
+  Entry         : $90678.50
+  Stop Loss     : $90225.11  (-0.5%)
+  Take Profit   : $92038.68  (+1.5%)
+
+  Signal #456  [LOSS]  SHORT   Entry: 2026-01-10 14:00 UTC  [same candle]
+  Crossover     : 2026-01-10 14:00 UTC
+  Candle        : open=90656.52  close=90609.31  EMA9=90692.62  EMA26=90697.97
+  Entry         : $90609.31
+  Stop Loss     : $91062.36  (+0.5%)
+  Take Profit   : $89250.17  (-1.5%)
+
+  Signal #457  [LOSS]  LONG    Entry: 2026-01-10 17:00 UTC  [same candle]
+  Crossover     : 2026-01-10 17:00 UTC
+  Candle        : open=90676.66  close=90720.93  EMA9=90674.47  EMA26=90672.32
+  Entry         : $90720.93
+  Stop Loss     : $90267.33  (-0.5%)
+  Take Profit   : $92081.74  (+1.5%)
+
+  Signal #458  [LOSS]  SHORT   Entry: 2026-01-10 17:45 UTC  [same candle]
+  Crossover     : 2026-01-10 17:45 UTC
+  Candle        : open=90663.80  close=90544.96  EMA9=90656.02  EMA26=90666.98
+  Entry         : $90544.96
+  Stop Loss     : $90997.68  (+0.5%)
+  Take Profit   : $89186.79  (-1.5%)
+
+  Signal #459  [LOSS]  SHORT   Entry: 2026-01-11 19:30 UTC  [same candle]
+  Crossover     : 2026-01-11 19:30 UTC
+  Candle        : open=90894.99  close=90781.02  EMA9=90896.62  EMA26=90912.41
+  Entry         : $90781.02
+  Stop Loss     : $91234.93  (+0.5%)
+  Take Profit   : $89419.30  (-1.5%)
+
+  Signal #460  [WIN ]  LONG    Entry: 2026-01-11 23:45 UTC  [same candle]
+  Crossover     : 2026-01-11 23:45 UTC
+  Candle        : open=90920.37  close=91013.65  EMA9=90787.14  EMA26=90772.96
+  Entry         : $91013.65
+  Stop Loss     : $90558.58  (-0.5%)
+  Take Profit   : $92378.85  (+1.5%)
+
+  Signal #461  [LOSS]  SHORT   Entry: 2026-01-12 07:45 UTC  [same candle]
+  Crossover     : 2026-01-12 07:45 UTC
+  Candle        : open=91572.98  close=91408.09  EMA9=91785.62  EMA26=91787.19
+  Entry         : $91408.09
+  Stop Loss     : $91865.13  (+0.5%)
+  Take Profit   : $90036.97  (-1.5%)
+
+  Signal #462  [LOSS]  LONG    Entry: 2026-01-12 15:30 UTC  [same candle]
+  Crossover     : 2026-01-12 15:30 UTC
+  Candle        : open=91319.99  close=91529.71  EMA9=90989.41  EMA26=90910.48
+  Entry         : $91529.71
+  Stop Loss     : $91072.06  (-0.5%)
+  Take Profit   : $92902.66  (+1.5%)
+
+  Signal #463  [LOSS]  SHORT   Entry: 2026-01-12 21:30 UTC  [same candle]
+  Crossover     : 2026-01-12 21:30 UTC
+  Candle        : open=91338.01  close=91291.19  EMA9=91512.87  EMA26=91525.31
+  Entry         : $91291.19
+  Stop Loss     : $91747.65  (+0.5%)
+  Take Profit   : $89921.82  (-1.5%)
+
+  Signal #464  [WIN ]  LONG    Entry: 2026-01-13 04:00 UTC  [same candle]
+  Crossover     : 2026-01-13 04:00 UTC
+  Candle        : open=91408.90  close=91460.09  EMA9=91335.74  EMA26=91334.45
+  Entry         : $91460.09
+  Stop Loss     : $91002.79  (-0.5%)
+  Take Profit   : $92831.99  (+1.5%)
+
+  Signal #465  [LOSS]  SHORT   Entry: 2026-01-14 06:00 UTC  [same candle]
+  Crossover     : 2026-01-14 06:00 UTC
+  Candle        : open=95005.01  close=94863.17  EMA9=95130.37  EMA26=95162.02
+  Entry         : $94863.17
+  Stop Loss     : $95337.49  (+0.5%)
+  Take Profit   : $93440.22  (-1.5%)
+
+  Signal #466  [WIN ]  LONG    Entry: 2026-01-14 13:15 UTC  [same candle]
+  Crossover     : 2026-01-14 13:15 UTC
+  Candle        : open=94963.76  close=95190.70  EMA9=95048.11  EMA26=95047.58
+  Entry         : $95190.70
+  Stop Loss     : $94714.75  (-0.5%)
+  Take Profit   : $96618.56  (+1.5%)
+
+  Signal #467  [LOSS]  SHORT   Entry: 2026-01-14 13:45 UTC  [same candle]
+  Crossover     : 2026-01-14 13:45 UTC
+  Candle        : open=95073.05  close=94998.19  EMA9=95042.11  EMA26=95045.67
+  Entry         : $94998.19
+  Stop Loss     : $95473.18  (+0.5%)
+  Take Profit   : $93573.22  (-1.5%)
+
+  Signal #468  [WIN ]  LONG    Entry: 2026-01-14 14:00 UTC  [same candle]
+  Crossover     : 2026-01-14 14:00 UTC
+  Candle        : open=94998.20  close=95476.56  EMA9=95129.00  EMA26=95077.59
+  Entry         : $95476.56
+  Stop Loss     : $94999.18  (-0.5%)
+  Take Profit   : $96908.71  (+1.5%)
+
+  Signal #469  [WIN ]  SHORT   Entry: 2026-01-15 00:15 UTC  [same candle]
+  Crossover     : 2026-01-15 00:15 UTC
+  Candle        : open=96980.77  close=96724.74  EMA9=97021.78  EMA26=97056.03
+  Entry         : $96724.74
+  Stop Loss     : $97208.36  (+0.5%)
+  Take Profit   : $95273.87  (-1.5%)
+
+  Signal #470  [LOSS]  LONG    Entry: 2026-01-15 07:45 UTC  [same candle]
+  Crossover     : 2026-01-15 07:45 UTC
+  Candle        : open=96595.27  close=96630.48  EMA9=96434.03  EMA26=96430.62
+  Entry         : $96630.48
+  Stop Loss     : $96147.33  (-0.5%)
+  Take Profit   : $98079.94  (+1.5%)
+
+  Signal #471  [LOSS]  SHORT   Entry: 2026-01-15 08:15 UTC  [same candle]
+  Crossover     : 2026-01-15 08:15 UTC
+  Candle        : open=96474.42  close=96370.14  EMA9=96427.71  EMA26=96429.14
+  Entry         : $96370.14
+  Stop Loss     : $96851.99  (+0.5%)
+  Take Profit   : $94924.59  (-1.5%)
+
+  Signal #472  [LOSS]  LONG    Entry: 2026-01-15 08:45 UTC  [same candle]
+  Crossover     : 2026-01-15 08:45 UTC
+  Candle        : open=96433.65  close=96643.00  EMA9=96471.72  EMA26=96445.29
+  Entry         : $96643.00
+  Stop Loss     : $96159.79  (-0.5%)
+  Take Profit   : $98092.64  (+1.5%)
+
+  Signal #473  [LOSS]  SHORT   Entry: 2026-01-15 14:30 UTC  [same candle]
+  Crossover     : 2026-01-15 14:30 UTC
+  Candle        : open=96788.28  close=95825.51  EMA9=96654.27  EMA26=96690.92
+  Entry         : $95825.51
+  Stop Loss     : $96304.64  (+0.5%)
+  Take Profit   : $94388.13  (-1.5%)
+
+  Signal #474  [LOSS]  LONG    Entry: 2026-01-15 17:15 UTC  [same candle]
+  Crossover     : 2026-01-15 17:15 UTC
+  Candle        : open=96502.60  close=96742.61  EMA9=96559.14  EMA26=96558.53
+  Entry         : $96742.61
+  Stop Loss     : $96258.90  (-0.5%)
+  Take Profit   : $98193.75  (+1.5%)
+
+  Signal #475  [WIN ]  SHORT   Entry: 2026-01-15 18:00 UTC  [same candle]
+  Crossover     : 2026-01-15 18:00 UTC
+  Candle        : open=96636.35  close=96258.36  EMA9=96561.80  EMA26=96566.71
+  Entry         : $96258.36
+  Stop Loss     : $96739.65  (+0.5%)
+  Take Profit   : $94814.48  (-1.5%)
+
+  Signal #476  [LOSS]  LONG    Entry: 2026-01-16 06:30 UTC  [same candle]
+  Crossover     : 2026-01-16 06:30 UTC
+  Candle        : open=95657.66  close=95704.75  EMA9=95563.07  EMA26=95549.24
+  Entry         : $95704.75
+  Stop Loss     : $95226.23  (-0.5%)
+  Take Profit   : $97140.32  (+1.5%)
+
+  Signal #477  [WIN ]  SHORT   Entry: 2026-01-16 10:15 UTC  [same candle]
+  Crossover     : 2026-01-16 10:15 UTC
+  Candle        : open=95564.72  close=95431.06  EMA9=95606.53  EMA26=95612.92
+  Entry         : $95431.06
+  Stop Loss     : $95908.22  (+0.5%)
+  Take Profit   : $93999.59  (-1.5%)
+
+  Signal #478  [LOSS]  LONG    Entry: 2026-01-16 14:15 UTC  [same candle]
+  Crossover     : 2026-01-16 14:15 UTC
+  Candle        : open=95459.44  close=95714.10  EMA9=95517.63  EMA26=95516.14
+  Entry         : $95714.10
+  Stop Loss     : $95235.53  (-0.5%)
+  Take Profit   : $97149.81  (+1.5%)
+
+  Signal #479  [WIN ]  SHORT   Entry: 2026-01-16 14:30 UTC  [same candle]
+  Crossover     : 2026-01-16 14:30 UTC
+  Candle        : open=95714.10  close=95232.60  EMA9=95460.63  EMA26=95495.14
+  Entry         : $95232.60
+  Stop Loss     : $95708.76  (+0.5%)
+  Take Profit   : $93804.11  (-1.5%)
+
+  Signal #480  [LOSS]  LONG    Entry: 2026-01-16 20:45 UTC  [same candle]
+  Crossover     : 2026-01-16 20:45 UTC
+  Candle        : open=95250.01  close=95553.60  EMA9=95146.45  EMA26=95106.36
+  Entry         : $95553.60
+  Stop Loss     : $95075.83  (-0.5%)
+  Take Profit   : $96986.90  (+1.5%)
+
+  Signal #481  [WIN ]  SHORT   Entry: 2026-01-17 03:00 UTC  [same candle]
+  Crossover     : 2026-01-17 03:00 UTC
+  Candle        : open=95371.36  close=95311.64  EMA9=95361.70  EMA26=95365.67
+  Entry         : $95311.64
+  Stop Loss     : $95788.20  (+0.5%)
+  Take Profit   : $93881.97  (-1.5%)
+
+  Signal #482  [LOSS]  LONG    Entry: 2026-01-17 11:45 UTC  [same candle]
+  Crossover     : 2026-01-17 11:45 UTC
+  Candle        : open=95319.04  close=95323.86  EMA9=95248.76  EMA26=95244.15
+  Entry         : $95323.86
+  Stop Loss     : $94847.24  (-0.5%)
+  Take Profit   : $96753.72  (+1.5%)
+
+  Signal #483  [WIN ]  SHORT   Entry: 2026-01-17 19:30 UTC  [same candle]
+  Crossover     : 2026-01-17 19:30 UTC
+  Candle        : open=95336.64  close=95299.70  EMA9=95383.05  EMA26=95393.05
+  Entry         : $95299.70
+  Stop Loss     : $95776.20  (+0.5%)
+  Take Profit   : $93870.20  (-1.5%)
+
+  Signal #484  [LOSS]  LONG    Entry: 2026-01-18 05:45 UTC  [same candle]
+  Crossover     : 2026-01-18 05:45 UTC
+  Candle        : open=95178.36  close=95188.55  EMA9=95138.33  EMA26=95134.60
+  Entry         : $95188.55
+  Stop Loss     : $94712.61  (-0.5%)
+  Take Profit   : $96616.38  (+1.5%)
+
+  Signal #485  [LOSS]  SHORT   Entry: 2026-01-18 07:30 UTC  [next candle]
+  Crossover     : 2026-01-18 07:15 UTC
+  Candle        : open=95102.00  close=95035.08  EMA9=95117.11  EMA26=95131.25
+  Entry         : $95035.08
+  Stop Loss     : $95510.26  (+0.5%)
+  Take Profit   : $93609.55  (-1.5%)
+
+  Signal #486  [LOSS]  LONG    Entry: 2026-01-18 09:00 UTC  [same candle]
+  Crossover     : 2026-01-18 09:00 UTC
+  Candle        : open=95183.93  close=95185.00  EMA9=95134.93  EMA26=95129.83
+  Entry         : $95185.00
+  Stop Loss     : $94709.07  (-0.5%)
+  Take Profit   : $96612.77  (+1.5%)
+
+  Signal #487  [WIN ]  SHORT   Entry: 2026-01-18 12:00 UTC  [same candle]
+  Crossover     : 2026-01-18 12:00 UTC
+  Candle        : open=95168.06  close=95117.99  EMA9=95145.03  EMA26=95146.35
+  Entry         : $95117.99
+  Stop Loss     : $95593.58  (+0.5%)
+  Take Profit   : $93691.22  (-1.5%)
+
+  Signal #488  [LOSS]  LONG    Entry: 2026-01-18 12:30 UTC  [same candle]
+  Crossover     : 2026-01-18 12:30 UTC
+  Candle        : open=95141.01  close=95164.19  EMA9=95148.22  EMA26=95147.31
+  Entry         : $95164.19
+  Stop Loss     : $94688.37  (-0.5%)
+  Take Profit   : $96591.65  (+1.5%)
+
+  Signal #489  [WIN ]  SHORT   Entry: 2026-01-18 12:45 UTC  [same candle]
+  Crossover     : 2026-01-18 12:45 UTC
+  Candle        : open=95164.19  close=95113.25  EMA9=95141.22  EMA26=95144.78
+  Entry         : $95113.25
+  Stop Loss     : $95588.82  (+0.5%)
+  Take Profit   : $93686.55  (-1.5%)
+
+  Signal #490  [LOSS]  LONG    Entry: 2026-01-18 14:00 UTC  [same candle]
+  Crossover     : 2026-01-18 14:00 UTC
+  Candle        : open=95146.82  close=95237.49  EMA9=95139.68  EMA26=95137.79
+  Entry         : $95237.49
+  Stop Loss     : $94761.30  (-0.5%)
+  Take Profit   : $96666.05  (+1.5%)
+
+  Signal #491  [LOSS]  SHORT   Entry: 2026-01-18 14:45 UTC  [same candle]
+  Crossover     : 2026-01-18 14:45 UTC
+  Candle        : open=95134.38  close=94955.79  EMA9=95105.30  EMA26=95125.80
+  Entry         : $94955.79
+  Stop Loss     : $95430.57  (+0.5%)
+  Take Profit   : $93531.45  (-1.5%)
+
+  Signal #492  [WIN ]  SHORT   Entry: 2026-01-18 23:15 UTC  [same candle]
+  Crossover     : 2026-01-18 23:15 UTC
+  Candle        : open=95073.02  close=94607.18  EMA9=95215.17  EMA26=95279.93
+  Entry         : $94607.18
+  Stop Loss     : $95080.22  (+0.5%)
+  Take Profit   : $93188.07  (-1.5%)
+
+  Signal #493  [LOSS]  LONG    Entry: 2026-01-19 08:45 UTC  [same candle]
+  Crossover     : 2026-01-19 08:45 UTC
+  Candle        : open=93153.63  close=93259.09  EMA9=92913.04  EMA26=92899.72
+  Entry         : $93259.09
+  Stop Loss     : $92792.79  (-0.5%)
+  Take Profit   : $94657.98  (+1.5%)
+
+  Signal #494  [LOSS]  SHORT   Entry: 2026-01-19 14:15 UTC  [same candle]
+  Crossover     : 2026-01-19 14:15 UTC
+  Candle        : open=92882.61  close=92871.24  EMA9=92984.81  EMA26=93001.51
+  Entry         : $92871.24
+  Stop Loss     : $93335.60  (+0.5%)
+  Take Profit   : $91478.17  (-1.5%)
+
+  Signal #495  [LOSS]  LONG    Entry: 2026-01-19 16:15 UTC  [next candle]
+  Crossover     : 2026-01-19 16:00 UTC
+  Candle        : open=93046.44  close=93166.93  EMA9=93023.09  EMA26=92999.86
+  Entry         : $93166.93
+  Stop Loss     : $92701.10  (-0.5%)
+  Take Profit   : $94564.43  (+1.5%)
+
+  Signal #496  [WIN ]  SHORT   Entry: 2026-01-19 21:45 UTC  [same candle]
+  Crossover     : 2026-01-19 21:45 UTC
+  Candle        : open=93053.90  close=93003.42  EMA9=93083.29  EMA26=93095.69
+  Entry         : $93003.42
+  Stop Loss     : $93468.44  (+0.5%)
+  Take Profit   : $91608.37  (-1.5%)
+
+  Signal #497  [LOSS]  LONG    Entry: 2026-01-21 03:30 UTC  [same candle]
+  Crossover     : 2026-01-21 03:30 UTC
+  Candle        : open=89278.93  close=89554.48  EMA9=89201.24  EMA26=89174.88
+  Entry         : $89554.48
+  Stop Loss     : $89106.71  (-0.5%)
+  Take Profit   : $90897.80  (+1.5%)
+
+  Signal #498  [LOSS]  SHORT   Entry: 2026-01-21 08:00 UTC  [same candle]
+  Crossover     : 2026-01-21 08:00 UTC
+  Candle        : open=89213.96  close=89163.12  EMA9=89431.07  EMA26=89445.09
+  Entry         : $89163.12
+  Stop Loss     : $89608.94  (+0.5%)
+  Take Profit   : $87825.67  (-1.5%)
+
+  Signal #499  [LOSS]  LONG    Entry: 2026-01-21 14:30 UTC  [same candle]
+  Crossover     : 2026-01-21 14:30 UTC
+  Candle        : open=89594.54  close=89670.01  EMA9=89196.39  EMA26=89138.52
+  Entry         : $89670.01
+  Stop Loss     : $89221.66  (-0.5%)
+  Take Profit   : $91015.06  (+1.5%)
+
+  Signal #500  [LOSS]  SHORT   Entry: 2026-01-21 16:45 UTC  [same candle]
+  Crossover     : 2026-01-21 16:45 UTC
+  Candle        : open=88157.41  close=87602.40  EMA9=89077.85  EMA26=89252.64
+  Entry         : $87602.40
+  Stop Loss     : $88040.41  (+0.5%)
+  Take Profit   : $86288.36  (-1.5%)
+
+  Signal #501  [LOSS]  LONG    Entry: 2026-01-21 19:30 UTC  [same candle]
+  Crossover     : 2026-01-21 19:30 UTC
+  Candle        : open=89646.66  close=90039.21  EMA9=88845.32  EMA26=88821.07
+  Entry         : $90039.21
+  Stop Loss     : $89589.01  (-0.5%)
+  Take Profit   : $91389.80  (+1.5%)
+
+  Signal #502  [LOSS]  SHORT   Entry: 2026-01-22 08:00 UTC  [same candle]
+  Crossover     : 2026-01-22 08:00 UTC
+  Candle        : open=89818.79  close=89770.01  EMA9=89940.77  EMA26=89957.54
+  Entry         : $89770.01
+  Stop Loss     : $90218.86  (+0.5%)
+  Take Profit   : $88423.46  (-1.5%)
+
+  Signal #503  [LOSS]  LONG    Entry: 2026-01-22 09:30 UTC  [same candle]
+  Crossover     : 2026-01-22 09:30 UTC
+  Candle        : open=89993.24  close=90103.24  EMA9=89978.68  EMA26=89962.52
+  Entry         : $90103.24
+  Stop Loss     : $89652.72  (-0.5%)
+  Take Profit   : $91454.79  (+1.5%)
+
+  Signal #504  [LOSS]  SHORT   Entry: 2026-01-22 13:30 UTC  [same candle]
+  Crossover     : 2026-01-22 13:30 UTC
+  Candle        : open=90197.17  close=89622.76  EMA9=89967.73  EMA26=89983.90
+  Entry         : $89622.76
+  Stop Loss     : $90070.87  (+0.5%)
+  Take Profit   : $88278.42  (-1.5%)
+
+  Signal #505  [LOSS]  LONG    Entry: 2026-01-22 19:30 UTC  [same candle]
+  Crossover     : 2026-01-22 19:30 UTC
+  Candle        : open=89504.99  close=89845.71  EMA9=89503.02  EMA26=89466.39
+  Entry         : $89845.71
+  Stop Loss     : $89396.48  (-0.5%)
+  Take Profit   : $91193.40  (+1.5%)
+
+  Signal #506  [LOSS]  SHORT   Entry: 2026-01-22 21:45 UTC  [same candle]
+  Crossover     : 2026-01-22 21:45 UTC
+  Candle        : open=89392.00  close=89268.66  EMA9=89474.23  EMA26=89493.93
+  Entry         : $89268.66
+  Stop Loss     : $89715.00  (+0.5%)
+  Take Profit   : $87929.63  (-1.5%)
+
+  Signal #507  [LOSS]  LONG    Entry: 2026-01-23 00:15 UTC  [same candle]
+  Crossover     : 2026-01-23 00:15 UTC
+  Candle        : open=89537.00  close=89615.71  EMA9=89495.95  EMA26=89478.48
+  Entry         : $89615.71
+  Stop Loss     : $89167.63  (-0.5%)
+  Take Profit   : $90959.95  (+1.5%)
+
+  Signal #508  [LOSS]  SHORT   Entry: 2026-01-23 06:15 UTC  [same candle]
+  Crossover     : 2026-01-23 06:15 UTC
+  Candle        : open=89733.51  close=89473.16  EMA9=89710.24  EMA26=89729.46
+  Entry         : $89473.16
+  Stop Loss     : $89920.53  (+0.5%)
+  Take Profit   : $88131.06  (-1.5%)
+
+  Signal #509  [LOSS]  LONG    Entry: 2026-01-23 14:00 UTC  [same candle]
+  Crossover     : 2026-01-23 14:00 UTC
+  Candle        : open=89350.80  close=89459.29  EMA9=89321.00  EMA26=89317.38
+  Entry         : $89459.29
+  Stop Loss     : $89011.99  (-0.5%)
+  Take Profit   : $90801.18  (+1.5%)
+
+  Signal #510  [LOSS]  SHORT   Entry: 2026-01-23 14:30 UTC  [same candle]
+  Crossover     : 2026-01-23 14:30 UTC
+  Candle        : open=89685.92  close=88965.48  EMA9=89308.28  EMA26=89316.59
+  Entry         : $88965.48
+  Stop Loss     : $89410.31  (+0.5%)
+  Take Profit   : $87631.00  (-1.5%)
+
+  Signal #511  [LOSS]  LONG    Entry: 2026-01-24 03:00 UTC  [same candle]
+  Crossover     : 2026-01-24 03:00 UTC
+  Candle        : open=89702.85  close=89873.32  EMA9=89664.97  EMA26=89649.93
+  Entry         : $89873.32
+  Stop Loss     : $89423.95  (-0.5%)
+  Take Profit   : $91221.42  (+1.5%)
+
+  Signal #512  [WIN ]  SHORT   Entry: 2026-01-24 06:45 UTC  [same candle]
+  Crossover     : 2026-01-24 06:45 UTC
+  Candle        : open=89671.75  close=89649.32  EMA9=89716.72  EMA26=89719.32
+  Entry         : $89649.32
+  Stop Loss     : $90097.57  (+0.5%)
+  Take Profit   : $88304.58  (-1.5%)
+
+  Signal #513  [WIN ]  SHORT   Entry: 2026-01-25 15:45 UTC  [same candle]
+  Crossover     : 2026-01-25 15:45 UTC
+  Candle        : open=88682.80  close=88446.50  EMA9=88675.41  EMA26=88702.52
+  Entry         : $88446.50
+  Stop Loss     : $88888.73  (+0.5%)
+  Take Profit   : $87119.80  (-1.5%)
+
+  Signal #514  [LOSS]  LONG    Entry: 2026-01-26 01:15 UTC  [same candle]
+  Crossover     : 2026-01-26 01:15 UTC
+  Candle        : open=87269.31  close=87649.99  EMA9=86988.80  EMA26=86963.41
+  Entry         : $87649.99
+  Stop Loss     : $87211.74  (-0.5%)
+  Take Profit   : $88964.74  (+1.5%)
+
+  Signal #515  [LOSS]  SHORT   Entry: 2026-01-26 14:15 UTC  [same candle]
+  Crossover     : 2026-01-26 14:15 UTC
+  Candle        : open=87688.01  close=87675.71  EMA9=87819.74  EMA26=87827.71
+  Entry         : $87675.71
+  Stop Loss     : $88114.09  (+0.5%)
+  Take Profit   : $86360.57  (-1.5%)
+
+  Signal #516  [LOSS]  LONG    Entry: 2026-01-26 14:30 UTC  [same candle]
+  Crossover     : 2026-01-26 14:30 UTC
+  Candle        : open=87675.70  close=88144.09  EMA9=87884.61  EMA26=87851.15
+  Entry         : $88144.09
+  Stop Loss     : $87703.37  (-0.5%)
+  Take Profit   : $89466.25  (+1.5%)
+
+  Signal #517  [LOSS]  SHORT   Entry: 2026-01-26 16:00 UTC  [same candle]
+  Crossover     : 2026-01-26 16:00 UTC
+  Candle        : open=87641.41  close=87410.24  EMA9=87848.67  EMA26=87881.92
+  Entry         : $87410.24
+  Stop Loss     : $87847.29  (+0.5%)
+  Take Profit   : $86099.09  (-1.5%)
+
+  Signal #518  [LOSS]  LONG    Entry: 2026-01-26 18:45 UTC  [next candle]
+  Crossover     : 2026-01-26 18:30 UTC
+  Candle        : open=88009.43  close=88403.72  EMA9=87920.27  EMA26=87838.24
+  Entry         : $88403.72
+  Stop Loss     : $87961.70  (-0.5%)
+  Take Profit   : $89729.78  (+1.5%)
+
+  Signal #519  [LOSS]  LONG    Entry: 2026-01-26 21:15 UTC  [same candle]
+  Crossover     : 2026-01-26 21:15 UTC
+  Candle        : open=87842.68  close=87939.80  EMA9=87900.01  EMA26=87897.43
+  Entry         : $87939.80
+  Stop Loss     : $87500.10  (-0.5%)
+  Take Profit   : $89258.90  (+1.5%)
+
+  Signal #520  [LOSS]  SHORT   Entry: 2026-01-27 06:30 UTC  [same candle]
+  Crossover     : 2026-01-27 06:30 UTC
+  Candle        : open=88392.00  close=88285.71  EMA9=88473.63  EMA26=88490.73
+  Entry         : $88285.71
+  Stop Loss     : $88727.14  (+0.5%)
+  Take Profit   : $86961.42  (-1.5%)
+
+  Signal #521  [LOSS]  LONG    Entry: 2026-01-27 16:30 UTC  [next candle]
+  Crossover     : 2026-01-27 16:15 UTC
+  Candle        : open=88372.89  close=88739.13  EMA9=88208.08  EMA26=88097.13
+  Entry         : $88739.13
+  Stop Loss     : $88295.43  (-0.5%)
+  Take Profit   : $90070.22  (+1.5%)
+
+  Signal #522  [LOSS]  SHORT   Entry: 2026-01-27 17:30 UTC  [same candle]
+  Crossover     : 2026-01-27 17:30 UTC
+  Candle        : open=87894.32  close=87362.17  EMA9=88008.52  EMA26=88055.65
+  Entry         : $87362.17
+  Stop Loss     : $87798.98  (+0.5%)
+  Take Profit   : $86051.74  (-1.5%)
+
+  Signal #523  [WIN ]  LONG    Entry: 2026-01-27 19:15 UTC  [same candle]
+  Crossover     : 2026-01-27 19:15 UTC
+  Candle        : open=88218.85  close=88248.68  EMA9=88050.07  EMA26=88029.41
+  Entry         : $88248.68
+  Stop Loss     : $87807.44  (-0.5%)
+  Take Profit   : $89572.41  (+1.5%)
+
+  Signal #524  [LOSS]  LONG    Entry: 2026-01-28 06:45 UTC  [next candle]
+  Crossover     : 2026-01-28 06:30 UTC
+  Candle        : open=89182.20  close=89317.47  EMA9=89142.41  EMA26=89103.22
+  Entry         : $89317.47
+  Stop Loss     : $88870.88  (-0.5%)
+  Take Profit   : $90657.23  (+1.5%)
+
+  Signal #525  [LOSS]  SHORT   Entry: 2026-01-28 08:45 UTC  [same candle]
+  Crossover     : 2026-01-28 08:45 UTC
+  Candle        : open=89097.61  close=88925.47  EMA9=89094.22  EMA26=89109.68
+  Entry         : $88925.47
+  Stop Loss     : $89370.10  (+0.5%)
+  Take Profit   : $87591.59  (-1.5%)
+
+  Signal #526  [LOSS]  LONG    Entry: 2026-01-28 09:45 UTC  [same candle]
+  Crossover     : 2026-01-28 09:45 UTC
+  Candle        : open=89319.28  close=89567.25  EMA9=89196.73  EMA26=89140.92
+  Entry         : $89567.25
+  Stop Loss     : $89119.41  (-0.5%)
+  Take Profit   : $90910.76  (+1.5%)
+
+  Signal #527  [LOSS]  LONG    Entry: 2026-01-28 17:30 UTC  [same candle]
+  Crossover     : 2026-01-28 17:30 UTC
+  Candle        : open=89593.88  close=89857.68  EMA9=89657.71  EMA26=89638.12
+  Entry         : $89857.68
+  Stop Loss     : $89408.39  (-0.5%)
+  Take Profit   : $91205.55  (+1.5%)
+
+  Signal #528  [LOSS]  SHORT   Entry: 2026-01-28 19:00 UTC  [same candle]
+  Crossover     : 2026-01-28 19:00 UTC
+  Candle        : open=89544.00  close=89361.26  EMA9=89636.42  EMA26=89655.73
+  Entry         : $89361.26
+  Stop Loss     : $89808.07  (+0.5%)
+  Take Profit   : $88020.84  (-1.5%)
+
+  Signal #529  [LOSS]  LONG    Entry: 2026-01-30 11:45 UTC  [same candle]
+  Crossover     : 2026-01-30 11:45 UTC
+  Candle        : open=82793.97  close=83151.36  EMA9=82781.62  EMA26=82761.18
+  Entry         : $83151.36
+  Stop Loss     : $82735.60  (-0.5%)
+  Take Profit   : $84398.63  (+1.5%)
+
+  Signal #530  [LOSS]  SHORT   Entry: 2026-01-30 18:15 UTC  [same candle]
+  Crossover     : 2026-01-30 18:15 UTC
+  Candle        : open=82871.83  close=82496.94  EMA9=82936.87  EMA26=82964.06
+  Entry         : $82496.94
+  Stop Loss     : $82909.42  (+0.5%)
+  Take Profit   : $81259.49  (-1.5%)
+
+  Signal #531  [LOSS]  LONG    Entry: 2026-01-30 18:45 UTC  [same candle]
+  Crossover     : 2026-01-30 18:45 UTC
+  Candle        : open=83134.78  close=83931.13  EMA9=83167.39  EMA26=83047.41
+  Entry         : $83931.13
+  Stop Loss     : $83511.47  (-0.5%)
+  Take Profit   : $85190.10  (+1.5%)
+
+  Signal #532  [WIN ]  SHORT   Entry: 2026-01-31 06:00 UTC  [same candle]
+  Crossover     : 2026-01-31 06:00 UTC
+  Candle        : open=84000.01  close=83990.57  EMA9=84025.83  EMA26=84031.12
+  Entry         : $83990.57
+  Stop Loss     : $84410.52  (+0.5%)
+  Take Profit   : $82730.71  (-1.5%)
+
+  Signal #533  [LOSS]  LONG    Entry: 2026-02-01 00:45 UTC  [same candle]
+  Crossover     : 2026-02-01 00:45 UTC
+  Candle        : open=78755.54  close=78902.31  EMA9=78771.48  EMA26=78764.93
+  Entry         : $78902.31
+  Stop Loss     : $78507.80  (-0.5%)
+  Take Profit   : $80085.84  (+1.5%)
+
+  Signal #534  [LOSS]  SHORT   Entry: 2026-02-01 01:00 UTC  [same candle]
+  Crossover     : 2026-02-01 01:00 UTC
+  Candle        : open=78902.31  close=78696.13  EMA9=78756.41  EMA26=78759.84
+  Entry         : $78696.13
+  Stop Loss     : $79089.61  (+0.5%)
+  Take Profit   : $77515.69  (-1.5%)
+
+  Signal #535  [LOSS]  LONG    Entry: 2026-02-01 01:15 UTC  [same candle]
+  Crossover     : 2026-02-01 01:15 UTC
+  Candle        : open=78696.13  close=78834.31  EMA9=78771.99  EMA26=78765.35
+  Entry         : $78834.31
+  Stop Loss     : $78440.14  (-0.5%)
+  Take Profit   : $80016.82  (+1.5%)
+
+  Signal #536  [LOSS]  SHORT   Entry: 2026-02-01 01:30 UTC  [same candle]
+  Crossover     : 2026-02-01 01:30 UTC
+  Candle        : open=78834.31  close=78343.50  EMA9=78686.29  EMA26=78734.11
+  Entry         : $78343.50
+  Stop Loss     : $78735.22  (+0.5%)
+  Take Profit   : $77168.35  (-1.5%)
+
+  Signal #537  [LOSS]  LONG    Entry: 2026-02-01 09:30 UTC  [same candle]
+  Crossover     : 2026-02-01 09:30 UTC
+  Candle        : open=78681.41  close=78867.00  EMA9=78664.99  EMA26=78649.92
+  Entry         : $78867.00
+  Stop Loss     : $78472.66  (-0.5%)
+  Take Profit   : $80050.00  (+1.5%)
+
+  Signal #538  [LOSS]  SHORT   Entry: 2026-02-01 10:45 UTC  [same candle]
+  Crossover     : 2026-02-01 10:45 UTC
+  Candle        : open=78384.94  close=78279.73  EMA9=78671.18  EMA26=78679.70
+  Entry         : $78279.73
+  Stop Loss     : $78671.13  (+0.5%)
+  Take Profit   : $77105.53  (-1.5%)
+
+  Signal #539  [LOSS]  SHORT   Entry: 2026-02-02 01:00 UTC  [same candle]
+  Crossover     : 2026-02-02 01:00 UTC
+  Candle        : open=77672.61  close=76824.00  EMA9=77342.55  EMA26=77356.21
+  Entry         : $76824.00
+  Stop Loss     : $77208.12  (+0.5%)
+  Take Profit   : $75671.64  (-1.5%)
+
+  Signal #540  [LOSS]  LONG    Entry: 2026-02-02 01:15 UTC  [same candle]
+  Crossover     : 2026-02-02 01:15 UTC
+  Candle        : open=76824.00  close=77773.57  EMA9=77428.75  EMA26=77387.13
+  Entry         : $77773.57
+  Stop Loss     : $77384.70  (-0.5%)
+  Take Profit   : $78940.17  (+1.5%)
+
+  Signal #541  [WIN ]  SHORT   Entry: 2026-02-02 02:15 UTC  [same candle]
+  Crossover     : 2026-02-02 02:15 UTC
+  Candle        : open=77196.00  close=77124.38  EMA9=77371.04  EMA26=77381.95
+  Entry         : $77124.38
+  Stop Loss     : $77510.00  (+0.5%)
+  Take Profit   : $75967.51  (-1.5%)
+
+  Signal #542  [WIN ]  LONG    Entry: 2026-02-02 07:45 UTC  [same candle]
+  Crossover     : 2026-02-02 07:45 UTC
+  Candle        : open=76569.99  close=76660.79  EMA9=76324.49  EMA26=76319.53
+  Entry         : $76660.79
+  Stop Loss     : $76277.49  (-0.5%)
+  Take Profit   : $77810.70  (+1.5%)
+
+  Signal #543  [LOSS]  SHORT   Entry: 2026-02-02 20:45 UTC  [same candle]
+  Crossover     : 2026-02-02 20:45 UTC
+  Candle        : open=78188.72  close=78008.59  EMA9=78355.50  EMA26=78403.99
+  Entry         : $78008.59
+  Stop Loss     : $78398.63  (+0.5%)
+  Take Profit   : $76838.46  (-1.5%)
+
+  Signal #544  [LOSS]  LONG    Entry: 2026-02-02 22:00 UTC  [same candle]
+  Crossover     : 2026-02-02 22:00 UTC
+  Candle        : open=78532.07  close=78765.35  EMA9=78459.86  EMA26=78427.41
+  Entry         : $78765.35
+  Stop Loss     : $78371.52  (-0.5%)
+  Take Profit   : $79946.83  (+1.5%)
+
+  Signal #545  [LOSS]  SHORT   Entry: 2026-02-03 02:45 UTC  [same candle]
+  Crossover     : 2026-02-03 02:45 UTC
+  Candle        : open=78393.02  close=77808.01  EMA9=78538.23  EMA26=78625.21
+  Entry         : $77808.01
+  Stop Loss     : $78197.05  (+0.5%)
+  Take Profit   : $76640.89  (-1.5%)
+
+  Signal #546  [LOSS]  LONG    Entry: 2026-02-03 04:30 UTC  [same candle]
+  Crossover     : 2026-02-03 04:30 UTC
+  Candle        : open=78509.36  close=78979.63  EMA9=78631.78  EMA26=78611.79
+  Entry         : $78979.63
+  Stop Loss     : $78584.73  (-0.5%)
+  Take Profit   : $80164.32  (+1.5%)
+
+  Signal #547  [LOSS]  SHORT   Entry: 2026-02-03 05:15 UTC  [same candle]
+  Crossover     : 2026-02-03 05:15 UTC
+  Candle        : open=78504.11  close=78431.82  EMA9=78592.68  EMA26=78602.92
+  Entry         : $78431.82
+  Stop Loss     : $78823.98  (+0.5%)
+  Take Profit   : $77255.34  (-1.5%)
+
+  Signal #548  [LOSS]  LONG    Entry: 2026-02-03 07:30 UTC  [next candle]
+  Crossover     : 2026-02-03 07:15 UTC
+  Candle        : open=78670.92  close=78839.99  EMA9=78612.85  EMA26=78574.45
+  Entry         : $78839.99
+  Stop Loss     : $78445.79  (-0.5%)
+  Take Profit   : $80022.59  (+1.5%)
+
+  Signal #549  [LOSS]  SHORT   Entry: 2026-02-03 09:15 UTC  [same candle]
+  Crossover     : 2026-02-03 09:15 UTC
+  Candle        : open=78180.80  close=77960.51  EMA9=78494.20  EMA26=78561.04
+  Entry         : $77960.51
+  Stop Loss     : $78350.31  (+0.5%)
+  Take Profit   : $76791.10  (-1.5%)
+
+  Signal #550  [LOSS]  SHORT   Entry: 2026-02-03 22:00 UTC  [same candle]
+  Crossover     : 2026-02-03 22:00 UTC
+  Candle        : open=76239.43  close=75838.59  EMA9=76003.40  EMA26=76018.42
+  Entry         : $75838.59
+  Stop Loss     : $76217.78  (+0.5%)
+  Take Profit   : $74701.01  (-1.5%)
+
+  Signal #551  [LOSS]  LONG    Entry: 2026-02-04 01:00 UTC  [same candle]
+  Crossover     : 2026-02-04 01:00 UTC
+  Candle        : open=75910.88  close=76535.62  EMA9=76007.50  EMA26=75962.46
+  Entry         : $76535.62
+  Stop Loss     : $76152.94  (-0.5%)
+  Take Profit   : $77683.65  (+1.5%)
+
+  Signal #552  [WIN ]  SHORT   Entry: 2026-02-04 09:15 UTC  [same candle]
+  Crossover     : 2026-02-04 09:15 UTC
+  Candle        : open=76319.21  close=76157.86  EMA9=76371.50  EMA26=76396.61
+  Entry         : $76157.86
+  Stop Loss     : $76538.65  (+0.5%)
+  Take Profit   : $75015.49  (-1.5%)
+
+  Signal #553  [LOSS]  LONG    Entry: 2026-02-05 10:15 UTC  [next candle]
+  Crossover     : 2026-02-05 10:00 UTC
+  Candle        : open=71493.96  close=71716.42  EMA9=71482.87  EMA26=71439.62
+  Entry         : $71716.42
+  Stop Loss     : $71357.84  (-0.5%)
+  Take Profit   : $72792.17  (+1.5%)
+
+  Signal #554  [WIN ]  SHORT   Entry: 2026-02-05 10:45 UTC  [same candle]
+  Crossover     : 2026-02-05 10:45 UTC
+  Candle        : open=71365.94  close=70858.13  EMA9=71339.22  EMA26=71391.49
+  Entry         : $70858.13
+  Stop Loss     : $71212.42  (+0.5%)
+  Take Profit   : $69795.26  (-1.5%)
+
+  Signal #555  [LOSS]  LONG    Entry: 2026-02-06 02:30 UTC  [same candle]
+  Crossover     : 2026-02-06 02:30 UTC
+  Candle        : open=64612.73  close=65189.82  EMA9=64482.13  EMA26=64417.01
+  Entry         : $65189.82
+  Stop Loss     : $64863.87  (-0.5%)
+  Take Profit   : $66167.67  (+1.5%)
+
+  Signal #556  [WIN ]  SHORT   Entry: 2026-02-07 06:00 UTC  [same candle]
+  Crossover     : 2026-02-07 06:00 UTC
+  Candle        : open=70161.51  close=70104.44  EMA9=70440.53  EMA26=70466.78
+  Entry         : $70104.44
+  Stop Loss     : $70454.96  (+0.5%)
+  Take Profit   : $69052.87  (-1.5%)
+
+  Signal #557  [LOSS]  LONG    Entry: 2026-02-07 13:15 UTC  [same candle]
+  Crossover     : 2026-02-07 13:15 UTC
+  Candle        : open=68993.99  close=69256.58  EMA9=68825.87  EMA26=68760.38
+  Entry         : $69256.58
+  Stop Loss     : $68910.30  (-0.5%)
+  Take Profit   : $70295.43  (+1.5%)
+
+  Signal #558  [LOSS]  SHORT   Entry: 2026-02-07 23:15 UTC  [same candle]
+  Crossover     : 2026-02-07 23:15 UTC
+  Candle        : open=69075.57  close=69040.81  EMA9=69319.35  EMA26=69322.98
+  Entry         : $69040.81
+  Stop Loss     : $69386.01  (+0.5%)
+  Take Profit   : $68005.20  (-1.5%)
+
+  Signal #559  [LOSS]  LONG    Entry: 2026-02-08 02:00 UTC  [same candle]
+  Crossover     : 2026-02-08 02:00 UTC
+  Candle        : open=69379.57  close=69410.39  EMA9=69293.66  EMA26=69286.81
+  Entry         : $69410.39
+  Stop Loss     : $69063.34  (-0.5%)
+  Take Profit   : $70451.55  (+1.5%)
+
+  Signal #560  [LOSS]  SHORT   Entry: 2026-02-08 03:45 UTC  [same candle]
+  Crossover     : 2026-02-08 03:45 UTC
+  Candle        : open=69257.60  close=69099.99  EMA9=69266.66  EMA26=69285.83
+  Entry         : $69099.99
+  Stop Loss     : $69445.49  (+0.5%)
+  Take Profit   : $68063.49  (-1.5%)
+
+  Signal #561  [WIN ]  LONG    Entry: 2026-02-08 06:15 UTC  [same candle]
+  Crossover     : 2026-02-08 06:15 UTC
+  Candle        : open=69344.71  close=69372.08  EMA9=69291.02  EMA26=69281.03
+  Entry         : $69372.08
+  Stop Loss     : $69025.22  (-0.5%)
+  Take Profit   : $70412.66  (+1.5%)
+
+  Signal #562  [LOSS]  SHORT   Entry: 2026-02-08 17:15 UTC  [same candle]
+  Crossover     : 2026-02-08 17:15 UTC
+  Candle        : open=70584.94  close=70560.33  EMA9=70804.34  EMA26=70821.74
+  Entry         : $70560.33
+  Stop Loss     : $70913.13  (+0.5%)
+  Take Profit   : $69501.93  (-1.5%)
+
+  Signal #563  [LOSS]  LONG    Entry: 2026-02-08 18:15 UTC  [same candle]
+  Crossover     : 2026-02-08 18:15 UTC
+  Candle        : open=70905.48  close=70984.41  EMA9=70855.08  EMA26=70836.75
+  Entry         : $70984.41
+  Stop Loss     : $70629.49  (-0.5%)
+  Take Profit   : $72049.18  (+1.5%)
+
+  Signal #564  [LOSS]  SHORT   Entry: 2026-02-08 21:45 UTC  [same candle]
+  Crossover     : 2026-02-08 21:45 UTC
+  Candle        : open=70766.79  close=70700.00  EMA9=70928.30  EMA26=70962.62
+  Entry         : $70700.00
+  Stop Loss     : $71053.50  (+0.5%)
+  Take Profit   : $69639.50  (-1.5%)
+
+  Signal #565  [LOSS]  LONG    Entry: 2026-02-08 23:00 UTC  [same candle]
+  Crossover     : 2026-02-08 23:00 UTC
+  Candle        : open=71066.09  close=71366.00  EMA9=71020.29  EMA26=70982.91
+  Entry         : $71366.00
+  Stop Loss     : $71009.17  (-0.5%)
+  Take Profit   : $72436.49  (+1.5%)
+
+  Signal #566  [LOSS]  SHORT   Entry: 2026-02-08 23:15 UTC  [same candle]
+  Crossover     : 2026-02-08 23:15 UTC
+  Candle        : open=71366.00  close=70514.00  EMA9=70919.03  EMA26=70948.17
+  Entry         : $70514.00
+  Stop Loss     : $70866.57  (+0.5%)
+  Take Profit   : $69456.29  (-1.5%)
+
+  Signal #567  [LOSS]  LONG    Entry: 2026-02-09 03:30 UTC  [same candle]
+  Crossover     : 2026-02-09 03:30 UTC
+  Candle        : open=70821.40  close=71134.96  EMA9=70740.90  EMA26=70706.06
+  Entry         : $71134.96
+  Stop Loss     : $70779.29  (-0.5%)
+  Take Profit   : $72201.98  (+1.5%)
+
+  Signal #568  [WIN ]  LONG    Entry: 2026-02-09 16:30 UTC  [same candle]
+  Crossover     : 2026-02-09 16:30 UTC
+  Candle        : open=69603.84  close=69942.02  EMA9=69445.10  EMA26=69381.99
+  Entry         : $69942.02
+  Stop Loss     : $69592.31  (-0.5%)
+  Take Profit   : $70991.15  (+1.5%)
+
+  Signal #569  [LOSS]  SHORT   Entry: 2026-02-10 00:15 UTC  [same candle]
+  Crossover     : 2026-02-10 00:15 UTC
+  Candle        : open=70184.79  close=69987.99  EMA9=70258.99  EMA26=70296.84
+  Entry         : $69987.99
+  Stop Loss     : $70337.93  (+0.5%)
+  Take Profit   : $68938.17  (-1.5%)
+
+  Signal #570  [LOSS]  LONG    Entry: 2026-02-10 01:45 UTC  [same candle]
+  Crossover     : 2026-02-10 01:45 UTC
+  Candle        : open=70465.61  close=70486.82  EMA9=70270.19  EMA26=70264.84
+  Entry         : $70486.82
+  Stop Loss     : $70134.39  (-0.5%)
+  Take Profit   : $71544.12  (+1.5%)
+
+  Signal #571  [WIN ]  SHORT   Entry: 2026-02-10 02:30 UTC  [same candle]
+  Crossover     : 2026-02-10 02:30 UTC
+  Candle        : open=70248.52  close=70051.69  EMA9=70233.90  EMA26=70253.67
+  Entry         : $70051.69
+  Stop Loss     : $70401.95  (+0.5%)
+  Take Profit   : $69000.91  (-1.5%)
+
+  Signal #572  [LOSS]  LONG    Entry: 2026-02-10 15:45 UTC  [same candle]
+  Crossover     : 2026-02-10 15:45 UTC
+  Candle        : open=69286.39  close=69293.37  EMA9=68991.28  EMA26=68961.40
+  Entry         : $69293.37
+  Stop Loss     : $68946.90  (-0.5%)
+  Take Profit   : $70332.77  (+1.5%)
+
+  Signal #573  [LOSS]  LONG    Entry: 2026-02-11 00:45 UTC  [same candle]
+  Crossover     : 2026-02-11 00:45 UTC
+  Candle        : open=69068.80  close=69201.14  EMA9=68949.60  EMA26=68910.05
+  Entry         : $69201.14
+  Stop Loss     : $68855.13  (-0.5%)
+  Take Profit   : $70239.16  (+1.5%)
+
+  Signal #574  [WIN ]  SHORT   Entry: 2026-02-11 02:45 UTC  [same candle]
+  Crossover     : 2026-02-11 02:45 UTC
+  Candle        : open=68869.82  close=68677.33  EMA9=68918.37  EMA26=68929.54
+  Entry         : $68677.33
+  Stop Loss     : $69020.72  (+0.5%)
+  Take Profit   : $67647.17  (-1.5%)
+
+  Signal #575  [WIN ]  LONG    Entry: 2026-02-11 13:45 UTC  [same candle]
+  Crossover     : 2026-02-11 13:45 UTC
+  Candle        : open=67222.50  close=67454.49  EMA9=67133.36  EMA26=67122.57
+  Entry         : $67454.49
+  Stop Loss     : $67117.22  (-0.5%)
+  Take Profit   : $68466.31  (+1.5%)
+
+  Signal #576  [LOSS]  SHORT   Entry: 2026-02-11 15:00 UTC  [same candle]
+  Crossover     : 2026-02-11 15:00 UTC
+  Candle        : open=66584.61  close=66113.25  EMA9=67052.03  EMA26=67142.47
+  Entry         : $66113.25
+  Stop Loss     : $66443.82  (+0.5%)
+  Take Profit   : $65121.55  (-1.5%)
+
+  Signal #577  [LOSS]  LONG    Entry: 2026-02-11 19:00 UTC  [same candle]
+  Crossover     : 2026-02-11 19:00 UTC
+  Candle        : open=67275.34  close=67643.00  EMA9=66972.43  EMA26=66877.52
+  Entry         : $67643.00
+  Stop Loss     : $67304.79  (-0.5%)
+  Take Profit   : $68657.64  (+1.5%)
+
+  Signal #578  [LOSS]  SHORT   Entry: 2026-02-11 23:45 UTC  [same candle]
+  Crossover     : 2026-02-11 23:45 UTC
+  Candle        : open=67083.69  close=67082.52  EMA9=67318.97  EMA26=67330.48
+  Entry         : $67082.52
+  Stop Loss     : $67417.93  (+0.5%)
+  Take Profit   : $66076.28  (-1.5%)
+
+  Signal #579  [LOSS]  LONG    Entry: 2026-02-12 00:15 UTC  [same candle]
+  Crossover     : 2026-02-12 00:15 UTC
+  Candle        : open=67365.56  close=67392.13  EMA9=67341.05  EMA26=67337.45
+  Entry         : $67392.13
+  Stop Loss     : $67055.17  (-0.5%)
+  Take Profit   : $68403.01  (+1.5%)
+
+  Signal #580  [LOSS]  SHORT   Entry: 2026-02-12 04:15 UTC  [same candle]
+  Crossover     : 2026-02-12 04:15 UTC
+  Candle        : open=67577.41  close=67212.01  EMA9=67475.26  EMA26=67477.22
+  Entry         : $67212.01
+  Stop Loss     : $67548.07  (+0.5%)
+  Take Profit   : $66203.83  (-1.5%)
+
+  Signal #581  [LOSS]  LONG    Entry: 2026-02-12 09:45 UTC  [same candle]
+  Crossover     : 2026-02-12 09:45 UTC
+  Candle        : open=67422.01  close=67550.47  EMA9=67278.99  EMA26=67245.64
+  Entry         : $67550.47
+  Stop Loss     : $67212.72  (-0.5%)
+  Take Profit   : $68563.73  (+1.5%)
+
+  Signal #582  [WIN ]  SHORT   Entry: 2026-02-12 15:30 UTC  [same candle]
+  Crossover     : 2026-02-12 15:30 UTC
+  Candle        : open=67855.13  close=67400.41  EMA9=67710.07  EMA26=67723.89
+  Entry         : $67400.41
+  Stop Loss     : $67737.41  (+0.5%)
+  Take Profit   : $66389.40  (-1.5%)
+
+  Signal #583  [LOSS]  LONG    Entry: 2026-02-12 23:15 UTC  [same candle]
+  Crossover     : 2026-02-12 23:15 UTC
+  Candle        : open=66313.25  close=66404.21  EMA9=66095.42  EMA26=66079.49
+  Entry         : $66404.21
+  Stop Loss     : $66072.19  (-0.5%)
+  Take Profit   : $67400.27  (+1.5%)
+
+  Signal #584  [LOSS]  SHORT   Entry: 2026-02-13 00:45 UTC  [same candle]
+  Crossover     : 2026-02-13 00:45 UTC
+  Candle        : open=65952.16  close=65918.60  EMA9=66081.43  EMA26=66091.83
+  Entry         : $65918.60
+  Stop Loss     : $66248.19  (+0.5%)
+  Take Profit   : $64929.82  (-1.5%)
+
+  Signal #585  [WIN ]  LONG    Entry: 2026-02-13 01:00 UTC  [same candle]
+  Crossover     : 2026-02-13 01:00 UTC
+  Candle        : open=65918.61  close=66251.12  EMA9=66115.36  EMA26=66103.63
+  Entry         : $66251.12
+  Stop Loss     : $65919.86  (-0.5%)
+  Take Profit   : $67244.89  (+1.5%)
+
+  Signal #586  [LOSS]  SHORT   Entry: 2026-02-13 06:15 UTC  [next candle]
+  Crossover     : 2026-02-13 06:00 UTC
+  Candle        : open=66233.33  close=66123.99  EMA9=66295.72  EMA26=66330.18
+  Entry         : $66123.99
+  Stop Loss     : $66454.61  (+0.5%)
+  Take Profit   : $65132.13  (-1.5%)
+
+  Signal #587  [LOSS]  SHORT   Entry: 2026-02-13 07:30 UTC  [same candle]
+  Crossover     : 2026-02-13 07:30 UTC
+  Candle        : open=66514.42  close=66127.51  EMA9=66316.17  EMA26=66328.80
+  Entry         : $66127.51
+  Stop Loss     : $66458.15  (+0.5%)
+  Take Profit   : $65135.60  (-1.5%)
+
+  Signal #588  [WIN ]  LONG    Entry: 2026-02-13 08:30 UTC  [same candle]
+  Crossover     : 2026-02-13 08:30 UTC
+  Candle        : open=66414.03  close=66504.63  EMA9=66351.39  EMA26=66336.27
+  Entry         : $66504.63
+  Stop Loss     : $66172.11  (-0.5%)
+  Take Profit   : $67502.20  (+1.5%)
+
+  Signal #589  [LOSS]  SHORT   Entry: 2026-02-14 04:45 UTC  [same candle]
+  Crossover     : 2026-02-14 04:45 UTC
+  Candle        : open=68852.00  close=68790.00  EMA9=68891.40  EMA26=68899.25
+  Entry         : $68790.00
+  Stop Loss     : $69133.95  (+0.5%)
+  Take Profit   : $67758.15  (-1.5%)
+
+  Signal #590  [WIN ]  LONG    Entry: 2026-02-14 07:15 UTC  [same candle]
+  Crossover     : 2026-02-14 07:15 UTC
+  Candle        : open=68900.11  close=68956.92  EMA9=68893.16  EMA26=68887.25
+  Entry         : $68956.92
+  Stop Loss     : $68612.14  (-0.5%)
+  Take Profit   : $69991.27  (+1.5%)
+
+  Signal #591  [LOSS]  SHORT   Entry: 2026-02-14 14:15 UTC  [next candle]
+  Crossover     : 2026-02-14 14:00 UTC
+  Candle        : open=69460.09  close=69455.60  EMA9=69613.15  EMA26=69640.78
+  Entry         : $69455.60
+  Stop Loss     : $69802.88  (+0.5%)
+  Take Profit   : $68413.77  (-1.5%)
+
+  Signal #592  [LOSS]  LONG    Entry: 2026-02-14 15:15 UTC  [same candle]
+  Crossover     : 2026-02-14 15:15 UTC
+  Candle        : open=69616.18  close=69874.24  EMA9=69683.38  EMA26=69662.18
+  Entry         : $69874.24
+  Stop Loss     : $69524.87  (-0.5%)
+  Take Profit   : $70922.35  (+1.5%)
+
+  Signal #593  [LOSS]  SHORT   Entry: 2026-02-14 16:15 UTC  [same candle]
+  Crossover     : 2026-02-14 16:15 UTC
+  Candle        : open=69687.47  close=69424.93  EMA9=69663.38  EMA26=69665.81
+  Entry         : $69424.93
+  Stop Loss     : $69772.05  (+0.5%)
+  Take Profit   : $68383.56  (-1.5%)
+
+  Signal #594  [LOSS]  LONG    Entry: 2026-02-14 16:45 UTC  [same candle]
+  Crossover     : 2026-02-14 16:45 UTC
+  Candle        : open=69651.11  close=69755.10  EMA9=69679.76  EMA26=69671.41
+  Entry         : $69755.10
+  Stop Loss     : $69406.32  (-0.5%)
+  Take Profit   : $70801.43  (+1.5%)
+
+  Signal #595  [LOSS]  SHORT   Entry: 2026-02-15 00:00 UTC  [same candle]
+  Crossover     : 2026-02-15 00:00 UTC
+  Candle        : open=69822.94  close=69681.93  EMA9=69851.08  EMA26=69859.86
+  Entry         : $69681.93
+  Stop Loss     : $70030.34  (+0.5%)
+  Take Profit   : $68636.70  (-1.5%)
+
+  Signal #596  [LOSS]  LONG    Entry: 2026-02-15 04:00 UTC  [same candle]
+  Crossover     : 2026-02-15 04:00 UTC
+  Candle        : open=69954.50  close=70424.50  EMA9=69756.65  EMA26=69724.34
+  Entry         : $70424.50
+  Stop Loss     : $70072.38  (-0.5%)
+  Take Profit   : $71480.87  (+1.5%)
+
+  Signal #597  [WIN ]  SHORT   Entry: 2026-02-15 12:30 UTC  [same candle]
+  Crossover     : 2026-02-15 12:30 UTC
+  Candle        : open=70370.30  close=70260.91  EMA9=70342.76  EMA26=70351.88
+  Entry         : $70260.91
+  Stop Loss     : $70612.21  (+0.5%)
+  Take Profit   : $69207.00  (-1.5%)
+
+  Signal #598  [LOSS]  SHORT   Entry: 2026-02-15 23:00 UTC  [same candle]
+  Crossover     : 2026-02-15 23:00 UTC
+  Candle        : open=68999.96  close=68490.80  EMA9=68777.11  EMA26=68803.10
+  Entry         : $68490.80
+  Stop Loss     : $68833.25  (+0.5%)
+  Take Profit   : $67463.44  (-1.5%)
+
+  Signal #599  [LOSS]  SHORT   Entry: 2026-02-16 00:30 UTC  [same candle]
+  Crossover     : 2026-02-16 00:30 UTC
+  Candle        : open=68850.95  close=68754.01  EMA9=68795.05  EMA26=68799.00
+  Entry         : $68754.01
+  Stop Loss     : $69097.78  (+0.5%)
+  Take Profit   : $67722.70  (-1.5%)
+
+  Signal #600  [LOSS]  LONG    Entry: 2026-02-16 00:45 UTC  [same candle]
+  Crossover     : 2026-02-16 00:45 UTC
+  Candle        : open=68754.01  close=68845.81  EMA9=68805.21  EMA26=68802.47
+  Entry         : $68845.81
+  Stop Loss     : $68501.58  (-0.5%)
+  Take Profit   : $69878.50  (+1.5%)
+
+  Signal #601  [LOSS]  SHORT   Entry: 2026-02-16 01:15 UTC  [same candle]
+  Crossover     : 2026-02-16 01:15 UTC
+  Candle        : open=68865.20  close=68722.90  EMA9=68798.34  EMA26=68800.88
+  Entry         : $68722.90
+  Stop Loss     : $69066.51  (+0.5%)
+  Take Profit   : $67692.06  (-1.5%)
+
+  Signal #602  [LOSS]  LONG    Entry: 2026-02-16 08:15 UTC  [same candle]
+  Crossover     : 2026-02-16 08:15 UTC
+  Candle        : open=68549.90  close=68735.38  EMA9=68566.64  EMA26=68555.65
+  Entry         : $68735.38
+  Stop Loss     : $68391.70  (-0.5%)
+  Take Profit   : $69766.41  (+1.5%)
+
+  Signal #603  [LOSS]  SHORT   Entry: 2026-02-16 14:15 UTC  [next candle]
+  Crossover     : 2026-02-16 14:00 UTC
+  Candle        : open=68413.81  close=68316.81  EMA9=68689.29  EMA26=68784.15
+  Entry         : $68316.81
+  Stop Loss     : $68658.39  (+0.5%)
+  Take Profit   : $67292.06  (-1.5%)
+
+  Signal #604  [LOSS]  LONG    Entry: 2026-02-16 20:45 UTC  [same candle]
+  Crossover     : 2026-02-16 20:45 UTC
+  Candle        : open=68238.00  close=68530.00  EMA9=68162.31  EMA26=68156.56
+  Entry         : $68530.00
+  Stop Loss     : $68187.35  (-0.5%)
+  Take Profit   : $69557.95  (+1.5%)
+
+  Signal #605  [LOSS]  LONG    Entry: 2026-02-17 18:45 UTC  [same candle]
+  Crossover     : 2026-02-17 18:45 UTC
+  Candle        : open=67974.36  close=68098.62  EMA9=67644.78  EMA26=67628.03
+  Entry         : $68098.62
+  Stop Loss     : $67758.13  (-0.5%)
+  Take Profit   : $69120.10  (+1.5%)
+
+  Signal #606  [LOSS]  SHORT   Entry: 2026-02-17 22:00 UTC  [same candle]
+  Crossover     : 2026-02-17 22:00 UTC
+  Candle        : open=67680.55  close=67587.83  EMA9=67689.77  EMA26=67701.39
+  Entry         : $67587.83
+  Stop Loss     : $67925.77  (+0.5%)
+  Take Profit   : $66574.01  (-1.5%)
+
+  Signal #607  [LOSS]  SHORT   Entry: 2026-02-18 11:00 UTC  [same candle]
+  Crossover     : 2026-02-18 11:00 UTC
+  Candle        : open=67801.26  close=67389.89  EMA9=67882.36  EMA26=67899.18
+  Entry         : $67389.89
+  Stop Loss     : $67726.84  (+0.5%)
+  Take Profit   : $66379.04  (-1.5%)
+
+  Signal #608  [LOSS]  LONG    Entry: 2026-02-19 01:30 UTC  [same candle]
+  Crossover     : 2026-02-19 01:30 UTC
+  Candle        : open=66704.35  close=66798.41  EMA9=66583.23  EMA26=66557.74
+  Entry         : $66798.41
+  Stop Loss     : $66464.42  (-0.5%)
+  Take Profit   : $67800.39  (+1.5%)
+
+  Signal #609  [WIN ]  SHORT   Entry: 2026-02-19 10:45 UTC  [same candle]
+  Crossover     : 2026-02-19 10:45 UTC
+  Candle        : open=66958.30  close=66843.08  EMA9=66935.68  EMA26=66945.21
+  Entry         : $66843.08
+  Stop Loss     : $67177.30  (+0.5%)
+  Take Profit   : $65840.43  (-1.5%)
+
+  Signal #610  [LOSS]  SHORT   Entry: 2026-02-19 17:45 UTC  [same candle]
+  Crossover     : 2026-02-19 17:45 UTC
+  Candle        : open=66609.80  close=66369.42  EMA9=66432.33  EMA26=66437.85
+  Entry         : $66369.42
+  Stop Loss     : $66701.27  (+0.5%)
+  Take Profit   : $65373.88  (-1.5%)
+
+  Signal #611  [WIN ]  LONG    Entry: 2026-02-19 18:00 UTC  [same candle]
+  Crossover     : 2026-02-19 18:00 UTC
+  Candle        : open=66369.42  close=66639.09  EMA9=66473.68  EMA26=66452.76
+  Entry         : $66639.09
+  Stop Loss     : $66305.89  (-0.5%)
+  Take Profit   : $67638.68  (+1.5%)
+
+  Signal #612  [WIN ]  SHORT   Entry: 2026-02-20 11:45 UTC  [same candle]
+  Crossover     : 2026-02-20 11:45 UTC
+  Candle        : open=67443.56  close=67318.41  EMA9=67778.78  EMA26=67799.94
+  Entry         : $67318.41
+  Stop Loss     : $67655.00  (+0.5%)
+  Take Profit   : $66308.63  (-1.5%)
+
+  Signal #613  [LOSS]  LONG    Entry: 2026-02-20 16:45 UTC  [same candle]
+  Crossover     : 2026-02-20 16:45 UTC
+  Candle        : open=67495.45  close=67795.47  EMA9=67450.14  EMA26=67416.91
+  Entry         : $67795.47
+  Stop Loss     : $67456.49  (-0.5%)
+  Take Profit   : $68812.40  (+1.5%)
+
+  Signal #614  [LOSS]  SHORT   Entry: 2026-02-20 17:00 UTC  [same candle]
+  Crossover     : 2026-02-20 17:00 UTC
+  Candle        : open=67795.48  close=67067.03  EMA9=67373.52  EMA26=67390.99
+  Entry         : $67067.03
+  Stop Loss     : $67402.37  (+0.5%)
+  Take Profit   : $66061.02  (-1.5%)
+
+  Signal #615  [WIN ]  LONG    Entry: 2026-02-20 18:15 UTC  [next candle]
+  Crossover     : 2026-02-20 18:00 UTC
+  Candle        : open=67574.97  close=67664.75  EMA9=67452.82  EMA26=67409.45
+  Entry         : $67664.75
+  Stop Loss     : $67326.43  (-0.5%)
+  Take Profit   : $68679.72  (+1.5%)
+
+  Signal #616  [LOSS]  SHORT   Entry: 2026-02-21 03:30 UTC  [same candle]
+  Crossover     : 2026-02-21 03:30 UTC
+  Candle        : open=67800.30  close=67616.93  EMA9=67854.69  EMA26=67858.82
+  Entry         : $67616.93
+  Stop Loss     : $67955.01  (+0.5%)
+  Take Profit   : $66602.68  (-1.5%)
+
+  Signal #617  [LOSS]  LONG    Entry: 2026-02-21 06:00 UTC  [same candle]
+  Crossover     : 2026-02-21 06:00 UTC
+  Candle        : open=67851.93  close=67917.32  EMA9=67839.11  EMA26=67831.22
+  Entry         : $67917.32
+  Stop Loss     : $67577.73  (-0.5%)
+  Take Profit   : $68936.08  (+1.5%)
+
+  Signal #618  [LOSS]  LONG    Entry: 2026-02-21 07:15 UTC  [same candle]
+  Crossover     : 2026-02-21 07:15 UTC
+  Candle        : open=67825.45  close=67856.01  EMA9=67831.58  EMA26=67829.76
+  Entry         : $67856.01
+  Stop Loss     : $67516.73  (-0.5%)
+  Take Profit   : $68873.85  (+1.5%)
+
+  Signal #619  [WIN ]  SHORT   Entry: 2026-02-21 21:30 UTC  [next candle]
+  Crossover     : 2026-02-21 21:15 UTC
+  Candle        : open=68345.55  close=68289.88  EMA9=68377.91  EMA26=68394.31
+  Entry         : $68289.88
+  Stop Loss     : $68631.33  (+0.5%)
+  Take Profit   : $67265.53  (-1.5%)
+
+  Signal #620  [LOSS]  LONG    Entry: 2026-02-22 10:15 UTC  [same candle]
+  Crossover     : 2026-02-22 10:15 UTC
+  Candle        : open=68045.42  close=68090.44  EMA9=68039.71  EMA26=68032.56
+  Entry         : $68090.44
+  Stop Loss     : $67749.99  (-0.5%)
+  Take Profit   : $69111.80  (+1.5%)
+
+  Signal #621  [LOSS]  LONG    Entry: 2026-02-22 22:30 UTC  [same candle]
+  Crossover     : 2026-02-22 22:30 UTC
+  Candle        : open=67594.10  close=67679.27  EMA9=67549.63  EMA26=67534.55
+  Entry         : $67679.27
+  Stop Loss     : $67340.87  (-0.5%)
+  Take Profit   : $68694.46  (+1.5%)
+
+  Signal #622  [WIN ]  SHORT   Entry: 2026-02-23 00:30 UTC  [same candle]
+  Crossover     : 2026-02-23 00:30 UTC
+  Candle        : open=67474.00  close=67180.25  EMA9=67485.73  EMA26=67522.62
+  Entry         : $67180.25
+  Stop Loss     : $67516.15  (+0.5%)
+  Take Profit   : $66172.55  (-1.5%)
+
+  Signal #623  [LOSS]  LONG    Entry: 2026-02-23 07:30 UTC  [same candle]
+  Crossover     : 2026-02-23 07:30 UTC
+  Candle        : open=65689.65  close=65949.06  EMA9=65561.17  EMA26=65551.42
+  Entry         : $65949.06
+  Stop Loss     : $65619.31  (-0.5%)
+  Take Profit   : $66938.30  (+1.5%)
+
+  Signal #624  [WIN ]  SHORT   Entry: 2026-02-23 15:15 UTC  [next candle]
+  Crossover     : 2026-02-23 15:00 UTC
+  Candle        : open=65958.26  close=65806.54  EMA9=66012.96  EMA26=66054.53
+  Entry         : $65806.54
+  Stop Loss     : $66135.57  (+0.5%)
+  Take Profit   : $64819.44  (-1.5%)
+
+  Signal #625  [LOSS]  LONG    Entry: 2026-02-24 00:45 UTC  [same candle]
+  Crossover     : 2026-02-24 00:45 UTC
+  Candle        : open=64918.94  close=64941.43  EMA9=64828.93  EMA26=64819.17
+  Entry         : $64941.43
+  Stop Loss     : $64616.72  (-0.5%)
+  Take Profit   : $65915.55  (+1.5%)
+
+  Signal #626  [WIN ]  SHORT   Entry: 2026-02-24 01:00 UTC  [same candle]
+  Crossover     : 2026-02-24 01:00 UTC
+  Candle        : open=64941.42  close=64324.95  EMA9=64728.14  EMA26=64782.56
+  Entry         : $64324.95
+  Stop Loss     : $64646.57  (+0.5%)
+  Take Profit   : $63360.08  (-1.5%)
+
+  Signal #627  [WIN ]  LONG    Entry: 2026-02-24 15:00 UTC  [same candle]
+  Crossover     : 2026-02-24 15:00 UTC
+  Candle        : open=63454.00  close=63585.00  EMA9=63240.29  EMA26=63221.24
+  Entry         : $63585.00
+  Stop Loss     : $63267.07  (-0.5%)
+  Take Profit   : $64538.77  (+1.5%)
+
+  Signal #628  [LOSS]  SHORT   Entry: 2026-02-25 00:00 UTC  [same candle]
+  Crossover     : 2026-02-25 00:00 UTC
+  Candle        : open=64058.15  close=63919.23  EMA9=64088.06  EMA26=64102.27
+  Entry         : $63919.23
+  Stop Loss     : $64238.83  (+0.5%)
+  Take Profit   : $62960.44  (-1.5%)
+
+  Signal #629  [LOSS]  LONG    Entry: 2026-02-25 01:00 UTC  [next candle]
+  Crossover     : 2026-02-25 00:45 UTC
+  Candle        : open=64224.29  close=65606.34  EMA9=64422.10  EMA26=64223.55
+  Entry         : $65606.34
+  Stop Loss     : $65278.31  (-0.5%)
+  Take Profit   : $66590.44  (+1.5%)
+
+  Signal #630  [LOSS]  SHORT   Entry: 2026-02-25 06:45 UTC  [next candle]
+  Crossover     : 2026-02-25 06:30 UTC
+  Candle        : open=65093.50  close=64898.22  EMA9=65093.98  EMA26=65130.35
+  Entry         : $64898.22
+  Stop Loss     : $65222.71  (+0.5%)
+  Take Profit   : $63924.75  (-1.5%)
+
+  Signal #631  [WIN ]  LONG    Entry: 2026-02-25 08:30 UTC  [same candle]
+  Crossover     : 2026-02-25 08:30 UTC
+  Candle        : open=65192.32  close=65420.85  EMA9=65146.31  EMA26=65128.32
+  Entry         : $65420.85
+  Stop Loss     : $65093.75  (-0.5%)
+  Take Profit   : $66402.16  (+1.5%)
+
+  Signal #632  [LOSS]  SHORT   Entry: 2026-02-25 23:30 UTC  [same candle]
+  Crossover     : 2026-02-25 23:30 UTC
+  Candle        : open=68277.24  close=67695.86  EMA9=68446.74  EMA26=68456.72
+  Entry         : $67695.86
+  Stop Loss     : $68034.34  (+0.5%)
+  Take Profit   : $66680.42  (-1.5%)
+
+  Signal #633  [LOSS]  LONG    Entry: 2026-02-26 04:15 UTC  [same candle]
+  Crossover     : 2026-02-26 04:15 UTC
+  Candle        : open=68526.27  close=68562.56  EMA9=68318.32  EMA26=68305.28
+  Entry         : $68562.56
+  Stop Loss     : $68219.75  (-0.5%)
+  Take Profit   : $69591.00  (+1.5%)
+
+  Signal #634  [LOSS]  SHORT   Entry: 2026-02-26 06:30 UTC  [same candle]
+  Crossover     : 2026-02-26 06:30 UTC
+  Candle        : open=68255.65  close=68127.56  EMA9=68335.09  EMA26=68343.55
+  Entry         : $68127.56
+  Stop Loss     : $68468.20  (+0.5%)
+  Take Profit   : $67105.65  (-1.5%)
+
+  Signal #635  [LOSS]  LONG    Entry: 2026-02-26 09:45 UTC  [same candle]
+  Crossover     : 2026-02-26 09:45 UTC
+  Candle        : open=68400.04  close=68589.41  EMA9=68261.30  EMA26=68240.61
+  Entry         : $68589.41
+  Stop Loss     : $68246.46  (-0.5%)
+  Take Profit   : $69618.25  (+1.5%)
+
+  Signal #636  [WIN ]  SHORT   Entry: 2026-02-26 11:30 UTC  [same candle]
+  Crossover     : 2026-02-26 11:30 UTC
+  Candle        : open=68158.59  close=68084.73  EMA9=68257.30  EMA26=68262.10
+  Entry         : $68084.73
+  Stop Loss     : $68425.15  (+0.5%)
+  Take Profit   : $67063.46  (-1.5%)
+
+  Signal #637  [LOSS]  SHORT   Entry: 2026-02-26 21:00 UTC  [same candle]
+  Crossover     : 2026-02-26 21:00 UTC
+  Candle        : open=67414.07  close=67358.60  EMA9=67424.51  EMA26=67424.80
+  Entry         : $67358.60
+  Stop Loss     : $67695.39  (+0.5%)
+  Take Profit   : $66348.22  (-1.5%)
+
+  Signal #638  [LOSS]  LONG    Entry: 2026-02-26 21:15 UTC  [same candle]
+  Crossover     : 2026-02-26 21:15 UTC
+  Candle        : open=67358.60  close=67477.12  EMA9=67435.03  EMA26=67428.67
+  Entry         : $67477.12
+  Stop Loss     : $67139.73  (-0.5%)
+  Take Profit   : $68489.28  (+1.5%)
+
+  Signal #639  [LOSS]  SHORT   Entry: 2026-02-27 00:15 UTC  [same candle]
+  Crossover     : 2026-02-27 00:15 UTC
+  Candle        : open=67356.64  close=67307.23  EMA9=67444.32  EMA26=67454.62
+  Entry         : $67307.23
+  Stop Loss     : $67643.77  (+0.5%)
+  Take Profit   : $66297.62  (-1.5%)
+
+  Signal #640  [LOSS]  LONG    Entry: 2026-02-27 04:00 UTC  [same candle]
+  Crossover     : 2026-02-27 04:00 UTC
+  Candle        : open=67600.84  close=67927.79  EMA9=67459.83  EMA26=67389.07
+  Entry         : $67927.79
+  Stop Loss     : $67588.15  (-0.5%)
+  Take Profit   : $68946.71  (+1.5%)
+
+  Signal #641  [WIN ]  SHORT   Entry: 2026-02-27 10:00 UTC  [same candle]
+  Crossover     : 2026-02-27 10:00 UTC
+  Candle        : open=67355.72  close=66874.31  EMA9=67560.41  EMA26=67631.62
+  Entry         : $66874.31
+  Stop Loss     : $67208.68  (+0.5%)
+  Take Profit   : $65871.20  (-1.5%)
+
+  Signal #642  [LOSS]  LONG    Entry: 2026-02-27 23:45 UTC  [next candle]
+  Crossover     : 2026-02-27 23:30 UTC
+  Candle        : open=65833.14  close=65872.10  EMA9=65730.87  EMA26=65693.52
+  Entry         : $65872.10
+  Stop Loss     : $65542.74  (-0.5%)
+  Take Profit   : $66860.18  (+1.5%)
+
+  Signal #643  [WIN ]  SHORT   Entry: 2026-02-28 04:15 UTC  [same candle]
+  Crossover     : 2026-02-28 04:15 UTC
+  Candle        : open=65750.92  close=65673.05  EMA9=65797.91  EMA26=65800.44
+  Entry         : $65673.05
+  Stop Loss     : $66001.42  (+0.5%)
+  Take Profit   : $64687.95  (-1.5%)
+
+  Signal #644  [LOSS]  LONG    Entry: 2026-02-28 13:45 UTC  [same candle]
+  Crossover     : 2026-02-28 13:45 UTC
+  Candle        : open=64055.81  close=65106.44  EMA9=64231.39  EMA26=64182.74
+  Entry         : $65106.44
+  Stop Loss     : $64780.91  (-0.5%)
+  Take Profit   : $66083.04  (+1.5%)
+
+--------------------------------------------------------------------------------
+
+================================================================================
+METHODOLOGY
+================================================================================
+  WIN     : TP hit before SL — no time limit
+  LOSS    : SL hit before TP — no time limit
+  ONGOING : Trade still open at report generation time
+  UNKNOWN : Data fetch error
+
+  EMA computed with standard multiplier k = 2/(period+1)
+  Seeded with SMA of first `period` closes
+  Crossover: strict change in relative position of EMA9 vs EMA26
+  Entry at candle CLOSE (not open of next candle)
+  SL/TP checked from the candle AFTER entry close forward
+================================================================================

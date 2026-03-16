@@ -1,0 +1,43 @@
+================================================================================
+BTC/USDT -- BACKTEST REPORT  (EMA 9/26 Cross + 6-Filter Suite)
+15-minute candles  |  Binance  |  Both directions
+Generated : 2026-03-13 09:50:30 UTC
+SL: 0.5%  |  TP: 1.5%  |  R:R 1:3
+Time limit: NONE — trades run until SL or TP is hit
+
+FILTERS (all 6 must pass simultaneously):
+  F1  EMA crossover : EMA9 crosses EMA26
+  F2  Candle confirm: close dir + close > EMA9 + EMA26
+  F3  EMA200 trend  : close on correct side of EMA200
+  F4  ADX strength  : ADX(14) > 25  (Wilder smoothing)
+  F5  DI direction  : DI+ > DI− (LONG)  |  DI− > DI+ (SHORT)
+  F6  MACD momentum : MACD > Signal + Hist > 0 (LONG) | MACD < Signal + Hist < 0 (SHORT)
+
+CONCURRENT TRADE RULE: New crossover signals ignored while a trade is open.
+CANDLE SELECTION    : Crossover candle N first; else N+1; else skip.
+================================================================================
+
+################################################################################
+  PERIOD 1  --  Period 1 -- BTC/USDT  |  01 Sep 2025 -> 28 Feb 2026
+  01 Sep 2025 -> 28 Feb 2026  (180 days)
+################################################################################
+
+  No signals found in this period.
+
+================================================================================
+METHODOLOGY
+================================================================================
+  WIN     : TP hit before SL — no time limit
+  LOSS    : SL hit before TP — no time limit
+  ONGOING : Neither hit as of report generation time
+  UNKNOWN : Data fetch error
+
+  EMA     : Seeded with SMA of first N closes, k = 2/(N+1)
+  ADX     : Wilder smoothing (factor = 1/period), seeded with
+            SMA of first 14 DX values
+  MACD    : EMA(12) − EMA(26); Signal = EMA(9) of MACD line
+  Warmup  : First 250 candles used for indicator seeding only
+  Entry   : At close of qualifying candle (N or N+1)
+  SL/TP   : Checked from the candle after entry close onward
+  Concurrent: If trade open, new crossovers skipped until closed
+================================================================================

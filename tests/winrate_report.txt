@@ -1,0 +1,14 @@
+
+No signals to analyse. Paste your results into SIGNALS list first.
+
+Format per entry:
+  (symbol, entry_time, dist_pct, slope_8bar, ma_accel, h4_dir, atr_14, outcome)
+
+Get these values from the backtest report signal blocks.
+Fields map to:
+  dist_pct    → dist=X.XXX%
+  slope_8bar  → slope_8bar=+X.XXX%
+  ma_accel    → ma_accel=+X.XXXXX
+  h4_dir      → h4=FALLING/RISING/N/A
+  atr_14      → atr=X.XXX%
+  outcome     → [WIN ] / [LOSS] / [OPEN]

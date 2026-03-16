@@ -1,0 +1,152 @@
+"""
+parse_results.py
+================
+STEP 3 of 4 — Fixed version
+
+Reads multi_backtest_report.txt automatically.
+Output: signals_parsed.py (imported by winrate_identifier.py)
+"""
+
+import re
+import os
+
+INPUT_FILE  = 'multi_backtest_report.txt'
+OUTPUT_FILE = 'signals_parsed.py'
+
+
+def parse():
+    if not os.path.exists(INPUT_FILE):
+        print(f'ERROR: {INPUT_FILE} not found.')
+        print('Run main_backtest.py first.')
+        return []
+
+    with open(INPUT_FILE, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+
+    signals = []
+    symbol  = None
+
+    # We read line by line and track context
+    # so we never rely on block splitting or positional regex
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
+        # ── detect current symbol ─────────────────────────────
+        sym_match = re.match(r'\s{2}(\w+USDT)\s+—', line)
+        if sym_match:
+            symbol = sym_match.group(1)
+            i += 1
+            continue
+
+        # ── detect signal header line ─────────────────────────
+        # Format: "  Signal #N    [WIN ]  SHORT   Entry: YYYY-MM-DD HH:MM UTC"
+        # Format: "  Signal #N    [LOSS]  SHORT   Entry: YYYY-MM-DD HH:MM UTC"
+        sig_match = re.match(
+            r'\s*Signal\s+#\d+\s+\[(WIN\s*|LOSS|OPEN|\?{4})\]\s+SHORT\s+Entry:\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2} UTC)',
+            line
+        )
+        if sig_match and symbol:
+            outcome_raw = sig_match.group(1).strip()   # strip trailing space from "WIN "
+            entry_time  = sig_match.group(2)
+
+            # map to standard outcome string
+            outcome = {
+                'WIN':  'WIN',
+                'LOSS': 'LOSS',
+                'OPEN': 'ONGOING',
+                '????': 'UNKNOWN',
+            }.get(outcome_raw, 'UNKNOWN')
+
+            # ── read the next two lines for field data ────────
+            setup_line = lines[i + 1] if i + 1 < len(lines) else ''
+            ma44_line  = lines[i + 2] if i + 2 < len(lines) else ''
+
+            # from setup line: dist
+            dist_m = re.search(r'dist=([\d.]+)%', setup_line)
+
+            # from MA44 line: slope, accel, h4, atr
+            slope_m = re.search(r'slope_8bar=([+-]?[\d.]+)%',  ma44_line)
+            accel_m = re.search(r'ma_accel=([+-]?[\d.eE+-]+)', ma44_line)
+            h4_m    = re.search(r'h4=(FALLING|RISING|N/A)',     ma44_line)
+            atr_m   = re.search(r'atr=([\d.]+)%',               ma44_line)
+
+            if all([dist_m, slope_m, accel_m, h4_m, atr_m]):
+                signals.append((
+                    symbol,
+                    entry_time,
+                    float(dist_m.group(1)),
+                    float(slope_m.group(1)),
+                    float(accel_m.group(1)),
+                    h4_m.group(1),
+                    float(atr_m.group(1)),
+                    outcome,
+                ))
+            else:
+                # log which fields failed so we can debug further
+                missing = []
+                if not dist_m:  missing.append('dist')
+                if not slope_m: missing.append('slope')
+                if not accel_m: missing.append('accel')
+                if not h4_m:    missing.append('h4')
+                if not atr_m:   missing.append('atr')
+                print(f'  ⚠ Parse fail  {symbol}  {entry_time}  missing: {missing}')
+
+        i += 1
+
+    return signals
+
+
+def main():
+    print(f'Reading {INPUT_FILE}...\n')
+    signals = parse()
+
+    if not signals:
+        print('No signals parsed. Check that multi_backtest_report.txt has signal data.')
+        return
+
+    # ── verify outcome counts match expected ──────────────────
+    w = sum(1 for s in signals if s[7] == 'WIN')
+    l = sum(1 for s in signals if s[7] == 'LOSS')
+    o = sum(1 for s in signals if s[7] == 'ONGOING')
+    u = sum(1 for s in signals if s[7] == 'UNKNOWN')
+
+    print(f'Parsed {len(signals)} signals')
+    print(f'  WIN     : {w}')
+    print(f'  LOSS    : {l}')
+    print(f'  ONGOING : {o}')
+    print(f'  UNKNOWN : {u}')
+    print()
+
+    # sanity check against known totals
+    if w == 0 and l > 0:
+        print('⚠  WARNING: Zero wins parsed — likely a regex mismatch.')
+        print('   Check that signal lines in the report match expected format.')
+    else:
+        c  = w + l
+        wr = f'{w/c*100:.1f}%' if c > 0 else 'n/a'
+        print(f'Win rate (closed only): {wr}  ({w}/{c})')
+    print()
+
+    # ── print table ───────────────────────────────────────────
+    print(f'{"#":<4}  {"Symbol":<14}  {"Entry Time":<22}  {"Dist":>5}  {"Slope":>7}  {"H4":<8}  {"ATR":>5}  Outcome')
+    print('-' * 90)
+    for idx, s in enumerate(signals, 1):
+        print(f'{idx:<4}  {s[0]:<14}  {s[1]:<22}  {s[2]:>5.3f}  {s[3]:>+7.3f}  {s[5]:<8}  {s[6]:>5.3f}  {s[7]}')
+
+    # ── save signals_parsed.py ────────────────────────────────
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        f.write('# Auto-generated by parse_results.py\n')
+        f.write('# Do not edit manually — re-run parse_results.py to regenerate\n\n')
+        f.write('SIGNALS = [\n')
+        f.write('    # (symbol, entry_time, dist_pct, slope_8bar, ma_accel, h4_dir, atr_14, outcome)\n')
+        for s in signals:
+            f.write(f'    {repr(s)},\n')
+        f.write(']\n')
+
+    print(f'\nSaved to {OUTPUT_FILE}')
+    print('Now run winrate_identifier.py')
+
+
+if __name__ == '__main__':
+    main()
